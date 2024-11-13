@@ -61,6 +61,18 @@
         <activity
             android:name="com.example.prestamo.ficha_prestamo"
             android:exported="false" />
+
+        <activity
+            android:name="com.example.tipo.ficha_tipo"
+            android:exported="false" />
+
+        <activity
+            android:name="com.example.ubicacion.ficha_ubicacion"
+            android:exported="false" />
+
+        <activity
+            android:name="com.example.usuario.ficha_usuario"
+            android:exported="false" />
     </application>
 
 </manifest>
