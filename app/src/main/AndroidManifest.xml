@@ -53,6 +53,14 @@
         <activity
             android:name="com.example.elemento.ficha_elemento"
             android:exported="false" />
+
+        <activity
+            android:name="com.example.incidencia.ficha_incidencia"
+            android:exported="false" />
+
+        <activity
+            android:name="com.example.prestamo.ficha_prestamo"
+            android:exported="false" />
     </application>
 
 </manifest>

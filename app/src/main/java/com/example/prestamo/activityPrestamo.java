@@ -1,7 +1,10 @@
 package com.example.prestamo;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
@@ -10,9 +13,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.appincidencias.R;
+import com.example.incidencia.ficha_incidencia;
 import com.example.menu3botones;
 
 import gestionincidencias.GestionIncidencias;
+import gestionincidencias.entidades.EntIncidencia;
 import gestionincidencias.entidades.EntPrestamo;
 
 public class activityPrestamo extends menu3botones {
@@ -37,5 +42,33 @@ public class activityPrestamo extends menu3botones {
 
         listaPrestamos.setAdapter(adaptadorPrestamo);
 
+
+        //A la ListView de salas le damos un OnItemClickListener para que cuando se pulse sobre una sala nos lleve a la ficha que sea
+        listaPrestamos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            //Creamos el metodo onItemClick, lo sobreescribe el OnItemClickListener de la listView, nos obliga a implementarlo
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //Creamos una variable de tipo EntSala para obtener el objeto asociado con e item pulsado
+                EntPrestamo prestamoSeleccionado = (EntPrestamo) adapterView.getItemAtPosition(i);
+
+                //Creamos un intent para poder ir a la fi   cha de la sala
+                Intent intentFichaPrestamo = new Intent((view.getContext()), ficha_prestamo.class);
+
+                //A ese intent le agregamos los datos usando el metodo putExtra, a este le asignamos un nombre que sera como una ID
+                //Y obtenemos el valor que queremos pasar con la variable salaSeleccionada y usando el get correspondiente
+
+                intentFichaPrestamo.putExtra("codigoPrestamo", prestamoSeleccionado.getCodigoPrestamo());
+                intentFichaPrestamo.putExtra("idUsuario", prestamoSeleccionado.getIdUsuario());
+                intentFichaPrestamo.putExtra("idElemento", prestamoSeleccionado.getIdElemento());
+                intentFichaPrestamo.putExtra("fechaInicio", prestamoSeleccionado.getFechaInicio());
+                intentFichaPrestamo.putExtra("fechaFin", String.valueOf(prestamoSeleccionado.getFechaFin()));
+                intentFichaPrestamo.putExtra("usuario", String.valueOf(prestamoSeleccionado.getUsuario()));
+                intentFichaPrestamo.putExtra("elemento", String.valueOf(prestamoSeleccionado.getElemento()));
+                //
+                //Lanzamos el intent
+                startActivity(intentFichaPrestamo);
+            }
+        });
     }
 }

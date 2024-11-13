@@ -40,30 +40,30 @@ public class activityElemento extends menu3botones {
 
         listaElementos.setAdapter(adaptadorElemento);
 
-        //A la ListView de salas le damos un OnItemClickListener para que cuando se pulse sobre una sala nos lleve a la ficha que sea
-        listaElementos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                //A la ListView de salas le damos un OnItemClickListener para que cuando se pulse sobre una sala nos lleve a la ficha que sea
+                listaElementos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            //Creamos el metodo onItemClick, lo sobreescribe el OnItemClickListener de la listView, nos obliga a implementarlo
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //Creamos una variable de tipo EntSala para obtener el objeto asociado con e item pulsado
-                EntElemento elementoSeleccionado = (EntElemento) adapterView.getItemAtPosition(i);
+                    //Creamos el metodo onItemClick, lo sobreescribe el OnItemClickListener de la listView, nos obliga a implementarlo
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        //Creamos una variable de tipo EntSala para obtener el objeto asociado con e item pulsado
+                        EntElemento elementoSeleccionado = (EntElemento) adapterView.getItemAtPosition(i);
 
-                //Creamos un intent para poder ir a la ficha de la sala
-                Intent intentFichaElemento = new Intent((view.getContext()), ficha_elemento.class);
+                        //Creamos un intent para poder ir a la fi   cha de la sala
+                        Intent intentFichaElemento = new Intent((view.getContext()), ficha_elemento.class);
 
-                //A ese intent le agregamos los datos usando el metodo putExtra, a este le asignamos un nombre que sera como una ID
-                //Y obtenemos el valor que queremos pasar con la variable salaSeleccionada y usando el get correspondiente
+                        //A ese intent le agregamos los datos usando el metodo putExtra, a este le asignamos un nombre que sera como una ID
+                        //Y obtenemos el valor que queremos pasar con la variable salaSeleccionada y usando el get correspondiente
 
-                intentFichaElemento.putExtra("codigoElemento", elementoSeleccionado.getCodigoElemento());
-                intentFichaElemento.putExtra("nombre", elementoSeleccionado.getNombre());
-                intentFichaElemento.putExtra("descripcion", elementoSeleccionado.getDescripcion());
-                intentFichaElemento.putExtra("idTipo", elementoSeleccionado.getIdTipo());
-                intentFichaElemento.putExtra("tipoElemento", String.valueOf(elementoSeleccionado.getTipoElemento()));
-                //
-                //Lanzamos el intent
-                startActivity(intentFichaElemento);
-            }
-        });
+                        intentFichaElemento.putExtra("codigoElemento", elementoSeleccionado.getCodigoElemento());
+                        intentFichaElemento.putExtra("nombre", elementoSeleccionado.getNombre());
+                        intentFichaElemento.putExtra("descripcion", elementoSeleccionado.getDescripcion());
+                        intentFichaElemento.putExtra("idTipo", elementoSeleccionado.getIdTipo());
+                        intentFichaElemento.putExtra("tipoElemento", String.valueOf(elementoSeleccionado.getTipoElemento()));
+                        //
+                        //Lanzamos el intent
+                        startActivity(intentFichaElemento);
+                    }
+                });
     }
 }

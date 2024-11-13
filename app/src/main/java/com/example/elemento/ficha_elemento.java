@@ -2,6 +2,7 @@ package com.example.elemento;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,5 +46,7 @@ public class ficha_elemento extends AppCompatActivity {
         TextView txTipoElemento = findViewById(R.id.tipoElemento);
         txTipoElemento.setText(String.valueOf(tipoElemento));
 
+        Button botonSalir = findViewById(R.id.botonSalir);
+        botonSalir.setOnClickListener(v -> finish());
     }
 }

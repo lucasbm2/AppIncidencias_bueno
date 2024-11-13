@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="16dp"
-        android:text="Detalles de Elemento"
+        android:text="Detalles de Prestamo"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display3"
         android:textColor="#050505"
@@ -22,7 +22,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="603dp"
+        android:layout_height="606dp"
         android:background="#A42424"
         android:orientation="vertical">
 
@@ -31,60 +31,39 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="4dp"
-            android:text="Codigo elemento:"
+            android:text="Codigo prestamo:"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/codigoElemento"
+            android:id="@+id/codigoPrestamo"
             android:layout_width="169dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="4dp"
             android:background="@drawable/borde_textview"
             android:gravity="center"
-            android:paddingBottom="8dp" />
+            android:paddingBottom="4dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="4dp"
-            android:text="Nombre de elemento:"
+            android:text="ID usuario:"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/nombreElemento"
+            android:id="@+id/idUsuario"
             android:layout_width="170dp"
             android:layout_height="48dp"
             android:layout_gravity="center"
             android:layout_marginBottom="4dp"
             android:background="@drawable/borde_textview"
             android:inputType="text"
-            android:padding="8dp"
-            android:text="Campo de nombre" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="4dp"
-            android:text="Descripción:"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/descripcionElemento"
-            android:layout_width="170dp"
-            android:layout_height="48dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="4dp"
-            android:background="@drawable/borde_textview"
-            android:inputType="text"
-            android:padding="8dp"
-            android:text="Campo de descripcion" />
+            android:padding="4dp"
+            android:text="Campo de ID Usuario" />
 
 
         <TextView
@@ -92,14 +71,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="4dp"
-            android:paddingBottom="8dp"
-            android:text="ID Tipo:"
+            android:text="ID Elemento:"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textStyle="bold" />
 
-
         <EditText
-            android:id="@+id/idTipo"
+            android:id="@+id/idElemento"
             android:layout_width="170dp"
             android:layout_height="48dp"
             android:layout_gravity="center"
@@ -107,19 +84,22 @@
             android:background="@drawable/borde_textview"
             android:inputType="text"
             android:padding="8dp"
-            android:text="Campo de id tipo" />
+            android:text="Campo ID elemento" />
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="4dp"
-            android:text="Tipo elemento:"
+            android:paddingBottom="4dp"
+            android:text="Fecha inicio:"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textStyle="bold" />
 
+
         <EditText
-            android:id="@+id/tipoElemento"
+            android:id="@+id/fechaInicio"
             android:layout_width="170dp"
             android:layout_height="48dp"
             android:layout_gravity="center"
@@ -127,7 +107,68 @@
             android:background="@drawable/borde_textview"
             android:inputType="text"
             android:padding="8dp"
-            android:text="Campo de tipo de elemento" />
+            android:text="Campo de fecha inicio" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="4dp"
+            android:text="Fecha fin:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/fechaFin"
+            android:layout_width="170dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/borde_textview"
+            android:inputType="text"
+            android:padding="8dp"
+            android:text="Campo de fecha fin" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="4dp"
+            android:text="Usuario:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/usuario"
+            android:layout_width="170dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/borde_textview"
+            android:inputType="text"
+            android:padding="8dp"
+            android:text="Campo Usuario" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="4dp"
+            android:text="Elemento:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/elemento"
+            android:layout_width="170dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/borde_textview"
+            android:inputType="text"
+            android:padding="8dp"
+            android:text="Campo Elemento" />
 
     </LinearLayout>
 
@@ -136,6 +177,7 @@
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:text="Salir"
-        tools:layout_editor_absoluteY="1170dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </LinearLayout>
