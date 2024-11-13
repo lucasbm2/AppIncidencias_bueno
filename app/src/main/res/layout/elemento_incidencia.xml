@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/codigoIncidencia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Código de Incidencia" />
+
+    <TextView
+        android:id="@+id/descripcion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Descripcion de incidencia" />
+
+    <TextView
+        android:id="@+id/idElemento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ID del Elemento" />
+
+    <TextView
+        android:id="@+id/fechaCreacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fecha de creacion" />
+
+    <TextView
+        android:id="@+id/idUsuarioCreacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ID del Usuario" />
+
+    <TextView
+        android:id="@+id/usuarioCreacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Usuario de creacion" />
+
+    <TextView
+        android:id="@+id/elemento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Elemento" />
+
+
+</LinearLayout>

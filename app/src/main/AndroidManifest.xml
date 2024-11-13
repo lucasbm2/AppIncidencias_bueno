@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppInicidencias"
+        tools:targetApi="31">
+        <activity
+            android:name="com.example.menu3botones"
+            android:exported="false" />
+        <activity
+            android:name="com.example.MenuPrincipal"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.elemento.activityElemento"
+            android:exported="false" />
+        <activity
+            android:name="com.example.incidencia.activityIncidencia"
+            android:exported="false" />
+        <activity
+            android:name="com.example.sala.activitySalas"
+            android:exported="false" />
+        <activity
+            android:name="com.example.prestamo.activityPrestamo"
+            android:exported="false" />
+        <activity
+            android:name="com.example.tipo.activityTipo"
+            android:exported="false" />
+        <activity
+            android:name="com.example.usuario.activityUsuario"
+            android:exported="false" />
+        <activity
+            android:name="com.example.ubicacion.activityUbicacion"
+            android:exported="false"></activity>
+
+        <activity
+            android:name="com.example.sala.ficha_sala"
+            android:exported="false" />
+
+        <activity
+            android:name="com.example.elemento.ficha_elemento"
+            android:exported="false" />
+    </application>
+
+</manifest>

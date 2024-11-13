@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/codigoPrestamo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Código de Prestamo" />
+
+    <TextView
+        android:id="@+id/idUsuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ID del usuario" />
+    <TextView
+        android:id="@+id/idElemento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ID del elemento" />
+
+    <TextView
+        android:id="@+id/fechaInicio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fecha de inicio" />
+
+    <TextView
+        android:id="@+id/fechaFin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fecha de fin" />
+
+</LinearLayout>

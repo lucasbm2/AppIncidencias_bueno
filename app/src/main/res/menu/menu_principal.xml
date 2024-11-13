@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/itemMenuPrincipal"
+        android:title="Menu Principal" />
+    <item
+        android:id="@+id/itemMenuSalas"
+        android:title="Salas" />
+    <item
+        android:id="@+id/itemMenuTipos"
+        android:title="Tipos" />
+    <item
+        android:id="@+id/itemMenuElementos"
+        android:title="Elementos" />
+    <item
+        android:id="@+id/itemMenuIncidencias"
+        android:title="Incidencias" />
+    <item
+        android:id="@+id/itemMenuPrestamos"
+        android:title="Prestamos" />
+    <item
+        android:id="@+id/itemMenuUbicaciones"
+        android:title="Ubicaciones" />
+    <item
+        android:id="@+id/itemMenuUsuarios"
+        android:title="Usuarios" />
+    <item
+        android:id="@+id/itemMenuAtras"
+        android:title="Atrás" />
+</menu>
