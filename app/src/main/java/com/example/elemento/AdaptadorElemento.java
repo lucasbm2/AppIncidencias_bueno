@@ -34,7 +34,7 @@ public class AdaptadorElemento extends ArrayAdapter<EntElemento> {
         txCodigoElemento.setText(String.valueOf(datos[position].getCodigoElemento()));
         txDescrip.setText(String.valueOf(datos[position].getDescripcion()));
         txIdTipo.setText(String.valueOf(datos[position].getIdTipo()));
-        txTipoElemento.setText(String.valueOf(datos[position].getTipoElemento()));
+        txTipoElemento.setText(String.valueOf(datos[position].getTipoElemento().getNombre()));
 
         return vElemento;
     }

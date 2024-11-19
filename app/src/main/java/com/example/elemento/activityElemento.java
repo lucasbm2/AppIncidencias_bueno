@@ -59,7 +59,7 @@ public class activityElemento extends menu3botones {
                         intentFichaElemento.putExtra("nombre", elementoSeleccionado.getNombre());
                         intentFichaElemento.putExtra("descripcion", elementoSeleccionado.getDescripcion());
                         intentFichaElemento.putExtra("idTipo", elementoSeleccionado.getIdTipo());
-                        intentFichaElemento.putExtra("tipoElemento", String.valueOf(elementoSeleccionado.getTipoElemento()));
+                        intentFichaElemento.putExtra("tipoElemento", String.valueOf(elementoSeleccionado.getTipoElemento().getNombre()));
                         //
                         //Lanzamos el intent
                         startActivity(intentFichaElemento);

@@ -11,33 +11,10 @@
         android:text="Código de Ubicación" />
 
     <TextView
-        android:id="@+id/idSala"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="ID de Sala" />
-
-
-    <TextView
-        android:id="@+id/idElementoUbicacion"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="ID de Elemento" />
-
-    <TextView
         android:id="@+id/descripcion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Descripción" />
 
-    <TextView
-        android:id="@+id/fechaInicio"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Fecha de Inicio" />
 
-    <TextView
-        android:id="@+id/fechaFin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Fecha de Fin" />
 </LinearLayout>

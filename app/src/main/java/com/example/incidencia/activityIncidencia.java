@@ -56,7 +56,6 @@ public class activityIncidencia extends menu3botones {
             intentFichaIncidencia.putExtra("idElemento", incidenciaSeleccionada.getIdElemento());
             intentFichaIncidencia.putExtra("fechaCreacion", fechaFormateada);
             intentFichaIncidencia.putExtra("idUsuarioCreacion", String.valueOf(incidenciaSeleccionada.getIdUsuarioCreacion()));
-
             intentFichaIncidencia.putExtra("usuarioCreacion",String.valueOf(incidenciaSeleccionada.getUsuarioCreacion().getNombre()));
             intentFichaIncidencia.putExtra("elemento", incidenciaSeleccionada.getElemento().getNombre());
 

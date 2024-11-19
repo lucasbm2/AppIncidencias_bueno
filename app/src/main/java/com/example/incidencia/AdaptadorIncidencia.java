@@ -42,6 +42,7 @@ public class AdaptadorIncidencia extends ArrayAdapter<EntIncidencia> {
         txIdElemento.setText(String.valueOf(incidencias[position].getIdElemento()));
         txFechaCreacion.setText(fechaFormateada); // Mostrar la fecha formateada
         txIdUsuarioCreacion.setText(String.valueOf(incidencias[position].getIdUsuarioCreacion()));
+        txUsuarioCreacion.setText(incidencias[position].getUsuarioCreacion().getNombre());
         txElemento.setText(incidencias[position].getElemento().getNombre());
 
         return vIncidencia;

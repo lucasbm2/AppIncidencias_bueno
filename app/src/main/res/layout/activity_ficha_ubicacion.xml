@@ -35,8 +35,8 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/codigoUbicacion"
+        <EditText
+            android:id="@+id/codigoUbicacionFicha"
             android:layout_width="169dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -55,7 +55,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/idSala"
+            android:id="@+id/idSalaUbicacion"
             android:layout_width="170dp"
             android:layout_height="48dp"
             android:layout_gravity="center"
@@ -76,7 +76,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/idElemento"
+            android:id="@+id/idElementoFichaUbicacion"
             android:layout_width="170dp"
             android:layout_height="48dp"
             android:layout_gravity="center"
@@ -96,7 +96,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/descripcion"
+            android:id="@+id/descripcionUbicacion"
             android:layout_width="170dp"
             android:layout_height="48dp"
             android:layout_gravity="center"
@@ -118,8 +118,8 @@
             android:textStyle="bold" />
 
 
-        <EditText
-            android:id="@+id/fechaInicio"
+        <TextView
+            android:id="@+id/fechaInicioUbicacion"
             android:layout_width="170dp"
             android:layout_height="48dp"
             android:layout_gravity="center"
@@ -138,8 +138,8 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/fechaFin"
+        <TextView
+            android:id="@+id/fechaFinUbicacion"
             android:layout_width="170dp"
             android:layout_height="48dp"
             android:layout_gravity="center"
@@ -149,54 +149,31 @@
             android:padding="8dp"
             android:text="Campo de fecha fin" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="4dp"
-            android:text="Sala:"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textStyle="bold" />
+    </LinearLayout>
 
-        <EditText
-            android:id="@+id/sala"
-            android:layout_width="170dp"
-            android:layout_height="48dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="4dp"
-            android:background="@drawable/borde_textview"
-            android:inputType="text"
-            android:padding="8dp"
-            android:text="Campo de sala" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="16dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="4dp"
-            android:text="Elemento:"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textStyle="bold" />
+        <Button
+            android:id="@+id/botonSalir"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="8dp"
+            android:text="Salir"
+            android:layout_weight="1" /> <!-- Se le da peso para que ocupe el espacio a la izquierda -->
 
-        <EditText
-            android:id="@+id/elemento"
-            android:layout_width="170dp"
-            android:layout_height="48dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="4dp"
-            android:background="@drawable/borde_textview"
-            android:inputType="text"
-            android:padding="8dp"
-            android:text="Campo de Elemento" />
+        <Button
+            android:id="@+id/botonGuardar"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:text="Guardar"
+            android:layout_weight="1" /> <!-- Se le da peso para que ocupe el espacio a la derecha -->
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/botonSalir"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:text="Salir"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
 
 </LinearLayout>

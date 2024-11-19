@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.example.appincidencias.R;
 
+import java.text.SimpleDateFormat;
+
 import gestionincidencias.entidades.EntUbicacion;
 
 public class AdaptadorUbicacion extends ArrayAdapter<EntUbicacion> {
@@ -21,23 +23,15 @@ public class AdaptadorUbicacion extends ArrayAdapter<EntUbicacion> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater mostrado = LayoutInflater.from(getContext());
-        View vUbicacion = mostrado.inflate(R.layout.elemento_ubicacion, parent, false);
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View view = inflater.inflate(R.layout.elemento_ubicacion, parent, false);
 
-        TextView txCodigoUbicacion = vUbicacion.findViewById(R.id.codigoUbicacion);
-        TextView txIdSala = vUbicacion.findViewById(R.id.idSala);
-        TextView txIdElemento = vUbicacion.findViewById(R.id.idElementoUbicacion);
-        TextView txDescripcion = vUbicacion.findViewById(R.id.descripcion);
-        TextView txFechaInicio = vUbicacion.findViewById(R.id.fechaInicio);
-        TextView txFechaFin = vUbicacion.findViewById(R.id.fechaFin);
+        TextView txCodigoUbicacion = view.findViewById(R.id.codigoUbicacion);
+        TextView txDescripcion = view.findViewById(R.id.descripcion);
 
         txCodigoUbicacion.setText(String.valueOf(ubicaciones[position].getCodigoUbicacion()));
-        txIdSala.setText(String.valueOf(ubicaciones[position].getIdSala()));
-        txIdElemento.setText(String.valueOf(ubicaciones[position].getIdElemento()));
-        txDescripcion.setText(String.valueOf(ubicaciones[position].getDescripcion()));
-        txFechaInicio.setText(String.valueOf(ubicaciones[position].getFechaInicio()));
-        txFechaFin.setText(String.valueOf(ubicaciones[position].getFechaFin()));
+        txDescripcion.setText(ubicaciones[position].getDescripcion());
 
-        return vUbicacion;
+        return view;
     }
 }
