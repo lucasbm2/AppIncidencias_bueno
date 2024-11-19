@@ -25,7 +25,7 @@ import com.example.appincidencias.R;
         //Creamos variables para guardar los datos almacenados en el Bundle, usamos el getString y enre parentesis el nombre
         //que hemos puesto antes en el putExtra, Ejemplo: intenFichaSala.putExtra("sala", salaSeleccionada.getCodigoSala());
         //Esto esta sacado del OnItemClick de la activitySalas. En este caso "sala" seria el nombre
-        String codTipo = String.valueOf(bnd.getInt("codigoTipo  "));
+        int codTipo = bnd.getInt("codigoTipo");
         String nombreTipo = bnd.getString("nombreTipo");
         String descripcionTipo = bnd.getString("descripcionTipo");
 

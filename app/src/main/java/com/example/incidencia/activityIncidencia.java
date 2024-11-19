@@ -3,7 +3,6 @@ package com.example.incidencia;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -13,11 +12,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.appincidencias.R;
-import com.example.elemento.ficha_elemento;
 import com.example.menu3botones;
 
+import java.text.SimpleDateFormat;
+
 import gestionincidencias.GestionIncidencias;
-import gestionincidencias.entidades.EntElemento;
 import gestionincidencias.entidades.EntIncidencia;
 
 public class activityIncidencia extends menu3botones {
@@ -34,38 +33,35 @@ public class activityIncidencia extends menu3botones {
             return insets;
         });
 
-
-        ListView listaIncidencias = (ListView) findViewById(R.id.listaIncidencias);
+        //Lista de incidencias
+        ListView listaIncidencias = findViewById(R.id.listaIncidencias);
         AdaptadorIncidencia adaptadorIncidencia = new AdaptadorIncidencia(this, GestionIncidencias.getArIncidencias().toArray(new EntIncidencia[0]));
-
         listaIncidencias.setAdapter(adaptadorIncidencia);
 
+        //Al hacer click en una incidencia
+        listaIncidencias.setOnItemClickListener((adapterView, view, i, l) -> {
+            //Obtenemos la incidencia seleccionada
+            EntIncidencia incidenciaSeleccionada = (EntIncidencia) adapterView.getItemAtPosition(i);
 
-        //A la ListView de salas le damos un OnItemClickListener para que cuando se pulse sobre una sala nos lleve a la ficha que sea
-        listaIncidencias.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            //Formateamos la fecha
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            String fechaFormateada = sdf.format(incidenciaSeleccionada.getFechaCreacion());
 
-            //Creamos el metodo onItemClick, lo sobreescribe el OnItemClickListener de la listView, nos obliga a implementarlo
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //Creamos una variable de tipo EntSala para obtener el objeto asociado con e item pulsado
-                EntIncidencia incidenciaSeleccionada = (EntIncidencia) adapterView.getItemAtPosition(i);
+            //Creamos un Intent para abrir la ficha de la incidencia
+            Intent intentFichaIncidencia = new Intent(view.getContext(), ficha_incidencia.class);
 
-                //Creamos un intent para poder ir a la fi   cha de la sala
-                Intent intentFichaIncidencia = new Intent((view.getContext()), ficha_incidencia.class);
+            //Pasamos los datos al Intent
+            intentFichaIncidencia.putExtra("codigoIncidencia", incidenciaSeleccionada.getCodigoIncidencia());
+            intentFichaIncidencia.putExtra("descripcion", incidenciaSeleccionada.getDescripcion());
+            intentFichaIncidencia.putExtra("idElemento", incidenciaSeleccionada.getIdElemento());
+            intentFichaIncidencia.putExtra("fechaCreacion", fechaFormateada);
+            intentFichaIncidencia.putExtra("idUsuarioCreacion", String.valueOf(incidenciaSeleccionada.getIdUsuarioCreacion()));
 
-                //A ese intent le agregamos los datos usando el metodo putExtra, a este le asignamos un nombre que sera como una ID
-                //Y obtenemos el valor que queremos pasar con la variable salaSeleccionada y usando el get correspondiente
+            intentFichaIncidencia.putExtra("usuarioCreacion",String.valueOf(incidenciaSeleccionada.getUsuarioCreacion().getNombre()));
+            intentFichaIncidencia.putExtra("elemento", incidenciaSeleccionada.getElemento().getNombre());
 
-                intentFichaIncidencia.putExtra("codigoElemento", incidenciaSeleccionada.getCodigoIncidencia());
-                intentFichaIncidencia.putExtra("descripcion", incidenciaSeleccionada.getDescripcion());
-                intentFichaIncidencia.putExtra("idElemento", incidenciaSeleccionada.getCodigoIncidencia());
-                intentFichaIncidencia.putExtra("fechaCreacion", incidenciaSeleccionada.getFechaCreacion());
-                intentFichaIncidencia.putExtra("idUsuarioCreacion", String.valueOf(incidenciaSeleccionada.getIdUsuarioCreacion()));
-                intentFichaIncidencia.putExtra("elemento", String.valueOf(incidenciaSeleccionada.getElemento()));
-                //
-                //Lanzamos el intent
-                startActivity(intentFichaIncidencia);
-            }
+            //Lanzamos la actividad
+            startActivity(intentFichaIncidencia);
         });
     }
 }
