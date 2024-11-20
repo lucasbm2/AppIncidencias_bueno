@@ -9,12 +9,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appincidencias.R;
 
+import gestionincidencias.entidades.EntElemento;
+
 public class ficha_elemento extends AppCompatActivity {
+
+    private EntElemento elemento;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ficha_elemento);
+
+        //Extraer los datos del bundle
+        int codElemento = getIntent().getExtras().getInt("codigoElemento");
+        String nombreElemento = getIntent().getExtras().getString("nombre");
+        String descripcionElemento = getIntent().getExtras().getString("descripcion");
+
 
         //Creamos un intent para poder obtener los datos de la otra actividad (activitySalas)
         Intent infoFichaElemento = this.getIntent();

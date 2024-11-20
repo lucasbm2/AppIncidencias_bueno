@@ -3,8 +3,10 @@ package com.example.elemento;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.style.AlignmentSpan;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
@@ -40,30 +42,34 @@ public class activityElemento extends menu3botones {
 
         listaElementos.setAdapter(adaptadorElemento);
 
-                //A la ListView de salas le damos un OnItemClickListener para que cuando se pulse sobre una sala nos lleve a la ficha que sea
-                listaElementos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        //A la ListView de salas le damos un OnItemClickListener para que cuando se pulse sobre una sala nos lleve a la ficha que sea
+        listaElementos.setOnItemClickListener((adapterView, view, position, id) -> {
+            EntElemento elementoSeleccionado = (EntElemento) listaElementos.getItemAtPosition(position);
 
-                    //Creamos el metodo onItemClick, lo sobreescribe el OnItemClickListener de la listView, nos obliga a implementarlo
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        //Creamos una variable de tipo EntSala para obtener el objeto asociado con e item pulsado
-                        EntElemento elementoSeleccionado = (EntElemento) adapterView.getItemAtPosition(i);
+            Intent intentFichaElemento = new Intent(view.getContext(), ficha_elemento.class);
 
-                        //Creamos un intent para poder ir a la fi   cha de la sala
-                        Intent intentFichaElemento = new Intent((view.getContext()), ficha_elemento.class);
+            intentFichaElemento.putExtra("codigoElemento", elementoSeleccionado.getCodigoElemento());
+            intentFichaElemento.putExtra("nombreElemento", elementoSeleccionado.getNombre());
+            intentFichaElemento.putExtra("descripcionElemento", elementoSeleccionado.getDescripcion());
+            intentFichaElemento.putExtra("idTipoElemento", elementoSeleccionado.getIdTipo());
+            intentFichaElemento.putExtra("tipoElemento", elementoSeleccionado.getTipoElemento().getNombre());
 
-                        //A ese intent le agregamos los datos usando el metodo putExtra, a este le asignamos un nombre que sera como una ID
-                        //Y obtenemos el valor que queremos pasar con la variable salaSeleccionada y usando el get correspondiente
+            //Lanzamos el intent
+            startActivity(intentFichaElemento);
+        });
+        Button añadirElemento = findViewById(R.id.añadirElemento);
+        añadirElemento.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intentAnadirElemento = new Intent(view.getContext(), ficha_elemento.class);
 
-                        intentFichaElemento.putExtra("codigoElemento", elementoSeleccionado.getCodigoElemento());
-                        intentFichaElemento.putExtra("nombre", elementoSeleccionado.getNombre());
-                        intentFichaElemento.putExtra("descripcion", elementoSeleccionado.getDescripcion());
-                        intentFichaElemento.putExtra("idTipo", elementoSeleccionado.getIdTipo());
-                        intentFichaElemento.putExtra("tipoElemento", String.valueOf(elementoSeleccionado.getTipoElemento().getNombre()));
-                        //
-                        //Lanzamos el intent
-                        startActivity(intentFichaElemento);
-                    }
-                });
-    }
+            intentAnadirElemento.putExtra("codigoElemento", 0);
+            intentAnadirElemento.putExtra("nombreElemento", "");
+            intentAnadirElemento.putExtra("descripcionElemento", "");
+            intentAnadirElemento.putExtra("idTipoElemento", 0);
+            intentAnadirElemento.putExtra("tipoElemento", "Seleccione un tipo de elemento");
+            startActivity(intentAnadirElemento);
+        }
+    });
+}
 }

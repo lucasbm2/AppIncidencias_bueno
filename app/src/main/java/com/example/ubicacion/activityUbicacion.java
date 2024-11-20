@@ -39,7 +39,8 @@ public class activityUbicacion extends menu3botones {
 
         ListView listaUbicaciones = (ListView) findViewById(R.id.listaUbicaciones);
         AdaptadorUbicacion adaptadorUbicacion = new AdaptadorUbicacion(this,
-                GestionIncidencias.getArUbicaciones().toArray(new EntUbicacion[0]));
+                    GestionIncidencias.getArUbicaciones().toArray(new EntUbicacion[0]));
+
         listaUbicaciones.setAdapter(adaptadorUbicacion);
 
         listaUbicaciones.setOnItemClickListener((adapterView, view, position, id) -> {

@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import gestionincidencias.entidades.EntUbicacion;
 
 public class AdaptadorUbicacion extends ArrayAdapter<EntUbicacion> {
+
     private EntUbicacion[] ubicaciones;
 
     public AdaptadorUbicacion(Context c, EntUbicacion[] ubicaciones) {
