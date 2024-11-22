@@ -35,9 +35,11 @@ public class ficha_elemento extends AppCompatActivity {
         //Creamos variables para guardar los datos almacenados en el Bundle, usamos el getString y enre parentesis el nombre
         //que hemos puesto antes en el putExtra, Ejemplo: intenFichaSala.putExtra("sala", salaSeleccionada.getCodigoSala());
         //Esto esta sacado del OnItemClick de la activitySalas. En este caso "sala" seria el nombre
-        String codElemento = String.valueOf(bnd.getInt("codigoElemento"));
-        String nombreElemento = bnd.getString("nombre");
-        String descripcionElemento = bnd.getString("descripcion");
+        //COMENTADO VIERNES
+//        String codElemento = String.valueOf(bnd.getInt("codigoElemento"));
+//        String nombreElemento = bnd.getString("nombre");
+//        String descripcionElemento = bnd.getString("descripcion");
+        //COMENTADO VIERNES
         //IMPORTANTE COMPROBAR QUE SEA DEL TIPO CORRECTO,
         //AQUI LO TENIA COMO GETSTRING, PERO ERA UN INT, ENTONCES NO MOSTRABA
         String idTipo = String.valueOf(bnd.getInt("idTipo"));

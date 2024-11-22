@@ -43,7 +43,8 @@
             android:layout_marginBottom="4dp"
             android:background="@drawable/borde_textview"
             android:gravity="center"
-            android:paddingBottom="4dp" />
+            android:paddingBottom="4dp"
+            android:hint="Introduce el código de ubicación" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -148,6 +149,16 @@
             android:inputType="text"
             android:padding="8dp"
             android:text="Campo de fecha fin" />
+
+        <Spinner
+            android:id="@+id/spinnerUbi"
+            android:layout_width="170dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/borde_textview"
+            android:inputType="text"
+            android:padding="8dp" />
 
     </LinearLayout>
 

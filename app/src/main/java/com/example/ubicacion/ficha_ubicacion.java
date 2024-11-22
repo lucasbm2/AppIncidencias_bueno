@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +16,8 @@ import com.example.appincidencias.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 
@@ -23,6 +27,7 @@ import gestionincidencias.entidades.EntUbicacion;
 public class ficha_ubicacion extends AppCompatActivity {
 
     private EntUbicacion ubicacion;
+    SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +48,7 @@ public class ficha_ubicacion extends AppCompatActivity {
 
         } else if (codUbicacion == 0 && descripcionUbicacion.isEmpty()) {
             // Crear una nueva ubicación vacía si el código es 0 y la descripción está vacía
-            ubicacion = new EntUbicacion(0, 0, 0, "", null, null);
+            ubicacion = new EntUbicacion(0, 0, 0, "", new Date(System.currentTimeMillis()),  new Date(System.currentTimeMillis()));
             //POR SI EL ELEMENTO TIENE CODIGO 0
         } else if (codUbicacion == 0) {
             for (EntUbicacion u : GestionIncidencias.getArUbicaciones()) {
@@ -66,23 +71,27 @@ public class ficha_ubicacion extends AppCompatActivity {
             txIdElemento.setText(String.valueOf(ubicacion.getIdElemento()));
 
             TextView txFechaInicio = findViewById(R.id.fechaInicioUbicacion);
-            Date fechaInicio = ubicacion.getFechaInicio();
-            if (fechaInicio != null) {
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-                txFechaInicio.setText(formatter.format(fechaInicio));
-            } else {
-                txFechaInicio.setText("Fecha no disponible");
-            }
+            txFechaInicio.setText(df.format(ubicacion.getFechaInicio()));
 
             TextView txFechaFin = findViewById(R.id.fechaFinUbicacion);
-            Date fechaFin = ubicacion.getFechaFin();
-            if (fechaFin != null) {
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-                txFechaFin.setText(formatter.format(fechaFin));
-            } else {
-                txFechaFin.setText("Fecha no disponible");
-            }
+            txFechaFin.setText(df.format(ubicacion.getFechaFin()));
+
         }
+
+        ArrayList<String> arUbicaciones = new ArrayList<>();
+        for (EntUbicacion u : GestionIncidencias.getArUbicaciones()) {
+            arUbicaciones.add(String.valueOf(u.getSala().getCodigoSala()));
+        }
+
+        Collections.sort(arUbicaciones);
+
+        Spinner spinnerUbi = findViewById(R.id.spinnerUbi);
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, arUbicaciones);
+        spinnerUbi.setAdapter(spinnerArrayAdapter);
+        if (ubicacion != null && ubicacion.getSala() != null) {
+            spinnerUbi.setSelection(arUbicaciones.indexOf(ubicacion.getSala().getCodigoSala()));
+        }
+
 
         // Botón para volver a la lista de ubicaciones
         Button botonVolver = findViewById(R.id.botonSalir);

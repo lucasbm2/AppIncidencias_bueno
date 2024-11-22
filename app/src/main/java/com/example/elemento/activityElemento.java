@@ -57,19 +57,19 @@ public class activityElemento extends menu3botones {
             //Lanzamos el intent
             startActivity(intentFichaElemento);
         });
-        Button añadirElemento = findViewById(R.id.añadirElemento);
-        añadirElemento.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Intent intentAnadirElemento = new Intent(view.getContext(), ficha_elemento.class);
-
-            intentAnadirElemento.putExtra("codigoElemento", 0);
-            intentAnadirElemento.putExtra("nombreElemento", "");
-            intentAnadirElemento.putExtra("descripcionElemento", "");
-            intentAnadirElemento.putExtra("idTipoElemento", 0);
-            intentAnadirElemento.putExtra("tipoElemento", "Seleccione un tipo de elemento");
-            startActivity(intentAnadirElemento);
-        }
-    });
+//        Button añadirElemento = findViewById(R.id.añadirElemento);
+//        añadirElemento.setOnClickListener(new View.OnClickListener() {
+//        @Override
+//        public void onClick(View view) {
+//            Intent intentAnadirElemento = new Intent(view.getContext(), ficha_elemento.class);
+//
+//            intentAnadirElemento.putExtra("codigoElemento", 0);
+//            intentAnadirElemento.putExtra("nombreElemento", "");
+//            intentAnadirElemento.putExtra("descripcionElemento", "");
+//            intentAnadirElemento.putExtra("idTipoElemento", 0);
+//            intentAnadirElemento.putExtra("tipoElemento", "Seleccione un tipo de elemento");
+//            startActivity(intentAnadirElemento);
+//        }
+//    });
 }
 }
