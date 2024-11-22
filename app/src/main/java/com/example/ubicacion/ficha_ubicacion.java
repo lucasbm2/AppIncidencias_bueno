@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import gestionincidencias.GestionIncidencias;
+import gestionincidencias.entidades.EntSala;
 import gestionincidencias.entidades.EntUbicacion;
 
 public class ficha_ubicacion extends AppCompatActivity {
@@ -64,32 +65,38 @@ public class ficha_ubicacion extends AppCompatActivity {
             TextView txDescripcion = findViewById(R.id.descripcionUbicacion);
             txDescripcion.setText(ubicacion.getDescripcion());
 
-            TextView txIdSala = findViewById(R.id.idSalaUbicacion);
-            txIdSala.setText(String.valueOf(ubicacion.getIdSala()));
-
             TextView txIdElemento = findViewById(R.id.idElementoFichaUbicacion);
             txIdElemento.setText(String.valueOf(ubicacion.getIdElemento()));
 
             TextView txFechaInicio = findViewById(R.id.fechaInicioUbicacion);
-            txFechaInicio.setText(df.format(ubicacion.getFechaInicio()));
+            if (ubicacion.getFechaInicio() != null) {
+                txFechaInicio.setText(df.format(ubicacion.getFechaInicio()));
+            } else {
+                txFechaInicio.setText("Fecha no disponible");
+            }
 
             TextView txFechaFin = findViewById(R.id.fechaFinUbicacion);
-            txFechaFin.setText(df.format(ubicacion.getFechaFin()));
+            if (ubicacion.getFechaFin() != null) {
+                txFechaFin.setText(df.format(ubicacion.getFechaFin()));
+            } else {
+                txFechaFin.setText("Fecha no disponible");
+            }
 
         }
 
-        ArrayList<String> arUbicaciones = new ArrayList<>();
-        for (EntUbicacion u : GestionIncidencias.getArUbicaciones()) {
-            arUbicaciones.add(String.valueOf(u.getSala().getCodigoSala()));
+        //LISTA CODIGOS DE SALA
+        ArrayList<String> salas = new ArrayList<>();
+        for (EntSala sala : GestionIncidencias.getArSalas()) {
+            salas.add(sala.getNombre());
         }
 
-        Collections.sort(arUbicaciones);
+        Collections.sort(salas);
 
-        Spinner spinnerUbi = findViewById(R.id.spinnerUbi);
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, arUbicaciones);
-        spinnerUbi.setAdapter(spinnerArrayAdapter);
+        Spinner spinnerSala = findViewById(R.id.spinnerIdSalaFichaUbicacion);
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, salas);
+        spinnerSala.setAdapter(spinnerArrayAdapter);
         if (ubicacion != null && ubicacion.getSala() != null) {
-            spinnerUbi.setSelection(arUbicaciones.indexOf(ubicacion.getSala().getCodigoSala()));
+            spinnerSala.setSelection(salas.indexOf(ubicacion.getSala().getNombre()));
         }
 
 
@@ -108,9 +115,15 @@ public class ficha_ubicacion extends AppCompatActivity {
                 if (ubicacion != null) {
                     EditText txtCodigo = findViewById(R.id.codigoUbicacionFicha);
                     EditText txtDescripcion = findViewById(R.id.descripcionUbicacion);
-                    EditText txtIdSala = findViewById(R.id.idSalaUbicacion);
+
+                    Spinner txtIdSala = findViewById(R.id.spinnerIdSalaFichaUbicacion);
+                    Object salaSeleccionada = spinnerSala.getSelectedItem().toString();
+
+
                     EditText txtIdElemento = findViewById(R.id.idElementoFichaUbicacion);
                     TextView txtFechaInicio = findViewById(R.id.fechaInicioUbicacion);
+
+
                     String fechaIni = txtFechaInicio.getText().toString();
                     SimpleDateFormat formatterIni = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
                     TextView txtFechaFin = findViewById(R.id.fechaFinUbicacion);
@@ -121,8 +134,13 @@ public class ficha_ubicacion extends AppCompatActivity {
 
                         ubicacion.setCodigoUbicacion(Integer.parseInt(txtCodigo.getText().toString()));
                         ubicacion.setDescripcion(txtDescripcion.getText().toString());
-                        ubicacion.setIdSala(Integer.parseInt(txtIdSala.getText().toString()));
-                        ubicacion.setIdElemento(Integer.parseInt(txtIdElemento.getText().toString()));
+
+                        for (EntSala sala : GestionIncidencias.getArSalas()) {
+                            if (sala.getNombre().equals(salaSeleccionada)) {
+                                ubicacion.setIdSala(sala.getCodigoSala());
+                                ubicacion.setSala(sala);
+                            }
+                        }
 
                         try {
                             Date fechaInicio = formatterIni.parse(fechaIni);
@@ -140,7 +158,7 @@ public class ficha_ubicacion extends AppCompatActivity {
 
                         ubicacion.setCodigoUbicacion(Integer.parseInt(txtCodigo.getText().toString()));
                         ubicacion.setDescripcion(txtDescripcion.getText().toString());
-                        ubicacion.setIdSala(Integer.parseInt(txtIdSala.getText().toString()));
+                        ubicacion.setIdSala(Integer.parseInt(txtIdSala.getPrompt().toString()));
                         ubicacion.setIdElemento(Integer.parseInt(txtIdElemento.getText().toString()));
 
                         try {
@@ -160,7 +178,7 @@ public class ficha_ubicacion extends AppCompatActivity {
 
                         ubicacion.setCodigoUbicacion(Integer.parseInt(txtCodigo.getText().toString()));
                         ubicacion.setDescripcion(txtDescripcion.getText().toString());
-                        ubicacion.setIdSala(Integer.parseInt(txtIdSala.getText().toString()));
+                        ubicacion.setIdSala(Integer.parseInt(txtIdSala.getPrompt().toString()));
                         ubicacion.setIdElemento(Integer.parseInt(txtIdElemento.getText().toString()));
 
                         try {

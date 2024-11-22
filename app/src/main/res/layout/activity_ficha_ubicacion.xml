@@ -51,21 +51,21 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="4dp"
-            android:text="ID sala:"
+            android:text="Nombre sala:"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/idSalaUbicacion"
+
+        <Spinner
+            android:id="@+id/spinnerIdSalaFichaUbicacion"
             android:layout_width="170dp"
             android:layout_height="48dp"
             android:layout_gravity="center"
             android:layout_marginBottom="4dp"
             android:background="@drawable/borde_textview"
             android:inputType="text"
-            android:padding="4dp"
-            android:text="Campo de ID Usuario" />
-
+            android:padding="8dp"
+            android:text="Campo de nombre sala"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -149,16 +149,6 @@
             android:inputType="text"
             android:padding="8dp"
             android:text="Campo de fecha fin" />
-
-        <Spinner
-            android:id="@+id/spinnerUbi"
-            android:layout_width="170dp"
-            android:layout_height="48dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="4dp"
-            android:background="@drawable/borde_textview"
-            android:inputType="text"
-            android:padding="8dp" />
 
     </LinearLayout>
 
