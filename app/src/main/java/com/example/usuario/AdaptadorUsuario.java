@@ -23,17 +23,18 @@ public class AdaptadorUsuario extends ArrayAdapter<EntUsuario> { //CAMBIAR AL TI
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater mostrado = LayoutInflater.from(getContext());
-        View vUsuario = mostrado.inflate(R.layout.elemento_usuario, parent, false);//CAMBIAR AL TIPO INDICADO
+        View view = mostrado.inflate(R.layout.elemento_usuario, parent, false);//CAMBIAR AL TIPO INDICADO
 
-        TextView txCodigoUsuario = vUsuario.findViewById(R.id.codigoUsuario);//ELEMENTOS DEL USUARIO
-        TextView txNombre = vUsuario.findViewById(R.id.nombreUsuario);//ELEMENTOS DEL USUARIO
-        TextView txRol = vUsuario.findViewById(R.id.rolUsuario);//ELEMENTOS DEL USUARIO
+        TextView txCodigoUsuario = view.findViewById(R.id.codigoUsuario);//ELEMENTOS DEL USUARIO
+        TextView txNombre = view.findViewById(R.id.nombreUsuario);//ELEMENTOS DEL USUARIO
+        TextView txRol = view.findViewById(R.id.rolUsuario);//ELEMENTOS DEL USUARIO
+
 
         txCodigoUsuario.setText(String.valueOf(datos[position].getCodigoUsuario()));
         txNombre.setText(String.valueOf(datos[position].getNombre()));
         txRol.setText(String.valueOf(datos[position].getRol()));
 
-        return vUsuario;
+        return view;
 
     }
 

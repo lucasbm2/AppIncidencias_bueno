@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
@@ -15,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.appincidencias.R;
 import com.example.menu3botones;
 import com.example.prestamo.ficha_prestamo;
+import com.example.ubicacion.ficha_ubicacion;
 
 import gestionincidencias.GestionIncidencias;
 import gestionincidencias.entidades.EntPrestamo;
@@ -27,11 +29,11 @@ public class activityTipo extends menu3botones {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_tipo);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
-            //
         });
 
 
@@ -43,26 +45,29 @@ public class activityTipo extends menu3botones {
 
 
         //A la ListView de salas le damos un OnItemClickListener para que cuando se pulse sobre una sala nos lleve a la ficha que sea
-        listaTipos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listaTipos.setOnItemClickListener((adapterView, view, position, l) -> {
+            EntTipo tipoSeleccionado = (EntTipo) adapterView.getItemAtPosition(position);
 
-            //Creamos el metodo onItemClick, lo sobreescribe el OnItemClickListener de la listView, nos obliga a implementarlo
+            Intent intentFichaTipo = new Intent((view.getContext()), ficha_tipo.class);
+            intentFichaTipo.putExtra("codigoTipo", tipoSeleccionado.getCodigoTipo());
+            intentFichaTipo.putExtra("nombreTipo", tipoSeleccionado.getNombre());
+            intentFichaTipo.putExtra("descripcionTipo", tipoSeleccionado.getDescripcion());
+
+            startActivity(intentFichaTipo);
+        });
+
+        //BOTON Y FUNCION PARA AÑADIR UN NUEVO TIPO
+        Button añadirTipo = findViewById(R.id.añadirTipo);
+        añadirTipo.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //Creamos una variable de tipo EntSala para obtener el objeto asociado con e item pulsado
-                EntTipo tipoSeleccionado = (EntTipo) adapterView.getItemAtPosition(i);
+            public void onClick(View view) {
+                Intent intentAñadirTipo = new Intent(view.getContext(), ficha_tipo.class);
 
-                //Creamos un intent para poder ir a la fi   cha de la sala
-                Intent intentFichaTipo = new Intent((view.getContext()), ficha_tipo.class);
+                intentAñadirTipo.putExtra("codigoTipo", 0);
+                intentAñadirTipo.putExtra("nombreTipo", "");
+                intentAñadirTipo.putExtra("descripcionTipo", "");
 
-                //A ese intent le agregamos los datos usando el metodo putExtra, a este le asignamos un nombre que sera como una ID
-                //Y obtenemos el valor que queremos pasar con la variable salaSeleccionada y usando el get correspondiente
-
-                intentFichaTipo.putExtra("codigoTipo", tipoSeleccionado.getCodigoTipo());
-                intentFichaTipo.putExtra("nombreTipo", tipoSeleccionado.getNombre());
-                intentFichaTipo.putExtra("descripcionTipo", tipoSeleccionado.getDescripcion());
-                //
-                //Lanzamos el intent
-                startActivity(intentFichaTipo);
+                startActivity(intentAñadirTipo);
             }
         });
     }

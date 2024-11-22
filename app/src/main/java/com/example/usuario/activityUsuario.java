@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
@@ -35,8 +36,6 @@ public class activityUsuario extends menu3botones {
         });
 
 
-
-
         ListView listaUsuarios = (ListView) findViewById(id.listaUsuarios);
         AdaptadorUsuario adaptadorUsuario = new AdaptadorUsuario(this, GestionIncidencias.getArUsuarios().toArray(new EntUsuario[0]));
 
@@ -44,31 +43,44 @@ public class activityUsuario extends menu3botones {
 
 
         //A la ListView de salas le damos un OnItemClickListener para que cuando se pulse sobre una sala nos lleve a la ficha que sea
-        listaUsuarios.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listaUsuarios.setOnItemClickListener((adapterView, view, position, id) -> {
+            EntUsuario usuarioSeleccionado = (EntUsuario) adapterView.getItemAtPosition(position);
 
-            //Creamos el metodo onItemClick, lo sobreescribe el OnItemClickListener de la listView, nos obliga a implementarlo
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //Creamos una variable de tipo EntSala para obtener el objeto asociado con e item pulsado
-                EntUsuario usuarioSeleccionado = (EntUsuario) adapterView.getItemAtPosition(i);
 
-                //Creamos un intent para poder ir a la fi   cha de la sala
-                Intent intentFichaUsuario = new Intent((view.getContext()), ficha_usuario.class);
+            //Creamos un intent para poder ir a la fi   cha de la sala
+            Intent intentFichaUsuario = new Intent((view.getContext()), ficha_usuario.class);
 
-                //A ese intent le agregamos los datos usando el metodo putExtra, a este le asignamos un nombre que sera como una ID
-                //Y obtenemos el valor que queremos pasar con la variable salaSeleccionada y usando el get correspondiente
+            //A ese intent le agregamos los datos usando el metodo putExtra, a este le asignamos un nombre que sera como una ID
+            //Y obtenemos el valor que queremos pasar con la variable salaSeleccionada y usando el get correspondiente
 
-                intentFichaUsuario.putExtra("codigoUsuario", usuarioSeleccionado.getCodigoUsuario());
-                intentFichaUsuario.putExtra("nombre", usuarioSeleccionado.getNombre()      );
-                intentFichaUsuario.putExtra("correo", usuarioSeleccionado.getCorreo());
-                intentFichaUsuario.putExtra("telefono", usuarioSeleccionado.getTelefono());
-                intentFichaUsuario.putExtra("password", usuarioSeleccionado.getPassword());
-                intentFichaUsuario.putExtra("rol", String.valueOf(usuarioSeleccionado.getRol()));
-                //
-                //Lanzamos el intent
-                startActivity(intentFichaUsuario);
-            }
+            intentFichaUsuario.putExtra("codigoUsuario", usuarioSeleccionado.getCodigoUsuario());
+            intentFichaUsuario.putExtra("nombreUsuario", usuarioSeleccionado.getNombre());
+            intentFichaUsuario.putExtra("correoUsuario", usuarioSeleccionado.getCorreo());
+            intentFichaUsuario.putExtra("telefonoUsuario", usuarioSeleccionado.getTelefono());
+            intentFichaUsuario.putExtra("passwordUsuario", usuarioSeleccionado.getPassword());
+            intentFichaUsuario.putExtra("rolUsuario", String.valueOf(usuarioSeleccionado.getRol()));
+            //
+            //Lanzamos el intent
+            startActivity(intentFichaUsuario);
+
         });
 
+        //BOTON Y FUNCION PARA AÑADIR UNA NUEVO USUARIO
+        Button añadirUsuario = findViewById(R.id.añadirUsuario);
+        añadirUsuario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentAñadirUsuario = new Intent(view.getContext(), ficha_usuario.class);
+
+                intentAñadirUsuario.putExtra("codigoUsuario", 0);
+                intentAñadirUsuario.putExtra("nombreUsuario", "");
+                intentAñadirUsuario.putExtra("correoUsuario", "");
+                intentAñadirUsuario.putExtra("telefonoUsuario", "");
+                intentAñadirUsuario.putExtra("passwordUsuario", "");
+                intentAñadirUsuario.putExtra("rolUsuario", "");
+                //
+                startActivity(intentAñadirUsuario);
+            }
+        });
     }
 }

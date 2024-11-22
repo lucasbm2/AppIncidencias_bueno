@@ -11,7 +11,7 @@
         android:text="Código de Ubicación" />
 
     <TextView
-        android:id="@+id/descripcion"
+        android:id="@+id/descripcionUbicacion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Descripción" />

@@ -35,15 +35,16 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textStyle="bold" />
 
-        <TextView
+        <EditText
             android:id="@+id/codigoUsuario"
             android:layout_width="169dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_gravity="center"
             android:layout_marginBottom="4dp"
             android:background="@drawable/borde_textview"
             android:gravity="center"
-            android:paddingBottom="8dp" />
+            android:paddingBottom="8dp"
+            android:text="Campo de codigo" />
 
         <TextView
             android:layout_width="wrap_content"

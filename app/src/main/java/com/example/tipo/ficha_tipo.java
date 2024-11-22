@@ -1,15 +1,26 @@
-    package com.example.tipo;
+package com.example.tipo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appincidencias.R;
+import com.example.ubicacion.activityUbicacion;
+import com.example.ubicacion.ficha_ubicacion;
 
-    public class ficha_tipo extends AppCompatActivity {
+import java.util.ArrayList;
+
+import gestionincidencias.GestionIncidencias;
+import gestionincidencias.entidades.EntTipo;
+import gestionincidencias.entidades.EntUbicacion;
+
+public class ficha_tipo extends AppCompatActivity {
+
+    private EntTipo tipo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,30 +28,95 @@ import com.example.appincidencias.R;
         setContentView(R.layout.activity_ficha_tipo);
 
         //Creamos un intent para poder obtener los datos de la otra actividad (activitySalas)
-        Intent infoFichaTipo = this.getIntent();
+        int codigoTipo = getIntent().getIntExtra("codigoTipo", 0);
+        String nombreTipo = getIntent().getStringExtra("nombreTipo");
+        String descripcionTipo = getIntent().getStringExtra("descripcionTipo");
 
-        //Creamos un Bundle para almacenar los datos de la otra actividad (activitySalas)
-        Bundle bnd = infoFichaTipo.getExtras();
+        if (codigoTipo != 0) {
+            for (EntTipo t : GestionIncidencias.getArTipos()) {
+                if (t.getCodigoTipo() == codigoTipo) {
+                    tipo = t;
+                }
+            }
+        } else if (codigoTipo == 0 && descripcionTipo.isEmpty()) {
+            tipo = new EntTipo(0, "", "");
+        } else if (codigoTipo == 0) {
+            for (EntTipo t : GestionIncidencias.getArTipos()) {
+                if (t.getDescripcion().equals(descripcionTipo)) {
+                    tipo = t;
+                }
+            }
+        }
 
-        //Creamos variables para guardar los datos almacenados en el Bundle, usamos el getString y enre parentesis el nombre
-        //que hemos puesto antes en el putExtra, Ejemplo: intenFichaSala.putExtra("sala", salaSeleccionada.getCodigoSala());
-        //Esto esta sacado del OnItemClick de la activitySalas. En este caso "sala" seria el nombre
-        int codTipo = bnd.getInt("codigoTipo");
-        String nombreTipo = bnd.getString("nombreTipo");
-        String descripcionTipo = bnd.getString("descripcionTipo");
+        if (tipo != null) {
+            TextView txCodigo = findViewById(R.id.codigoTipo);
+            txCodigo.setText(String.valueOf(tipo.getCodigoTipo()));
 
-        //Creamos variables TextView para encontrar el elemento donde queremos mostrar los datos obtenidos.
-        //Estos estan en activity_ficha_sala.xml en mi caso.
+            TextView txNombre = findViewById(R.id.nombreTipo);
+            txNombre.setText(String.valueOf(tipo.getNombre()));
 
-        TextView txCodigoTipo = findViewById(R.id.codigoTipo);
-        txCodigoTipo.setText(String.valueOf(codTipo));
-        TextView txNombreTipo = findViewById(R.id.nombreTipo);
-        txNombreTipo.setText(String.valueOf(nombreTipo));
-        TextView txDescripcionTipo = findViewById(R.id.descripcionTipo);
-        txDescripcionTipo.setText(String.valueOf(descripcionTipo));
+            TextView txDescripcion = findViewById(R.id.descripcionTipo);
+            txDescripcion.setText(String.valueOf(tipo.getDescripcion()));
 
+        }
+        // Botón para volver a la lista de ubicaciones
+        Button botonVolver = findViewById(R.id.botonSalir);
+        botonVolver.setOnClickListener(view -> {
+            Intent intent = new Intent(ficha_tipo.this, activityTipo.class);
+            startActivity(intent);
+        });
+        //Aqui creo el boton para guardar y su funcionamiento
+        Button botonGuardar = findViewById(R.id.botonGuardar);
+        botonGuardar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (tipo != null) {
+                    TextView txCodigo = findViewById(R.id.codigoTipo);
+                    TextView txNombre = findViewById(R.id.nombreTipo);
+                    TextView txDescripcion = findViewById(R.id.descripcionTipo);
 
-        Button botonSalir = findViewById(R.id.botonSalir);
-        botonSalir.setOnClickListener(v -> finish());
+                    //MODIFICO TIPO
+                    if (tipo.getCodigoTipo() != 0) {
+                        tipo.setCodigoTipo(Integer.parseInt(txCodigo.getText().toString()));
+                        tipo.setNombre(txNombre.getText().toString());
+                        tipo.setDescripcion(txDescripcion.getText().toString());
+                    }
+                    //AÑADO NUEVO TIPO
+                    else if (tipo.getCodigoTipo() == 0 && txDescripcion.getText().toString().isEmpty()) {
+                        return;
+                    }
+                    //AÑADO NUEVO TIPO CON CÓDIGO Y DESCRIPCIÓN
+                    else if (tipo.getCodigoTipo() == 0) {
+                        boolean encontrado = false;
+
+                        for (EntTipo t : GestionIncidencias.getArTipos()) {
+                            if (t.getDescripcion().equals(txDescripcion.getText().toString())) {
+                                encontrado = true;
+                                break;
+                            }
+                        }
+
+                        if (!encontrado) {
+                            int siguienteCodigo = 1;
+                            for (EntTipo t : GestionIncidencias.getArTipos()) {
+                                if (t.getCodigoTipo() >= siguienteCodigo) {
+                                    siguienteCodigo = t.getCodigoTipo() + 1;
+                                }
+                            }
+
+                            tipo.setCodigoTipo(siguienteCodigo);
+                            tipo.setNombre(txNombre.getText().toString());
+                            tipo.setDescripcion(txDescripcion.getText().toString());
+
+                            GestionIncidencias.getArTipos().add(tipo);
+                        }
+                    }
+
+                    Intent intent = new Intent(ficha_tipo.this, activityTipo.class);
+                    startActivity(intent);
+                }
+            }
+        });
+
     }
 }

@@ -24,14 +24,17 @@ public class AdaptadorUbicacion extends ArrayAdapter<EntUbicacion> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        //INFLAMOS LA LISTA PARA MOSTRAR EL ELEMENTO DE LA UBICACIÓN
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View view = inflater.inflate(R.layout.elemento_ubicacion, parent, false);
 
+        //OBTENEMOS LO QUE QUEREMOS MOSTRAR EN LA LISTA
         TextView txCodigoUbicacion = view.findViewById(R.id.codigoUbicacion);
-        TextView txDescripcion = view.findViewById(R.id.descripcion);
+        TextView txDescripcionUbicacion = view.findViewById(R.id.descripcionUbicacion);
 
+        //ASIGNAMOS LOS VALORES A MOSTRAR
         txCodigoUbicacion.setText(String.valueOf(ubicaciones[position].getCodigoUbicacion()));
-        txDescripcion.setText(ubicaciones[position].getDescripcion());
+        txDescripcionUbicacion.setText(ubicaciones[position].getDescripcion());
 
         return view;
     }

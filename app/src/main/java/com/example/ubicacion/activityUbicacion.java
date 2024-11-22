@@ -37,21 +37,27 @@ public class activityUbicacion extends menu3botones {
             return insets;
         });
 
+        //BUSCAMOS LA LISTVIEW DE UBICACIONES
         ListView listaUbicaciones = (ListView) findViewById(R.id.listaUbicaciones);
-        AdaptadorUbicacion adaptadorUbicacion = new AdaptadorUbicacion(this,
-                    GestionIncidencias.getArUbicaciones().toArray(new EntUbicacion[0]));
+        //CREAMOS UN ADAPTADOR PARA LA LISTA
+        AdaptadorUbicacion adaptadorUbicacion = new AdaptadorUbicacion(this, GestionIncidencias.getArUbicaciones().toArray(new EntUbicacion[0]));
 
+        //ESTABLECEMOS ADAPTADOR A LA LISTA
         listaUbicaciones.setAdapter(adaptadorUbicacion);
 
+        //OYENTE PARA QUE CUANDO HAGAMOS CLICK SE ABRA LA FICHA SELECCIONADA
         listaUbicaciones.setOnItemClickListener((adapterView, view, position, id) -> {
             EntUbicacion ubicacionSeleccionada = (EntUbicacion) adapterView.getItemAtPosition(position);
 
             Intent intentFichaUbicacion = new Intent(view.getContext(), ficha_ubicacion.class);
+
             intentFichaUbicacion.putExtra("codigoUbicacion", ubicacionSeleccionada.getCodigoUbicacion());
-            intentFichaUbicacion.putExtra("descripcion", ubicacionSeleccionada.getDescripcion());
+            intentFichaUbicacion.putExtra("descripcionUbicacion", ubicacionSeleccionada.getDescripcion());
 
             startActivity(intentFichaUbicacion);
         });
+
+        //BOTON Y FUNCION PARA AÑADIR UNA NUEVA UBICACION
         Button añadirUbicacion = findViewById(R.id.añadirUbicacion);
         añadirUbicacion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +65,7 @@ public class activityUbicacion extends menu3botones {
                 Intent intentAñadirUbicacion = new Intent(view.getContext(), ficha_ubicacion.class);
 
                 intentAñadirUbicacion.putExtra("codigoUbicacion", 0);
-                intentAñadirUbicacion.putExtra("descripcion", "");
+                intentAñadirUbicacion.putExtra("descripcionUbicacion", "");
 
                 startActivity(intentAñadirUbicacion);
             }

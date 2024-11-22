@@ -37,14 +37,14 @@
 
         <EditText
             android:id="@+id/codigoUbicacionFicha"
-            android:layout_width="169dp"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
             android:layout_gravity="center"
             android:layout_marginBottom="4dp"
             android:background="@drawable/borde_textview"
             android:gravity="center"
-            android:paddingBottom="4dp"
-            android:hint="Introduce el código de ubicación" />
+            android:hint="Código de ubicación"
+            android:padding="8dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -72,20 +72,20 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="4dp"
-            android:text="ID Elemento:"
+            android:text="Nombre Elemento:"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/idElementoFichaUbicacion"
+        <Spinner
+            android:id="@+id/spinnerElementoFichaUbicacion"
             android:layout_width="170dp"
             android:layout_height="48dp"
             android:layout_gravity="center"
             android:layout_marginBottom="4dp"
             android:background="@drawable/borde_textview"
             android:inputType="text"
-            android:padding="4dp"
-            android:text="Campo de ID Elemento" />
+            android:padding="8dp"
+            android:text="Campo de Nombre Elemento" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -99,13 +99,13 @@
         <EditText
             android:id="@+id/descripcionUbicacion"
             android:layout_width="170dp"
-            android:layout_height="48dp"
+            android:layout_height="105dp"
             android:layout_gravity="center"
             android:layout_marginBottom="4dp"
             android:background="@drawable/borde_textview"
             android:inputType="text"
             android:padding="8dp"
-            android:text="Campo ID elemento" />
+            android:text="Campo descripcion" />
 
 
         <TextView
@@ -120,7 +120,7 @@
 
 
         <TextView
-            android:id="@+id/fechaInicioUbicacion"
+            android:id="@+id/editarFechaInicioUbicacion"
             android:layout_width="170dp"
             android:layout_height="48dp"
             android:layout_gravity="center"
@@ -140,7 +140,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/fechaFinUbicacion"
+            android:id="@+id/editarFechaFinUbicacion"
             android:layout_width="170dp"
             android:layout_height="48dp"
             android:layout_gravity="center"

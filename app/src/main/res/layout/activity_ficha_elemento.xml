@@ -35,15 +35,16 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textStyle="bold" />
 
-        <TextView
+        <EditText
             android:id="@+id/codigoElemento"
             android:layout_width="169dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_gravity="center"
             android:layout_marginBottom="4dp"
             android:background="@drawable/borde_textview"
             android:gravity="center"
-            android:paddingBottom="8dp" />
+            android:paddingBottom="8dp"
+            android:text="Campo de Cod Elemento" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -78,7 +79,7 @@
         <EditText
             android:id="@+id/descripcionElemento"
             android:layout_width="170dp"
-            android:layout_height="48dp"
+            android:layout_height="105dp"
             android:layout_gravity="center"
             android:layout_marginBottom="4dp"
             android:background="@drawable/borde_textview"
@@ -93,13 +94,13 @@
             android:layout_gravity="center"
             android:layout_marginBottom="4dp"
             android:paddingBottom="8dp"
-            android:text="ID Tipo:"
+            android:text="Nombre Tipo:"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textStyle="bold" />
 
 
-        <EditText
-            android:id="@+id/idTipo"
+        <Spinner
+            android:id="@+id/spinnerNombreTipoElementoFichaElemento"
             android:layout_width="170dp"
             android:layout_height="48dp"
             android:layout_gravity="center"
@@ -107,35 +108,34 @@
             android:background="@drawable/borde_textview"
             android:inputType="text"
             android:padding="8dp"
-            android:text="Campo de id tipo" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="4dp"
-            android:text="Tipo elemento:"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/tipoElemento"
-            android:layout_width="170dp"
-            android:layout_height="48dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="4dp"
-            android:background="@drawable/borde_textview"
-            android:inputType="text"
-            android:padding="8dp"
-            android:text="Campo de tipo de elemento" />
+            android:text="Campo de nombre tipo" />
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/botonSalir"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:text="Salir"
-        tools:layout_editor_absoluteY="1170dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="16dp">
+
+        <Button
+            android:id="@+id/botonSalir"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="8dp"
+            android:text="Salir"
+            android:layout_weight="1" /> <!-- Se le da peso para que ocupe el espacio a la izquierda -->
+
+        <Button
+            android:id="@+id/botonGuardar"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:text="Guardar"
+            android:layout_weight="1" /> <!-- Se le da peso para que ocupe el espacio a la derecha -->
+
+    </LinearLayout>
+
+
 
 </LinearLayout>
