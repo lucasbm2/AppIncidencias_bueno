@@ -11,40 +11,24 @@
         android:text="Código de Incidencia" />
 
     <TextView
-        android:id="@+id/descripcion"
+        android:id="@+id/descripcionIncidencia"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Descripcion de incidencia" />
 
     <TextView
-        android:id="@+id/idElemento"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="ID del Elemento" />
-
-    <TextView
-        android:id="@+id/fechaCreacion"
+        android:id="@+id/fechaCreacionIncidencia"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Fecha de creacion" />
 
-    <TextView
-        android:id="@+id/idUsuarioCreacion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="ID del Usuario" />
 
     <TextView
-        android:id="@+id/usuarioCreacion"
+        android:id="@+id/usuarioCreacionIncidencia"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Usuario de creacion" />
 
-    <TextView
-        android:id="@+id/elemento"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Elemento" />
 
 
 </LinearLayout>
