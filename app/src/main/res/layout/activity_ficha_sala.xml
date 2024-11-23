@@ -26,7 +26,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="345dp"
+        android:layout_height="606dp"
         android:background="#A42424"
         android:orientation="vertical">
 
@@ -39,8 +39,8 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/codSala"
+        <EditText
+            android:id="@+id/codigoSala"
             android:layout_width="169dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -59,7 +59,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textStyle="bold" />
 
-        <TextView
+        <EditText
             android:id="@+id/nombreSala"
             android:layout_width="162dp"
             android:layout_height="wrap_content"
@@ -77,13 +77,36 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textStyle="bold" />
 
-        <TextView
+        <EditText
             android:id="@+id/descripcionSala"
             android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@drawable/borde_textview"
             android:paddingBottom="8dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="16dp">
+
+        <Button
+            android:id="@+id/botonSalir"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="8dp"
+            android:text="Salir"
+            android:layout_weight="1" /> <!-- Se le da peso para que ocupe el espacio a la izquierda -->
+
+        <Button
+            android:id="@+id/botonGuardar"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:text="Guardar"
+            android:layout_weight="1" /> <!-- Se le da peso para que ocupe el espacio a la derecha -->
 
     </LinearLayout>
 

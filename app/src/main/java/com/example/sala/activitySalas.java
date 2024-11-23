@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
@@ -36,26 +38,29 @@ public class activitySalas extends menu3botones {
 
         listaSalas.setAdapter(adaptadorSala);
 
-        //A la ListView de salas le damos un OnItemClickListener para que cuando se pulse sobre una sala nos lleve a la ficha que sea
-        listaSalas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listaSalas.setOnItemClickListener((adapterView, view, position, id) -> {
+            EntSala salaSeleccionada = (EntSala) adapterView.getItemAtPosition(position);
 
-            //Creamos el metodo onItemClick, lo sobreescribe el OnItemClickListener de la listView, nos obliga a implementarlo
+            Intent intentFichaSala = new Intent(view.getContext(), ficha_sala.class);
+
+            intentFichaSala.putExtra("codigoSala", salaSeleccionada.getCodigoSala());
+            intentFichaSala.putExtra("nombreSala", salaSeleccionada.getNombre());
+            intentFichaSala.putExtra("descripcionSala", salaSeleccionada.getDescripcion());
+
+            startActivity(intentFichaSala);
+        });
+
+        Button añadirSala = findViewById(R.id.añadirSala);
+        añadirSala.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //Creamos una variable de tipo EntSala para obtener el objeto asociado con e item pulsado
-                EntSala salaSeleccionada = (EntSala) adapterView.getItemAtPosition(i);
+            public void onClick(View view) {
+                Intent intentAnadirSala = new Intent(view.getContext(), ficha_sala.class);
 
-                //Creamos un intent para poder ir a la ficha de la sala
-                Intent intenFichaSala = new Intent((view.getContext()), ficha_sala.class);
+                intentAnadirSala.putExtra("codigoSala", 0);
+                intentAnadirSala.putExtra("nombreSala", "");
+                intentAnadirSala.putExtra("descripcionSala", "");
 
-                //A ese intent le agregamos los datos usando el metodo putExtra, a este le asignamos un nombre que sera como una ID
-                //Y obtenemos el valor que queremos pasar con la variable salaSeleccionada y usando el get correspondiente
-                intenFichaSala.putExtra("sala", salaSeleccionada.getCodigoSala());
-                intenFichaSala.putExtra("nombre", salaSeleccionada.getNombre());
-                intenFichaSala.putExtra("descripcion", salaSeleccionada.getDescripcion());
-                //
-                //Lanzamos el intent
-                startActivity(intenFichaSala);
+                startActivity(intentAnadirSala);
             }
         });
     }
