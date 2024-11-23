@@ -55,12 +55,9 @@ public class activityUsuario extends menu3botones {
 
             intentFichaUsuario.putExtra("codigoUsuario", usuarioSeleccionado.getCodigoUsuario());
             intentFichaUsuario.putExtra("nombreUsuario", usuarioSeleccionado.getNombre());
-            intentFichaUsuario.putExtra("correoUsuario", usuarioSeleccionado.getCorreo());
-            intentFichaUsuario.putExtra("telefonoUsuario", usuarioSeleccionado.getTelefono());
-            intentFichaUsuario.putExtra("passwordUsuario", usuarioSeleccionado.getPassword());
-            intentFichaUsuario.putExtra("rolUsuario", String.valueOf(usuarioSeleccionado.getRol()));
+            intentFichaUsuario.putExtra("rolUsuario", usuarioSeleccionado.getRol());
             //
-            //Lanzamos el intent
+            //Lanzamos el inten t
             startActivity(intentFichaUsuario);
 
         });
@@ -74,9 +71,6 @@ public class activityUsuario extends menu3botones {
 
                 intentAñadirUsuario.putExtra("codigoUsuario", 0);
                 intentAñadirUsuario.putExtra("nombreUsuario", "");
-                intentAñadirUsuario.putExtra("correoUsuario", "");
-                intentAñadirUsuario.putExtra("telefonoUsuario", "");
-                intentAñadirUsuario.putExtra("passwordUsuario", "");
                 intentAñadirUsuario.putExtra("rolUsuario", "");
                 //
                 startActivity(intentAñadirUsuario);

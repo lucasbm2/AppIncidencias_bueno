@@ -17,26 +17,8 @@
         android:text="Nombre de Usuario" />
 
     <TextView
-        android:id="@+id/correoUsuario"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Correo de Usuario" />
-
-    <TextView
-        android:id="@+id/telefonoUsuario"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Teléfono de Usuario" />
-
-    <TextView
         android:id="@+id/rolUsuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Rol de Usuario" />
-
-    <TextView
-        android:id="@+id/passwordUsuario"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Contraseña de Usuario" />
 </LinearLayout>

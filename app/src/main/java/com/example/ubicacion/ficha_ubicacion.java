@@ -162,10 +162,10 @@ public class ficha_ubicacion extends AppCompatActivity {
                     Spinner spinnerElemento = findViewById(R.id.spinnerElementoFichaUbicacion);
                     Object elementoSeleccionado = spinnerElemento.getSelectedItem().toString();
 
-
                     TextView txtFechaInicio = findViewById(R.id.editarFechaInicioUbicacion);
                     String fechaIni = txtFechaInicio.getText().toString();
                     SimpleDateFormat formatterIni = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+
                     TextView txtFechaFin = findViewById(R.id.editarFechaFinUbicacion);
                     String fechaFin = txtFechaFin.getText().toString();
                     SimpleDateFormat formatterFin = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
