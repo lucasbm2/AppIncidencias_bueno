@@ -30,7 +30,7 @@ public class ficha_sala extends AppCompatActivity {
 
         //PARA MODIFICAR
         if (codSala > 0) {
-            for (EntSala s : GestionIncidencias.getArSalas()) {
+            for (EntSala s  : GestionIncidencias.getArSalas()) {
                 if (s.getCodigoSala() == codSala) {
                     sala = s;
                 }
@@ -63,7 +63,7 @@ public class ficha_sala extends AppCompatActivity {
 
         Button botonVolver = findViewById(R.id.botonSalir);
         botonVolver.setOnClickListener(view -> {
-            Intent intent = new Intent(view.getContext(), activitySalas.class);
+            Intent intent = new Intent(ficha_sala.this, activitySalas.class);
             startActivity(intent);
         });
 
@@ -75,13 +75,8 @@ public class ficha_sala extends AppCompatActivity {
                 if (sala != null) {
 
                    EditText txCodigoSala = findViewById(R.id.codigoSala);
-                   sala.setCodigoSala(Integer.parseInt(txCodigoSala.getText().toString()));
-
                    EditText txNombre = findViewById(R.id.nombreSala);
-                   sala.setNombre(txNombre.getText().toString());
-
                    EditText txDescripcion = findViewById(R.id.descripcionSala);
-                   sala.setDescripcion(txDescripcion.getText().toString());
 
                    //PARA MODIFICAR LOS DATOS DE UNA SALA YA CREADA
                     if (sala.getCodigoSala() != 0) {
