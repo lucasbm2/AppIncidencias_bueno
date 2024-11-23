@@ -110,100 +110,55 @@ public class ficha_elemento extends AppCompatActivity {
 
                     //MODIFICO ELEMENTO
                     if (elemento.getCodigoElemento() != 0) {
-                        int nuevoCodigo = Integer.parseInt(txCodElemento.getText().toString());
-                        boolean encontrado = false;
-
-                        // Verificar si el código ya existe en otro elemento
-                        for (EntElemento elem : GestionIncidencias.getArElementos()) {
-                            if (elem.getCodigoElemento() == nuevoCodigo && elem.getCodigoElemento() != elemento.getCodigoElemento()) {
-                                encontrado = true;
-                                break;
-                            }
-                        }
-
-                        if (encontrado) {
-                            // Si el código ya existe, buscar el siguiente código disponible
-                            int siguienteCodigo = nuevoCodigo;
-                            while (true) {
-                                siguienteCodigo++; // Incrementamos el código
-                                boolean codigoDisponible = true;
-                                for (EntElemento elem : GestionIncidencias.getArElementos()) {
-                                    if (elem.getCodigoElemento() == siguienteCodigo) {
-                                        codigoDisponible = false; // El código ya está en uso
-                                        break;
-                                    }
-                                }
-                                if (codigoDisponible) {
-                                    // Si el código no está en uso, lo asignamos
-                                    elemento.setCodigoElemento(siguienteCodigo);
-                                    break;
-                                }
-                            }
-                        } else {
-                            // Si el código no está duplicado, se realiza la modificación
-                            elemento.setCodigoElemento(nuevoCodigo);
-                        }
-
-                        // Continuamos con la modificación de otros campos
-                        elemento.setNombre(txNombreElemento.getText().toString());
-                        elemento.setDescripcion(txDescripcionElemento.getText().toString());
-
-                        for (EntElemento elem : GestionIncidencias.getArElementos()) {
-                            if (elem.getTipoElemento() != null && elem.getTipoElemento().getNombre().equals(tipoSeleccionado)) {
-                                elemento.setIdTipo(elem.getIdTipo());
-                                elemento.setTipoElemento(elem.getTipoElemento());
-                                break;
-                            }
-                        }
-                    }
-
-
-                    //AÑADO NUEVO ELEMENTO
-                    else if (elemento.getCodigoElemento() == 0 && elemento.getDescripcion().isEmpty()) {
-
                         elemento.setCodigoElemento(Integer.parseInt(txCodElemento.getText().toString()));
                         elemento.setNombre(txNombreElemento.getText().toString());
                         elemento.setDescripcion(txDescripcionElemento.getText().toString());
 
+                        for (EntTipo tipo : GestionIncidencias.getArTipos()) {
+                            if (tipo.getNombre().equals(tipoSeleccionado)) {
+                                elemento.setIdTipo(tipo.getCodigoTipo());
+                                elemento.setTipoElemento(tipo);
+                            }
+                        }
+                    } else if (elemento.getCodigoElemento() == 0 && elemento.getDescripcion().isEmpty()) {
                         boolean encontrado = false;
-                        for (EntElemento ele : GestionIncidencias.getArElementos()) {
-                            if (ele.getCodigoElemento() == elemento.getCodigoElemento()) {
+
+                        for (EntTipo tipo : GestionIncidencias.getArTipos()) {
+                            if (tipo.getCodigoTipo() == elemento.getCodigoElemento()) {
                                 encontrado = true;
                                 break;
                             }
                         }
+
                         if (!encontrado) {
                             int siguienteCodigo = 1;
-                            for (EntElemento ele : GestionIncidencias.getArElementos()) {
-                                if (ele.getCodigoElemento() >= siguienteCodigo) {
-                                    siguienteCodigo = ele.getCodigoElemento() + 1;
+                            for (EntTipo tipo : GestionIncidencias.getArTipos()) {
+                                if (tipo.getCodigoTipo() >= siguienteCodigo) {
+                                    siguienteCodigo = tipo.getCodigoTipo() + 1;
                                 }
                             }
 
                             elemento.setCodigoElemento(siguienteCodigo);
-                            GestionIncidencias.getArElementos().add(elemento);
+                            elemento.setNombre(txNombreElemento.getText().toString());
+                            elemento.setDescripcion(txDescripcionElemento.getText().toString());
 
-                            for (EntElemento elem : GestionIncidencias.getArElementos()) {
-                                if (elem.getTipoElemento() != null && elem.getTipoElemento().getNombre().equals(tipoSeleccionado)) {
-                                    elemento.setIdTipo(elem.getIdTipo());
-                                    elemento.setTipoElemento(elem.getTipoElemento());
-                                    break;
+                            for (EntTipo tipo : GestionIncidencias.getArTipos()) {
+                                if (tipo.getNombre().equals(tipoSeleccionado)) {
+                                    elemento.setCodigoElemento(tipo.getCodigoTipo());
+                                    elemento.setTipoElemento(tipo);
                                 }
                             }
-
                         }
-
-                        //POR SI EL ELEMENTO TIENE CODIGO 0 Y DESCRIPCION
+                        GestionIncidencias.getArElementos().add(GestionIncidencias.getArElementos().size(), elemento);
                     } else if (elemento.getCodigoElemento() == 0) {
                         elemento.setCodigoElemento(Integer.parseInt(txCodElemento.getText().toString()));
                         elemento.setNombre(txNombreElemento.getText().toString());
                         elemento.setDescripcion(txDescripcionElemento.getText().toString());
 
-                        for (EntElemento elem : GestionIncidencias.getArElementos()) {
-                            if (elem.getTipoElemento() != null && elem.getTipoElemento().getNombre().equals(tipoSeleccionado)) {
-                                elemento.setIdTipo(elem.getIdTipo());
-                                elemento.setTipoElemento(elem.getTipoElemento());
-                                break;
+                        for (EntTipo tipo : GestionIncidencias.getArTipos()) {
+                            if (tipo.getNombre().equals(tipoSeleccionado)) {
+                                elemento.setIdTipo(tipo.getCodigoTipo());
+                                elemento.setTipoElemento(tipo);
                             }
                         }
                     }
