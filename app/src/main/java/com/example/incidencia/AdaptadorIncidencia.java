@@ -23,15 +23,14 @@ public class AdaptadorIncidencia extends ArrayAdapter<EntIncidencia> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater mostrado = LayoutInflater.from(getContext());
-        View vIncidencia = mostrado.inflate(R.layout.elemento_incidencia, parent, false);
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View vIncidencia = inflater.inflate(R.layout.elemento_incidencia, parent, false);
 
         TextView txCodigoIncidencia = vIncidencia.findViewById(R.id.codigoIncidencia);
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        String fechaFormateada = sdf.format(incidencias[position].getFechaCreacion());
+        TextView txDescripcionIncidencia = vIncidencia.findViewById(R.id.descripcionIncidencia);
 
         txCodigoIncidencia.setText(String.valueOf(incidencias[position].getCodigoIncidencia()));
+        txDescripcionIncidencia.setText(incidencias[position].getDescripcion());
 
         return vIncidencia;
     }

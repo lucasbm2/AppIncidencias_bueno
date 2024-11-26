@@ -28,12 +28,12 @@ import gestionincidencias.entidades.EntElemento;
 import gestionincidencias.entidades.EntSala;
 import gestionincidencias.entidades.EntUbicacion;
 
-public class ficha_ubicacion extends AppCompatActivity {
+public class    ficha_ubicacion extends AppCompatActivity {
 
     //Creo una ubicacion
-    private EntUbicacion ubicacion;
-    //Este es el formato a aplicar a las fechas despues
-    SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        private EntUbicacion ubicacion;
+        //Este es el formato a aplicar a las fechas despues
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class ficha_ubicacion extends AppCompatActivity {
         setContentView(R.layout.activity_ficha_ubicacion);
 
         // Extraer los datos del Bundle de listas
-        int codUbicacion = getIntent().getExtras().getInt("codigoUbicacion");
+            int codUbicacion = getIntent().getExtras().getInt("codigoUbicacion");
         String descripcionUbicacion = getIntent().getExtras().getString("descripcionUbicacion");
 
         //PARA MODIFICAR LA UBICACION
@@ -76,6 +76,8 @@ public class ficha_ubicacion extends AppCompatActivity {
             TextView txDescripcion = findViewById(R.id.descripcionUbicacion);
             txDescripcion.setText(ubicacion.getDescripcion());
 
+            //PARA MOSTRAR EL SPINNER DE NOMBRES DE ELEMENTO
+            //LISTA CODIGOS DE ELEMENTO
 
             //PARA MOSTRAR EL SPINNER DE NOMBRES DE SALA
             //LISTA CODIGOS DE SALA
@@ -88,7 +90,7 @@ public class ficha_ubicacion extends AppCompatActivity {
 
             //Encuentro el spinner y lo asigno a una variable spinnerSala
             Spinner spinnerSala = findViewById(R.id.spinnerIdSalaFichaUbicacion);
-            //Creo un adaptador para el spinner, con el contexto, tipo de spinner y la lista que hemos creado antes
+            //Creo un adaptador pa  ra el spinner, con el contexto, tipo de spinner y la lista que hemos creado antes
             ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, salas);
             //Asigno el adaptador al spinner
             spinnerSala.setAdapter(spinnerArrayAdapter);
@@ -170,7 +172,7 @@ public class ficha_ubicacion extends AppCompatActivity {
                     String fechaFin = txtFechaFin.getText().toString();
                     SimpleDateFormat formatterFin = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 
-                    //PARA MODIFICAR LOS DATOS DE ALGUN ELEMENTO QUE YA EXISTE
+                        //PARA MODIFICAR LOS DATOS DE ALGUN ELEMENTO QUE YA EXISTE
                     if (ubicacion.getCodigoUbicacion() != 0) {
                         ubicacion.setCodigoUbicacion(Integer.parseInt(txtCodigo.getText().toString()));
                         ubicacion.setDescripcion(txtDescripcion.getText().toString());

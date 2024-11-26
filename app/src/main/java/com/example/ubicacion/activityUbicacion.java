@@ -46,11 +46,10 @@ public class activityUbicacion extends menu3botones {
         listaUbicaciones.setAdapter(adaptadorUbicacion);
 
         //OYENTE PARA QUE CUANDO HAGAMOS CLICK SE ABRA LA FICHA SELECCIONADA
-        listaUbicaciones.setOnItemClickListener((adapterView, view, position, id) -> {
+                listaUbicaciones.setOnItemClickListener((adapterView, view, position, id) -> {
+
             EntUbicacion ubicacionSeleccionada = (EntUbicacion) adapterView.getItemAtPosition(position);
-
             Intent intentFichaUbicacion = new Intent(view.getContext(), ficha_ubicacion.class);
-
             intentFichaUbicacion.putExtra("codigoUbicacion", ubicacionSeleccionada.getCodigoUbicacion());
             intentFichaUbicacion.putExtra("descripcionUbicacion", ubicacionSeleccionada.getDescripcion());
 

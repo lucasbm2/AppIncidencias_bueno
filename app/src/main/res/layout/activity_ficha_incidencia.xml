@@ -55,7 +55,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textStyle="bold" />
 
-        <EditText
+        <Spinner
             android:id="@+id/spinnerUsuarioCreacionFichaIncidencia"
             android:layout_width="170dp"
             android:layout_height="48dp"
@@ -75,7 +75,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textStyle="bold" />
 
-        <EditText
+        <Spinner
             android:id="@+id/spinnerIdElementoFichaIncidencia"
             android:layout_width="170dp"
             android:layout_height="48dp"
@@ -97,8 +97,8 @@
             android:textStyle="bold" />
 
 
-        <EditText
-            android:id="@+id/fechaCreacion"
+        <TextView
+            android:id="@+id/editarFechaCreacionUsuarioIncidencia"
             android:layout_width="170dp"
             android:layout_height="48dp"
             android:layout_gravity="center"
