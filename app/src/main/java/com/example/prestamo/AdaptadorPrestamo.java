@@ -26,10 +26,10 @@
             View vPrestamo = mostrado.inflate(R.layout.elemento_prestamo, parent, false);//CAMBIAR AL TIPO INDICADO
 
             TextView txCodigoPrestamo = vPrestamo.findViewById(R.id.codigoPrestamo);
-            TextView txIdUsuario = vPrestamo.findViewById(R.id.idUsuario);
-            TextView txIdElemento = vPrestamo.findViewById(R.id.idElemento);
-            TextView txFechaInicio = vPrestamo.findViewById(R.id.fechaInicio);
-            TextView txFechaFin = vPrestamo.findViewById(R.id.fechaFin);
+            TextView txIdUsuario = vPrestamo.findViewById(R.id.codigoUsuario);
+            TextView txIdElemento = vPrestamo.findViewById(R.id.codigoElemento);
+            TextView txFechaInicio = vPrestamo.findViewById(R.id.fechaInicioPrestamo);
+            TextView txFechaFin = vPrestamo.findViewById(R.id.fechaFinPrestamo);
 
             txCodigoPrestamo.setText(String.valueOf(prestamos[position].getCodigoPrestamo()));
             txIdUsuario.setText(String.valueOf(prestamos[position].getIdUsuario()));

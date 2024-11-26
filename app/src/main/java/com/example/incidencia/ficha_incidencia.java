@@ -29,21 +29,21 @@ public class ficha_incidencia extends AppCompatActivity {
         String usuarioCreacion = bnd.getString("usuarioCreacion");
         String elemento = bnd.getString("elemento");
 
-        //Asociamos las variables con los TextViews correspondientes
-        TextView txCodIncidencia = findViewById(R.id.codigoIncidencia);
-        txCodIncidencia.setText(String.valueOf(codIncidencia));
-        TextView txDescripIncidencia = findViewById(R.id.descripcionIncidencia);
-        txDescripIncidencia.setText(descripcionIncidencia);
-        TextView txIdElemento = findViewById(R.id.idElemento);
-        txIdElemento.setText(String.valueOf(idElemento));
-        TextView txFechaCreacion = findViewById(R.id.fechaCreacion);
-        txFechaCreacion.setText(fechaCreacion);
-        TextView txIdUsuarioCreacion = findViewById(R.id.idUsuarioCreacion);
-        txIdUsuarioCreacion.setText(idUsuarioCreacion);
-        TextView txUsuarioCreacion = findViewById(R.id.usuarioCreacion);
-        txUsuarioCreacion.setText(usuarioCreacion);
-        TextView txElemento = findViewById(R.id.elemento);
-        txElemento.setText(elemento);
+//        //Asociamos las variables con los TextViews correspondientes
+//        TextView txCodIncidencia = findViewById(R.id.codigoIncidencia);
+//        txCodIncidencia.setText(String.valueOf(codIncidencia));
+//        TextView txDescripIncidencia = findViewById(R.id.descripcionIncidencia);
+//        txDescripIncidencia.setText(descripcionIncidencia);
+//        TextView txIdElemento = findViewById(R.id.idElemento);
+//        txIdElemento.setText(String.valueOf(idElemento));
+//        TextView txFechaCreacion = findViewById(R.id.fechaCreacion);
+//        txFechaCreacion.setText(fechaCreacion);
+//        TextView txIdUsuarioCreacion = findViewById(R.id.idUsuarioCreacion);
+//        txIdUsuarioCreacion.setText(idUsuarioCreacion);
+//        TextView txUsuarioCreacion = findViewById(R.id.usuarioCreacion);
+//        txUsuarioCreacion.setText(usuarioCreacion);
+//        TextView txElemento = findViewById(R.id.elemento);
+//        txElemento.setText(elemento);
 
         //Botón para salir de la ficha
         Button botonSalir = findViewById(R.id.botonSalir);

@@ -37,17 +37,17 @@ import com.example.appincidencias.R;
         //Estos estan en activity_ficha_sala.xml en mi caso.
         TextView txcodPrestamo = findViewById(R.id.codigoPrestamo);
         txcodPrestamo.setText(String.valueOf(codPrestamo));
-        TextView txidUsuario = findViewById(R.id.idUsuario);
+        TextView txidUsuario = findViewById(R.id.codigoUsuario);
         txidUsuario.setText(String.valueOf(idUsuario));
-        TextView txidElemento = findViewById(R.id.idElemento);
+        TextView txidElemento = findViewById(R.id.codigoElemento);
         txidElemento.setText(String.valueOf(idElemento));
-        TextView txfechaInicio = findViewById(R.id.fechaInicio);
+        TextView txfechaInicio = findViewById(R.id.fechaInicioPrestamo);
         txfechaInicio.setText(String.valueOf(fechaInicio));
-        TextView txfechaFin = findViewById(R.id.fechaFin);
+        TextView txfechaFin = findViewById(R.id.fechaFinPrestamo);
         txfechaFin.setText(String.valueOf(fechaFin));
-        TextView txUsuario = findViewById(R.id.usuario);
+        TextView txUsuario = findViewById(R.id.nombreUsuario);
         txUsuario.setText(String.valueOf(usuario));
-        TextView txElemento = findViewById(R.id.elemento);
+        TextView txElemento = findViewById(R.id.nombreElemento);
         txElemento.setText(String.valueOf(elemento));
 
 
