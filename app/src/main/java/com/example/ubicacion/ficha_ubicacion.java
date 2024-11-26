@@ -140,7 +140,7 @@ public class    ficha_ubicacion extends AppCompatActivity {
         }
 
         // Botón para volver a la lista de ubicaciones
-        Button botonVolver = findViewById(R.id.botonSalir);
+            Button botonVolver = findViewById(R.id.botonSalir);
         botonVolver.setOnClickListener(view -> {
             Intent intent = new Intent(ficha_ubicacion.this, activityUbicacion.class);
             startActivity(intent);

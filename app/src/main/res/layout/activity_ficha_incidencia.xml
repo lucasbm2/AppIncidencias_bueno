@@ -76,7 +76,7 @@
             android:textStyle="bold" />
 
         <Spinner
-            android:id="@+id/spinnerIdElementoFichaIncidencia"
+            android:id="@+id/spinnerElementoFichaIncidencia"
             android:layout_width="170dp"
             android:layout_height="48dp"
             android:layout_gravity="center"

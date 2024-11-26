@@ -109,7 +109,7 @@ public class ficha_incidencia extends AppCompatActivity {
             Collections.sort(elementos);
 
             //Encuentro el spinner y lo asigno a una variable spinnerSala
-            Spinner spinnerElemento = findViewById(R.id.spinnerIdElementoFichaIncidencia);
+            Spinner spinnerElemento = findViewById(R.id.spinnerElementoFichaIncidencia);
             //Creo un adaptador para el spinner, con el contexto, tipo de spinner y la lista que hemos creado antes
             ArrayAdapter<String> spinnerArrayAdapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, elementos);
             //Asigno el adaptador al spinner
@@ -145,18 +145,18 @@ public class ficha_incidencia extends AppCompatActivity {
                 if (incidencia != null) {
 
                     TextView txtCodigo = findViewById(R.id.codigoIncidencia);
+                    EditText txtDescripcion = findViewById(R.id.descripcionIncidencia);
 
                     Spinner spinnerUsuario = findViewById(R.id.spinnerUsuarioCreacionFichaIncidencia);
                     Object usuarioSeleccionado = spinnerUsuario.getSelectedItem().toString();
 
-                    Spinner spinnerElemento = findViewById(R.id.spinnerIdElementoFichaIncidencia);
+                    Spinner spinnerElemento = findViewById(R.id.spinnerElementoFichaIncidencia);
                     Object elementoSeleccionado = spinnerElemento.getSelectedItem().toString();
 
                     TextView txtFechaCreacion = findViewById(R.id.editarFechaCreacionUsuarioIncidencia);
                     String fechaCreacion = txtFechaCreacion.getText().toString();
                     SimpleDateFormat formatterIni = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 
-                    EditText txtDescripcion = findViewById(R.id.descripcionIncidencia);
 
 
                     //PARA MODIFICAR LOS DATOS DE ALGUN ELEMENTO QUE YA EXISTE
@@ -228,8 +228,8 @@ public class ficha_incidencia extends AppCompatActivity {
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
-
                         }
+                        GestionIncidencias.getArIncidencias().remove(incidencia);
                         GestionIncidencias.getArIncidencias().add(GestionIncidencias.getArIncidencias().size(), incidencia);
                     } else if (incidencia.getCodigoIncidencia() == 0) {
 

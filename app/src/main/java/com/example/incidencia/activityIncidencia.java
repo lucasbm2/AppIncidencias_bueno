@@ -61,7 +61,7 @@ public class activityIncidencia extends menu3botones {
                 Intent intentAñadirIncidencia = new Intent(view.getContext(), ficha_incidencia.class);
 
                 intentAñadirIncidencia.putExtra("codigoIncidencia", 0);
-                intentAñadirIncidencia.putExtra("descripcion", "");
+                intentAñadirIncidencia.putExtra("descripcionIncidencia", "");
 
                 startActivity(intentAñadirIncidencia);
             }
