@@ -31,6 +31,7 @@ public class    AdaptadorUbicacion extends ArrayAdapter<EntUbicacion> {
         //OBTENEMOS LO QUE QUEREMOS MOSTRAR EN LA LISTA
         TextView txCodigoUbicacion = view.findViewById(R.id.codigoUbicacion);
         TextView txDescripcionUbicacion = view.findViewById(R.id.descripcionUbicacion);
+//        TextView txNombreSala = view.findViewById(R.id.nombreSala);
 
         //ASIGNAMOS LOS VALORES A MOSTRAR
         txCodigoUbicacion.setText(String.valueOf(ubicaciones[position].getCodigoUbicacion()));

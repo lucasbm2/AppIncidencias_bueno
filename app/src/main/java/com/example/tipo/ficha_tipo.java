@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -32,7 +33,7 @@ public class ficha_tipo extends AppCompatActivity {
         String nombreTipo = getIntent().getStringExtra("nombreTipo");
         String descripcionTipo = getIntent().getStringExtra("descripcionTipo");
 
-        if (codigoTipo != 0) {
+        if (codigoTipo > 0) {
             for (EntTipo t : GestionIncidencias.getArTipos()) {
                 if (t.getCodigoTipo() == codigoTipo) {
                     tipo = t;
@@ -82,15 +83,11 @@ public class ficha_tipo extends AppCompatActivity {
                         tipo.setDescripcion(txDescripcion.getText().toString());
                     }
                     //AÑADO NUEVO TIPO
-                    else if (tipo.getCodigoTipo() == 0 && txDescripcion.getText().toString().isEmpty()) {
-                        return;
-                    }
-                    //AÑADO NUEVO TIPO CON CÓDIGO Y DESCRIPCIÓN
-                    else if (tipo.getCodigoTipo() == 0) {
+                    else if (tipo.getCodigoTipo() == 0 && tipo.getDescripcion().isEmpty()) {
                         boolean encontrado = false;
 
                         for (EntTipo t : GestionIncidencias.getArTipos()) {
-                            if (t.getDescripcion().equals(txDescripcion.getText().toString())) {
+                            if (t.getNombre().equals(txNombre.getText().toString())) {
                                 encontrado = true;
                                 break;
                             }
@@ -107,14 +104,16 @@ public class ficha_tipo extends AppCompatActivity {
                             tipo.setCodigoTipo(siguienteCodigo);
                             tipo.setNombre(txNombre.getText().toString());
                             tipo.setDescripcion(txDescripcion.getText().toString());
-
-                            GestionIncidencias.getArTipos().add(tipo);
                         }
+                        GestionIncidencias.getArTipos().add(GestionIncidencias.getArTipos().size(), tipo);
                     }
 
-                    Intent intent = new Intent(ficha_tipo.this, activityTipo.class);
-                    startActivity(intent);
+                    Toast toast = Toast.makeText(getApplicationContext(), "Tipo guardado correctamente", Toast.LENGTH_SHORT);
+                    toast.show();
+
                 }
+                Intent intent = new Intent(ficha_tipo.this, activityTipo.class);
+                startActivity(intent);
             }
         });
 

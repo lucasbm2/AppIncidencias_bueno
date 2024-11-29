@@ -10,6 +10,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -173,7 +174,7 @@ public class    ficha_ubicacion extends AppCompatActivity {
                     SimpleDateFormat formatterFin = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 
                         //PARA MODIFICAR LOS DATOS DE ALGUN ELEMENTO QUE YA EXISTE
-                    if (ubicacion.getCodigoUbicacion() != 0) {
+                    if (ubicacion.getCodigoUbicacion() != 0)     {
                         ubicacion.setCodigoUbicacion(Integer.parseInt(txtCodigo.getText().toString()));
                         ubicacion.setDescripcion(txtDescripcion.getText().toString());
 
@@ -300,6 +301,10 @@ public class    ficha_ubicacion extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
+
+                    Toast toast = Toast.makeText(ficha_ubicacion.this, "Ubicacion Guardada", Toast.LENGTH_SHORT);
+                    toast.show();
+
                 }
                 Intent intent = new Intent(ficha_ubicacion.this, activityUbicacion.class);
                 startActivity(intent);

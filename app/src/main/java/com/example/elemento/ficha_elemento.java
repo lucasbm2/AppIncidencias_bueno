@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -163,6 +164,10 @@ public class ficha_elemento extends AppCompatActivity {
                         }
                     }
                 }
+
+                Toast toast = Toast.makeText(getApplicationContext(), "Elemento guardado correctamente", Toast.LENGTH_SHORT);
+                toast.show();
+
                 Intent intent = new Intent(ficha_elemento.this, activityElemento.class);
                 startActivity(intent);
             }

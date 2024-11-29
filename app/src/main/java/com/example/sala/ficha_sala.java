@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -116,6 +117,10 @@ public class ficha_sala extends AppCompatActivity {
                         sala.setDescripcion(txDescripcion.getText().toString());
                     }
                 }
+
+                Toast toast = Toast.makeText(getApplicationContext(), "Sala guardada correctamente", Toast.LENGTH_SHORT);
+                toast.show();
+
                 Intent intent = new Intent(ficha_sala.this, activitySalas.class);
                 startActivity(intent);
             }

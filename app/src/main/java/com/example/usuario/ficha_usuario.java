@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -155,6 +156,10 @@ public class ficha_usuario extends AppCompatActivity {
                         usuario.setRol(txRolUsuario.getText().toString());
                     }
                 }
+
+                Toast toast = Toast.makeText(ficha_usuario.this, "Usuario Guardado", Toast.LENGTH_SHORT);
+                toast.show();
+
                 Intent intent = new Intent(getBaseContext(), activityUsuario.class);
                 startActivity(intent);
             }

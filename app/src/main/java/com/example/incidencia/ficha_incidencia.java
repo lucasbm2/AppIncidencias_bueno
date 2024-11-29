@@ -11,6 +11,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -263,6 +264,10 @@ public class ficha_incidencia extends AppCompatActivity {
 
 
                 }
+
+                Toast toast = Toast.makeText(getApplicationContext(), "Incidencia guardada correctamente", Toast.LENGTH_SHORT);
+                toast.show();
+
                 Intent intentIncidencia = new Intent(   ficha_incidencia.this, activityIncidencia.class);
                 startActivity(intentIncidencia);
             }

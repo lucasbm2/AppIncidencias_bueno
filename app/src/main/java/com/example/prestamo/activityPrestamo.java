@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
@@ -15,12 +16,13 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.appincidencias.R;
 import com.example.incidencia.ficha_incidencia;
 import com.example.menu3botones;
+import com.example.ubicacion.ficha_ubicacion;
 
 import gestionincidencias.GestionIncidencias;
 import gestionincidencias.entidades.EntIncidencia;
 import gestionincidencias.entidades.EntPrestamo;
 
-public class activityPrestamo extends menu3botones {
+public class    activityPrestamo extends menu3botones {
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -59,15 +61,26 @@ public class activityPrestamo extends menu3botones {
                 //Y obtenemos el valor que queremos pasar con la variable salaSeleccionada y usando el get correspondiente
 
                 intentFichaPrestamo.putExtra("codigoPrestamo", prestamoSeleccionado.getCodigoPrestamo());
-                intentFichaPrestamo.putExtra("idUsuario", prestamoSeleccionado.getIdUsuario());
-                intentFichaPrestamo.putExtra("idElemento", prestamoSeleccionado.getIdElemento());
-                intentFichaPrestamo.putExtra("fechaInicio", prestamoSeleccionado.getFechaInicio());
-                intentFichaPrestamo.putExtra("fechaFin", String.valueOf(prestamoSeleccionado.getFechaFin()));
-                intentFichaPrestamo.putExtra("usuario", String.valueOf(prestamoSeleccionado.getUsuario()));
-                intentFichaPrestamo.putExtra("elemento", String.valueOf(prestamoSeleccionado.getElemento()));
+                intentFichaPrestamo.putExtra("nombreUsuarioPrestamo ", prestamoSeleccionado.getIdUsuario());
+                intentFichaPrestamo.putExtra("nombreElementoPrestamo", prestamoSeleccionado.getIdElemento());
                 //
                 //Lanzamos el intent
                 startActivity(intentFichaPrestamo);
+            }
+        });
+
+        //BOTON Y FUNCION PARA AÑADIR UNA NUEVA UBICACION
+        Button añadirPrestamo = findViewById(R.id.añadirPrestamo);
+        añadirPrestamo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentAñadirPrestamo = new Intent(view.getContext(), ficha_prestamo.class);
+
+                intentAñadirPrestamo.putExtra("codigoUbicacion", 0);
+                intentAñadirPrestamo.putExtra("nombreUsuarioPrestamo", "");
+                intentAñadirPrestamo.putExtra("nombreElementoPrestamo", "");
+
+                startActivity(intentAñadirPrestamo);
             }
         });
     }
