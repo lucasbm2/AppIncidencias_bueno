@@ -34,26 +34,18 @@ public class ficha_elemento extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ficha_elemento);
 
-        //Extraer los datos del bundle
         int codElemento = getIntent().getExtras().getInt("codigoElemento");
         String nombreElemento = getIntent().getExtras().getString("nombreElemento");
         String descripcionElemento = getIntent().getExtras().getString("descripcionElemento");
 
-        //PARA MODIFICAR UN ELEMENTO
         if (codElemento > 0) {
             for (EntElemento ele : GestionIncidencias.getArElementos()) {
-                //Recorro EntUbicacion y si coincide el codigo lo asigno a ubicacion
                 if (ele.getCodigoElemento() == codElemento) {
                     elemento = ele;
                 }
             }
-
-            //PARA AÑADIR UN NUEVO ELEMENTO
         } else if (codElemento == 0 && descripcionElemento.isEmpty()) {
-            // CREAR UNA NUEVA UBICACIÓN VACÍA SI EL CÓDIGO ES 0 Y LA DESCRIPCIÓN ESTÁ VACÍA
             elemento = new EntElemento(0, "", "", 0);
-
-            //POR SI EL ELEMENTO TIENE CODIGO 0 Y LA DESCRIPCION NO ESTA VACIA
         } else if (codElemento == 0) {
             for (EntElemento ele : GestionIncidencias.getArElementos()) {
                 if (ele.getCodigoElemento() == codElemento) {
@@ -70,8 +62,6 @@ public class ficha_elemento extends AppCompatActivity {
             TextView txDescripcionElemento = findViewById(R.id.descripcionElemento);
             txDescripcionElemento.setText(elemento.getDescripcion());
 
-            //PARA MOSTRAR SPINNER DE NOMBRES DE TIPO
-            //LISTA CODIGOS DE TIPO
             ArrayList<String> tipos = new ArrayList<>();
             for (EntTipo tipo : GestionIncidencias.getArTipos()) {
                 tipos.add(tipo.getNombre());
@@ -86,10 +76,8 @@ public class ficha_elemento extends AppCompatActivity {
             if (elemento != null && elemento.getTipoElemento() != null && elemento.getTipoElemento().getNombre() != null) {
                 spinnerTipo.setSelection(tipos.indexOf(elemento.getTipoElemento().getNombre()));
             }
-            //FIN SPINNER
-
         }
-        // Botón para volver a la lista de ELEMENTOS
+
         Button botonVolver = findViewById(R.id.botonSalir);
         botonVolver.setOnClickListener(view -> {
             Intent intent = new Intent(ficha_elemento.this, activityElemento.class);
@@ -108,8 +96,6 @@ public class ficha_elemento extends AppCompatActivity {
                     Spinner spinnerTipo = findViewById(R.id.spinnerNombreTipoElementoFichaElemento);
                     Object tipoSeleccionado = spinnerTipo.getSelectedItem().toString();
 
-
-                    //MODIFICO ELEMENTO
                     if (elemento.getCodigoElemento() != 0) {
                         elemento.setCodigoElemento(Integer.parseInt(txCodElemento.getText().toString()));
                         elemento.setNombre(txNombreElemento.getText().toString());
@@ -124,8 +110,8 @@ public class ficha_elemento extends AppCompatActivity {
                     } else if (elemento.getCodigoElemento() == 0 && elemento.getDescripcion().isEmpty()) {
                         boolean encontrado = false;
 
-                        for (EntTipo tipo : GestionIncidencias.getArTipos()) {
-                            if (tipo.getCodigoTipo() == elemento.getCodigoElemento()) {
+                        for (EntElemento elem : GestionIncidencias.getArElementos()) {
+                            if (elem.getCodigoElemento() == elemento.getCodigoElemento()) {
                                 encontrado = true;
                                 break;
                             }
@@ -133,9 +119,9 @@ public class ficha_elemento extends AppCompatActivity {
 
                         if (!encontrado) {
                             int siguienteCodigo = 1;
-                            for (EntTipo tipo : GestionIncidencias.getArTipos()) {
-                                if (tipo.getCodigoTipo() >= siguienteCodigo) {
-                                    siguienteCodigo = tipo.getCodigoTipo() + 1;
+                            for (EntElemento elem : GestionIncidencias.getArElementos()) {
+                                if (elem.getCodigoElemento() >= siguienteCodigo) {
+                                    siguienteCodigo = elem.getCodigoElemento() + 1;
                                 }
                             }
 
@@ -145,12 +131,12 @@ public class ficha_elemento extends AppCompatActivity {
 
                             for (EntTipo tipo : GestionIncidencias.getArTipos()) {
                                 if (tipo.getNombre().equals(tipoSeleccionado)) {
-                                    elemento.setCodigoElemento(tipo.getCodigoTipo());
+                                    elemento.setIdTipo(tipo.getCodigoTipo());
                                     elemento.setTipoElemento(tipo);
                                 }
                             }
                         }
-                        GestionIncidencias.getArElementos().add(GestionIncidencias.getArElementos().size(), elemento);
+                        GestionIncidencias.getArElementos().add(elemento);
                     } else if (elemento.getCodigoElemento() == 0) {
                         elemento.setCodigoElemento(Integer.parseInt(txCodElemento.getText().toString()));
                         elemento.setNombre(txNombreElemento.getText().toString());

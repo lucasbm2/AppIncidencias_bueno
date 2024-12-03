@@ -93,63 +93,8 @@ public class MenuPrincipal extends menu3botones implements View.OnClickListener 
         } else if (view.getId() == R.id.botonUbicacion) {
             Intent botonUbicacion = new Intent(MenuPrincipal.this, activityUbicacion.class);
             startActivity(botonUbicacion);
-        } else if (view.getId() == R.id.botonNotificacion) {
-            enviarNotificacion();
         }
     }
 
-    //NOTIFICACION
-    public void enviarNotificacion() {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "APP_CHANEL")
-                .setSmallIcon(android.R.drawable.stat_sys_warning)
-                .setContentTitle("PRUEBA NOTIFICACION")
-                .setContentText("Ejemplo de notificación")
-                .setPriority(NotificationCompat.PRIORITY_MAX);
-
-        Intent intentNotificacion = new Intent(this, activityUsuario.class);
-        intentNotificacion.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intentNotificacion,
-                PendingIntent.FLAG_IMMUTABLE);
-        builder.setContentIntent(pendingIntent);
-        builder.setAutoCancel(true);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) !=
-                PackageManager.PERMISSION_GRANTED) {
-// Si no tenemos permisos se los solicitamos al usuario.
-            verificarYPedirPermisosDeNotificaciones();
-            int idNotificacion = 0;
-            NotificationManagerCompat.from(this).notify(idNotificacion++, builder.build());
-
-        }
-    }
-    
-    private void verificarYPedirPermisosDeNotificaciones() {
-        int estadoDePermiso = ContextCompat.checkSelfPermission(MenuPrincipal.this,
-                Manifest.permission.POST_NOTIFICATIONS);
-        if (estadoDePermiso == PackageManager.PERMISSION_GRANTED) {
-// En caso de que haya dado permisos llamará al método de envio.
-            enviarNotificacion();
-        } else {
-// Si no, entonces pedimos permisos. La respuesta se recibirá en onRequestPermissionsResult
-            ActivityCompat.requestPermissions(MenuPrincipal.this,
-                    new String[]{Manifest.permission.POST_NOTIFICATIONS},1);
-        }
-    }
-
-    @SuppressLint("MissingSuperCall")
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[]
-            grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case 1:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-// Si se han concedido los privilegios se envía la notificación
-
-                    enviarNotificacion();
-                }
-                break;
-        }
-    }
 
 }

@@ -28,9 +28,13 @@ public class AdaptadorIncidencia extends ArrayAdapter<EntIncidencia> {
 
         TextView txCodigoIncidencia = vIncidencia.findViewById(R.id.codigoIncidencia);
         TextView txDescripcionIncidencia = vIncidencia.findViewById(R.id.descripcionIncidencia);
+        TextView txUsuarioIncidencia = vIncidencia.findViewById(R.id.usuarioCreacionIncidencia);
+        TextView txFechaIncidencia = vIncidencia.findViewById(R.id.fechaCreacionIncidencia);
 
-        txCodigoIncidencia.setText(String.valueOf(incidencias[position].getCodigoIncidencia()));
-        txDescripcionIncidencia.setText(incidencias[position].getDescripcion());
+        txCodigoIncidencia.setText("Codigo Incidencia: " + String.valueOf(incidencias[position].getCodigoIncidencia()));
+        txDescripcionIncidencia.setText("Descripcion: " + incidencias[position].getDescripcion());
+        txUsuarioIncidencia.setText("Usuario: " + incidencias[position].getUsuarioCreacion().getNombre());
+        txFechaIncidencia.setText("Fecha: " + new SimpleDateFormat("dd/MM/yyyy").format(incidencias[position].getFechaCreacion()));
 
         return vIncidencia;
     }

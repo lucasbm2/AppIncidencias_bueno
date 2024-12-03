@@ -332,6 +332,13 @@ public class    ficha_ubicacion extends AppCompatActivity {
         });
 
         TextView txtFechaFin = findViewById(R.id.editarFechaFinUbicacion);
+        if (ubicacion.getFechaFin() != null) {
+            txtFechaFin.setText(df.format(ubicacion.getFechaFin()));
+        } else {
+            ubicacion.setFechaFin(new Date());
+            txtFechaFin.setText(df.format(ubicacion.getFechaFin()));
+        }
+
         txtFechaFin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -340,11 +347,10 @@ public class    ficha_ubicacion extends AppCompatActivity {
                 DatePickerDialog dialogo = new DatePickerDialog(ficha_ubicacion.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int y, int m, int d) {
-                        TextView txtFechaFin = findViewById(R.id.editarFechaFinUbicacion);
-                        Date fechaFin = ubicacion.getFechaFin();
-                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-                        String[] fecha = formatter.format(fechaFin).split(" ");
-                        txtFechaFin.setText(y + "-" + (m + 1) + "-" + d + " " + fecha[1]);
+                        Calendar nuevaFecha = Calendar.getInstance();
+                        nuevaFecha.set(y, m, d);
+                        ubicacion.setFechaFin(nuevaFecha.getTime());
+                        txtFechaFin.setText(df.format(nuevaFecha.getTime()));
                     }
                 }, calen.get(Calendar.YEAR), calen.get(Calendar.MONTH), calen.get(Calendar.DAY_OF_MONTH));
                 dialogo.show();

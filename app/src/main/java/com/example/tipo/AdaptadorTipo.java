@@ -29,9 +29,9 @@
             TextView txNombre = vTipo.findViewById(R.id.nombreTipo);
             TextView txDescripcion = vTipo.findViewById(R.id.descripcionTipo);
 
-            txCodigo.setText(String.valueOf(tipos[position].getCodigoTipo()));
-            txNombre.setText(String.valueOf(tipos[position].getNombre()));
-            txDescripcion.setText(String.valueOf(tipos[position].getDescripcion()));
+            txCodigo.setText("Codigo Tipo: " + String.valueOf(tipos[position].getCodigoTipo()));
+            txNombre.setText("Nombre: " + String.valueOf(tipos[position].getNombre()));
+            txDescripcion.setText("Descripcion: " + String.valueOf(tipos[position].getDescripcion()));
 
             return vTipo;
 

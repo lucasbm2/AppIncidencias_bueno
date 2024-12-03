@@ -271,23 +271,34 @@ public class ficha_prestamo extends AppCompatActivity {
         });
 
         TextView txtFechaFin = findViewById(R.id.fechaFinPrestamo);
+
+        if (prestamo.getFechaFin() != null) {
+            txtFechaFin.setText(df.format(prestamo.getFechaFin()));
+        } else {
+            prestamo.setFechaFin(new Date());
+            txtFechaFin.setText(df.format(prestamo.getFechaFin()));
+        }
+
         txtFechaFin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Calendar calen = Calendar.getInstance();
                 calen.setTime(prestamo.getFechaFin());
+
                 DatePickerDialog dialogo = new DatePickerDialog(ficha_prestamo.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int y, int m, int d) {
-                        TextView txtFechaFin = findViewById(R.id.fechaFinPrestamo);
-                        Date fechaFin = prestamo.getFechaFin();
-                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-                        String[] fecha = formatter.format(fechaFin).split(" ");
-                        txtFechaFin.setText(y + "-" + (m + 1) + "-" + d + " " + fecha[1]);
+                        Calendar nuevaFecha = Calendar.getInstance();
+                        nuevaFecha.set(y, m, d);
+                        prestamo.setFechaFin(nuevaFecha.getTime());
+                        txtFechaFin.setText(df.format(nuevaFecha.getTime()));
                     }
                 }, calen.get(Calendar.YEAR), calen.get(Calendar.MONTH), calen.get(Calendar.DAY_OF_MONTH));
+
                 dialogo.show();
             }
         });
+
+
     }
 }

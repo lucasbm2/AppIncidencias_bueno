@@ -277,22 +277,23 @@ public class ficha_incidencia extends AppCompatActivity {
         txFechaCreacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Calendar calen = Calendar.getInstance();
                 calen.setTime(incidencia.getFechaCreacion());
+
                 DatePickerDialog dialogo = new DatePickerDialog(ficha_incidencia.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int y, int m, int d) {
-                        TextView fechaCreacion = findViewById(R.id.editarFechaInicioUbicacion);
-                        Date fechaCrearUsuario = incidencia.getFechaCreacion();
-                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-                        String[] fecha = formatter.format(fechaCrearUsuario).split(" ");
-                        txFechaCreacion.setText(y + "-" + (m + 1) + "-" + d + " " + fecha[1]);
+                        Calendar nuevaFecha = Calendar.getInstance();
+                        nuevaFecha.set(y, m, d);
+                        incidencia.setFechaCreacion(nuevaFecha.getTime());
+                        txFechaCreacion.setText(df.format(nuevaFecha.getTime()));
                     }
                 }, calen.get(Calendar.YEAR), calen.get(Calendar.MONTH), calen.get(Calendar.DAY_OF_MONTH));
+
                 dialogo.show();
             }
         });
+
 
     }
 }

@@ -9,6 +9,10 @@
 
     import com.example.appincidencias.R;
 
+    import org.w3c.dom.Text;
+
+    import java.text.SimpleDateFormat;
+
     import gestionincidencias.entidades.EntIncidencia;
     import gestionincidencias.entidades.EntPrestamo;
 
@@ -28,13 +32,12 @@
             TextView txCodigoPrestamo = vPrestamo.findViewById(R.id.codigoPrestamo);
             TextView txIdUsuario = vPrestamo.findViewById(R.id.nombreUsuarioPrestamo);
             TextView txFechaInicio = vPrestamo.findViewById(R.id.fechaInicioPrestamo);
-            TextView txFechaFin = vPrestamo.findViewById(R.id.fechaFinPrestamo);
+            TextView txNombreUsuario = vPrestamo.findViewById(R.id.nombreUsuarioPrestamo);
 
-            txCodigoPrestamo.setText(String.valueOf(prestamos[position].getCodigoPrestamo()));
-            txIdUsuario.setText(String.valueOf(prestamos[position].getIdUsuario()));
-            txIdUsuario.setText(String.valueOf(prestamos[position].getIdUsuario()));
-            txFechaInicio.setText(String.valueOf(prestamos[position].getFechaInicio()));
-            txFechaFin.setText(String.valueOf(prestamos[position].getFechaFin()));
+            txCodigoPrestamo.setText("Codigo Prestamo: " + String.valueOf(prestamos[position].getCodigoPrestamo()));
+            txIdUsuario.setText("ID: " + String.valueOf(prestamos[position].getIdUsuario()));
+            txNombreUsuario.setText("Nombre: " + prestamos[position].getUsuario().getNombre());
+            txFechaInicio.setText("Fecha Inicio: " + new SimpleDateFormat("dd/MM/yyyy").format(prestamos[position].getFechaInicio()));
 
             return vPrestamo;
 

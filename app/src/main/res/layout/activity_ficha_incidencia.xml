@@ -120,7 +120,7 @@
         <EditText
             android:id="@+id/descripcionIncidencia"
             android:layout_width="170dp"
-            android:layout_height="48dp"
+            android:layout_height="105dp"
             android:layout_gravity="center"
             android:layout_marginBottom="4dp"
             android:background="@drawable/borde_textview"

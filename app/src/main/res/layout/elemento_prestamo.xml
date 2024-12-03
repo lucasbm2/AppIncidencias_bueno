@@ -18,22 +18,10 @@
 
 
     <TextView
-        android:id="@+id/nombreElementoPrestamo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Nombre del usuario" />
-
-
-    <TextView
         android:id="@+id/fechaInicioPrestamo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Fecha de inicio" />
 
-    <TextView
-        android:id="@+id/fechaFinPrestamo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Fecha de fin" />
 
 </LinearLayout>

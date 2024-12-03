@@ -30,9 +30,9 @@ public class AdaptadorUsuario extends ArrayAdapter<EntUsuario> { //CAMBIAR AL TI
         TextView txRol = view.findViewById(R.id.rolUsuario);//ELEMENTOS DEL USUARIO
 
 
-        txCodigoUsuario.setText(String.valueOf(datos[position].getCodigoUsuario()));
-        txNombre.setText(String.valueOf(datos[position].getNombre()));
-        txRol.setText(String.valueOf(datos[position].getRol()));
+        txCodigoUsuario.setText("Codigo Usuario: " + String.valueOf(datos[position].getCodigoUsuario()));
+        txNombre.setText("Nombre: " + String.valueOf(datos[position].getNombre()));
+        txRol.setText("Rol: " + String.valueOf(datos[position].getRol()));
 
         return view;
 
