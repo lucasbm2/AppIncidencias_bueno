@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appincidencias.R;
+import com.example.elemento.activityElemento;
 import com.example.ubicacion.activityUbicacion;
 import com.example.ubicacion.ficha_ubicacion;
 
@@ -294,6 +295,21 @@ public class ficha_incidencia extends AppCompatActivity {
             }
         });
 
+        Button botonEliminar = findViewById(R.id.botonEliminar);
+        botonEliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!incidencia.getDescripcion().isEmpty()) {
+
+                    Intent eliminar = new Intent(view.getContext(), activityIncidencia.class);
+                    Toast.makeText(view.getContext(), "Elemento eliminado correctamente", Toast.LENGTH_SHORT).show();
+                    GestionIncidencias.getArIncidencias().remove(incidencia);
+                    startActivity(eliminar);
+                } else {
+                    Toast.makeText(view.getContext(), "No se puede eliminar una incidencia sin descripcion", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
     }
 }

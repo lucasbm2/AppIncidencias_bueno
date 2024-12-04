@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appincidencias.R;
+import com.example.prestamo.activityPrestamo;
 
 import gestionincidencias.GestionIncidencias;
 import gestionincidencias.entidades.EntSala;
@@ -123,6 +124,23 @@ public class ficha_sala extends AppCompatActivity {
 
                 Intent intent = new Intent(ficha_sala.this, activitySalas.class);
                 startActivity(intent);
+            }
+        });
+
+
+        Button botonEliminar = findViewById(R.id.botonEliminar);
+        botonEliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!sala.getNombre().isEmpty()) {
+
+                    Intent eliminar = new Intent(view.getContext(), activitySalas.class);
+                    Toast.makeText(view.getContext(), "Sala eliminada correctamente", Toast.LENGTH_SHORT).show();
+                    GestionIncidencias.getArSalas().remove(sala);
+                    startActivity(eliminar);
+                } else {
+                    Toast.makeText(view.getContext(), "No se puede eliminar la sala", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

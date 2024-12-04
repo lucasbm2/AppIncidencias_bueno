@@ -151,11 +151,29 @@ public class ficha_elemento extends AppCompatActivity {
                     }
                 }
 
+
+
                 Toast toast = Toast.makeText(getApplicationContext(), "Elemento guardado correctamente", Toast.LENGTH_SHORT);
                 toast.show();
 
                 Intent intent = new Intent(ficha_elemento.this, activityElemento.class);
                 startActivity(intent);
+            }
+        });
+
+        Button botonEliminar = findViewById(R.id.botonEliminar);
+        botonEliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!elemento.getNombre().isEmpty()) {
+
+                    Intent eliminar = new Intent(view.getContext(), activityElemento.class);
+                    Toast.makeText(view.getContext(), "Elemento eliminado correctamente", Toast.LENGTH_SHORT).show();
+                    GestionIncidencias.getArElementos().remove(elemento);
+                    startActivity(eliminar);
+                } else {
+                    Toast.makeText(view.getContext(), "No se puede eliminar un elemento sin nombre", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

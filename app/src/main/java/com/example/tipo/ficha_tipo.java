@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appincidencias.R;
+import com.example.elemento.activityElemento;
 import com.example.ubicacion.activityUbicacion;
 import com.example.ubicacion.ficha_ubicacion;
 
@@ -114,6 +115,22 @@ public class ficha_tipo extends AppCompatActivity {
                 }
                 Intent intent = new Intent(ficha_tipo.this, activityTipo.class);
                 startActivity(intent);
+            }
+        });
+
+        Button botonEliminar = findViewById(R.id.botonEliminar);
+        botonEliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!tipo.getNombre().isEmpty()) {
+
+                    Intent eliminar = new Intent(view.getContext(), activityTipo.class);
+                    Toast.makeText(view.getContext(), "Tipo eliminado correctamente", Toast.LENGTH_SHORT).show();
+                    GestionIncidencias.getArTipos().remove(tipo);
+                    startActivity(eliminar);
+                } else {
+                    Toast.makeText(view.getContext(), "No se puede eliminar un tipo sin nombre", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

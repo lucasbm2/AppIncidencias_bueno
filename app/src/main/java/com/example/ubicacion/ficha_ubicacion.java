@@ -15,6 +15,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appincidencias.R;
+import com.example.elemento.activityElemento;
+import com.example.tipo.activityTipo;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -354,6 +356,22 @@ public class    ficha_ubicacion extends AppCompatActivity {
                     }
                 }, calen.get(Calendar.YEAR), calen.get(Calendar.MONTH), calen.get(Calendar.DAY_OF_MONTH));
                 dialogo.show();
+            }
+        });
+
+        Button botonEliminar = findViewById(R.id.botonEliminar);
+        botonEliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!ubicacion.getDescripcion().isEmpty()) {
+
+                    Intent eliminar = new Intent(view.getContext(), activityUbicacion.class);
+                    Toast.makeText(view.getContext(), "Ubicación eliminada correctamente", Toast.LENGTH_SHORT).show();
+                    GestionIncidencias.getArUbicaciones().remove(ubicacion);
+                    startActivity(eliminar);
+                } else {
+                    Toast.makeText(view.getContext(), "No se puede eliminar la ubicación", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
