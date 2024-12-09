@@ -33,11 +33,15 @@ public class activitySalas extends menu3botones {
             return insets;
         });
 
+        //BUSCAMOS LA LISTVIEW DE SALAS
         ListView listaSalas = (ListView) findViewById(R.id.listaSalas);
+        //CREAMOS UN ADAPTADOR PARA LA LISTA DE SALAS
         AdaptadorSala adaptadorSala = new AdaptadorSala(this, GestionIncidencias.getArSalas().toArray(new EntSala[0]));
 
+        //ESTABLECEMOS ADAPTADOR A LA LISTA
         listaSalas.setAdapter(adaptadorSala);
 
+        //OYENTE PARA QUE CUANDO HAGAMOS CLICK SE ABRA LA FICHA SELECCIONADA
         listaSalas.setOnItemClickListener((adapterView, view, position, id) -> {
             EntSala salaSeleccionada = (EntSala) adapterView.getItemAtPosition(position);
 
@@ -50,6 +54,7 @@ public class activitySalas extends menu3botones {
             startActivity(intentFichaSala);
         });
 
+        //BOTONM Y FUNCION PARA AÑADIR UNA NUEVA SALA
         Button añadirSala = findViewById(R.id.añadirSala);
         añadirSala.setOnClickListener(new View.OnClickListener() {
             @Override
