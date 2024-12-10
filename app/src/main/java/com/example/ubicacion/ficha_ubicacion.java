@@ -161,8 +161,8 @@ public class    ficha_ubicacion extends AppCompatActivity {
                     TextView txtCodigo = findViewById(R.id.codigoUbicacionFicha);
                     EditText txtDescripcion = findViewById(R.id.descripcionUbicacion);
 
-                    Spinner spinnerSala = findViewById(R.id.spinnerIdSalaFichaUbicacion);
-                    Object salaSeleccionada = spinnerSala.getSelectedItem().toString();
+                        Spinner spinnerSala = findViewById(R.id.spinnerIdSalaFichaUbicacion);
+                        Object salaSeleccionada = spinnerSala.getSelectedItem().toString();
 
                     Spinner spinnerElemento = findViewById(R.id.spinnerElementoFichaUbicacion);
                     Object elementoSeleccionado = spinnerElemento.getSelectedItem().toString();

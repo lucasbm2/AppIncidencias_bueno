@@ -44,7 +44,10 @@
             android:exported="false" />
         <activity
             android:name="com.example.ubicacion.activityUbicacion"
-            android:exported="false"></activity>
+            android:exported="false"/>
+
+        <activity android:name="com.example.rol.activityRoles"
+            android:exported="false"/>
 
         <activity
             android:name="com.example.sala.ficha_sala"
@@ -72,6 +75,10 @@
 
         <activity
             android:name="com.example.usuario.ficha_usuario"
+            android:exported="false" />
+
+        <activity
+            android:name="com.example.rol.ficha_rol"
             android:exported="false" />
     </application>
 

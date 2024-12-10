@@ -20,6 +20,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.appincidencias.R;
+import com.example.rol.activityRoles;
 import com.example.sala.activitySalas;
 import com.example.elemento.activityElemento;
 import com.example.incidencia.activityIncidencia;
@@ -64,6 +65,10 @@ public class MenuPrincipal extends menu3botones implements View.OnClickListener 
 
         Button botonUbicacion = findViewById(R.id.botonUbicacion);
         botonUbicacion.setOnClickListener((View.OnClickListener) this);
+
+        Button botonRoles = findViewById(R.id.botonRoles);
+        botonRoles.setOnClickListener((View.OnClickListener) this);
+
     }
 
     //Con el metodo sobreescrito onClick, el cual nos obliga a implementar la interface
@@ -93,6 +98,9 @@ public class MenuPrincipal extends menu3botones implements View.OnClickListener 
         } else if (view.getId() == R.id.botonUbicacion) {
             Intent botonUbicacion = new Intent(MenuPrincipal.this, activityUbicacion.class);
             startActivity(botonUbicacion);
+        } else if (view.getId() == R.id.botonRoles) {
+            Intent botonRoles = new Intent(MenuPrincipal.this, activityRoles.class);
+            startActivity(botonRoles);
         }
     }
 

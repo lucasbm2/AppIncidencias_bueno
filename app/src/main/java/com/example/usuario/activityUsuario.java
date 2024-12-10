@@ -55,7 +55,7 @@ public class activityUsuario extends menu3botones {
 
             intentFichaUsuario.putExtra("codigoUsuario", usuarioSeleccionado.getCodigoUsuario());
             intentFichaUsuario.putExtra("nombreUsuario", usuarioSeleccionado.getNombre());
-            intentFichaUsuario.putExtra("rolUsuario", usuarioSeleccionado.getRol());
+            intentFichaUsuario.putExtra("rolUsuario", usuarioSeleccionado.getEntRol().getNombre());
             //
             //Lanzamos el inten t
             startActivity(intentFichaUsuario);

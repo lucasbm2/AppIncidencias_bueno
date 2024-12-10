@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/codigoRol"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Código de Rol" />
+
+    <TextView
+        android:id="@+id/nombreRol"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nombre de Rol" />
+
+    <TextView
+        android:id="@+id/descripcionRol"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Descripción de Rol" />
+
+    <TextView
+        android:id="@+id/nivelAccesoRol"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nivel de acceso" />
+</LinearLayout>

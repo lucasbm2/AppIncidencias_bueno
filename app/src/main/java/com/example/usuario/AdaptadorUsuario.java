@@ -32,7 +32,7 @@ public class AdaptadorUsuario extends ArrayAdapter<EntUsuario> { //CAMBIAR AL TI
 
         txCodigoUsuario.setText("Codigo Usuario: " + String.valueOf(datos[position].getCodigoUsuario()));
         txNombre.setText("Nombre: " + String.valueOf(datos[position].getNombre()));
-        txRol.setText("Rol: " + String.valueOf(datos[position].getRol()));
+        txRol.setText("Rol: " + String.valueOf(datos[position].getEntRol().getNombre()));
 
         return view;
 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:divider="@android:drawable/divider_horizontal_bright"
@@ -9,11 +8,13 @@
     android:padding="16dp"
     android:showDividers="middle">
 
+
     <TextView
+        android:id="@+id/titulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="16dp"
-        android:text="Detalles de Usuario"
+        android:text="Detalles de Rol"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display3"
         android:textColor="#050505"
@@ -22,7 +23,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="603dp"
+        android:layout_height="606dp"
         android:background="#A42424"
         android:orientation="vertical">
 
@@ -30,125 +31,80 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="4dp"
-            android:text="Codigo usuario:"
+            android:layout_marginBottom="16dp"
+            android:text="Código de Rol:"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/codigoUsuario"
+            android:id="@+id/codigoRol"
             android:layout_width="169dp"
             android:layout_height="48dp"
             android:layout_gravity="center"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/borde_textview"
             android:gravity="center"
             android:paddingBottom="8dp"
-            android:text="Campo de codigo" />
+            android:text="Campo de codigo rol"/>
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="4dp"
-            android:text="Nombre:"
+            android:layout_marginBottom="16dp"
+            android:text="Nombre de Rol:"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/nombreUsuario"
-            android:layout_width="170dp"
+            android:id="@+id/nombreRol"
+            android:layout_width="162dp"
             android:layout_height="48dp"
             android:layout_gravity="center"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/borde_textview"
-            android:inputType="text"
-            android:padding="8dp"
-            android:text="Campo de nombre" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="4dp"
-            android:text="Correo:"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/correoUsuario"
-            android:layout_width="170dp"
-            android:layout_height="48dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="4dp"
-            android:background="@drawable/borde_textview"
-            android:inputType="text"
-            android:padding="8dp"
-            android:text="Campo de correo" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="4dp"
             android:paddingBottom="8dp"
-            android:text="Telefono:"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textStyle="bold" />
-
-
-        <EditText
-            android:id="@+id/telefonoUsuario"
-            android:layout_width="170dp"
-            android:layout_height="48dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="4dp"
-            android:background="@drawable/borde_textview"
-            android:inputType="text"
-            android:padding="8dp"
-            android:text="Campo de telefono " />
+            android:text="Campo de nombre rol"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="4dp"
-            android:text="Contraseña:"
+            android:layout_marginBottom="16dp"
+            android:text="Descripción:"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/passwordUsuario"
+            android:id="@+id/descripcionRol"
             android:layout_width="170dp"
-            android:layout_height="48dp"
+            android:layout_height="105dp"
             android:layout_gravity="center"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/borde_textview"
-            android:inputType="text"
-            android:padding="8dp"
-            android:text="Campo de Contraseña" />
+            android:paddingBottom="8dp"
+            android:text="Campo de descripcion"/>
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="4dp"
-            android:text="Rol:"
+            android:layout_marginBottom="16dp"
+            android:text="Nivel de acceso:"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textStyle="bold" />
 
-        <Spinner
-            android:id="@+id/spinnerRolFichaUsuario"
-            android:layout_width="170dp"
+        <EditText
+            android:id="@+id/nivelAccesoRol"
+            android:layout_width="162dp"
             android:layout_height="48dp"
             android:layout_gravity="center"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/borde_textview"
-            android:inputType="text"
-            android:padding="8dp"
-            android:text="Campo de Rol" />
+            android:paddingBottom="8dp"
+            android:text="Campo de nivel acceso rol"/>
 
         <Space
             android:layout_width="0dp"
