@@ -33,6 +33,8 @@ public class activitySalas extends menu3botones {
             return insets;
         });
 
+        guardaActividad(getSharedPreferences("datos", MODE_PRIVATE), activitySalas.class.toString());
+
         //BUSCAMOS LA LISTVIEW DE SALAS
         ListView listaSalas = (ListView) findViewById(R.id.listaSalas);
         //CREAMOS UN ADAPTADOR PARA LA LISTA DE SALAS

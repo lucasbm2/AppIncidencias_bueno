@@ -25,6 +25,9 @@
         android:id="@+id/itemMenuUsuarios"
         android:title="Usuarios" />
     <item
+        android:id="@+id/itemMenuRoles"
+        android:title="Roles" />
+    <item
         android:id="@+id/itemMenuAtras"
         android:title="Atrás" />
 </menu>

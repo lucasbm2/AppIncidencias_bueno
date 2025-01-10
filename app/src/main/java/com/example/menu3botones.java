@@ -1,6 +1,7 @@
 package com.example;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appincidencias.R;
+import com.example.rol.activityRoles;
 import com.example.sala.activitySalas;
 import com.example.tipo.activityTipo;
 import com.example.elemento.activityElemento;
@@ -64,12 +66,30 @@ public class menu3botones extends AppCompatActivity {
             Intent intentUbicaciones = new Intent(this, activityUbicacion.class);
             startActivity(intentUbicaciones);
             return true;
-        } else if (item.getItemId() == R.id.itemMenuAtras) {
+        }
+        else if (item.getItemId() == R.id.itemMenuRoles) {
+            Intent intentRoles = new Intent(this, activityRoles.class);
+            startActivity(intentRoles);
+            return true;
+        }
+        else if (item.getItemId() == R.id.itemMenuAtras) {
             finish();
             return true;
         }
         else {
             return super.onOptionsItemSelected(item);
         }
+    }
+
+    //PARA GUARDAR LA ULTIMA ACTIVIDAD QUE HE USADO EN UNA VARIABLE
+    public void guardaActividad(SharedPreferences prefs, String valor) {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("ultimaActividad", valor);
+        editor.commit();
+    }
+
+    public String getUltimaActividad(SharedPreferences prefs) {
+        return prefs.getString("ultimaActividad", "");
+
     }
 }

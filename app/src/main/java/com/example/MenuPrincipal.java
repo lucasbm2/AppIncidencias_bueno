@@ -4,7 +4,9 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +22,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.appincidencias.R;
+import com.example.database.BBDDIncidencias;
 import com.example.rol.activityRoles;
 import com.example.sala.activitySalas;
 import com.example.elemento.activityElemento;
@@ -28,6 +31,8 @@ import com.example.prestamo.activityPrestamo;
 import com.example.tipo.activityTipo;
 import com.example.ubicacion.activityUbicacion;
 import com.example.usuario.activityUsuario;
+
+import gestionincidencias.GestionIncidencias;
 
 public class MenuPrincipal extends menu3botones implements View.OnClickListener {
     private ActivityResultLauncher<Intent> launcher;
@@ -39,9 +44,23 @@ public class MenuPrincipal extends menu3botones implements View.OnClickListener 
         setContentView(R.layout.activity_menu_principal);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+
+
+            String ultima = getUltimaActividad(getSharedPreferences("datos", MODE_PRIVATE));
+
+            if (ultima != null && !ultima.isEmpty()) {
+                if (ultima.equals(activitySalas.class.toString())) {
+                    Intent intentSala = new Intent(this, activitySalas.class);
+                    startActivity(intentSala);
+                }
+                guardaActividad(getSharedPreferences("datos", MODE_PRIVATE), "");
+            }
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+
+
 
         //Creamos una variable para cada boton, asociando cada uno con su id
         Button botonUsuarios = findViewById(R.id.botonUsuarios);
@@ -69,6 +88,9 @@ public class MenuPrincipal extends menu3botones implements View.OnClickListener 
         Button botonRoles = findViewById(R.id.botonRoles);
         botonRoles.setOnClickListener((View.OnClickListener) this);
 
+        //PARA CREAR BASE DE DATOS
+        BBDDIncidencias bbdd = new BBDDIncidencias(this, "BBDDIncidencias", null, 1);
+        SQLiteDatabase bd = bbdd.getWritableDatabase();
     }
 
     //Con el metodo sobreescrito onClick, el cual nos obliga a implementar la interface
@@ -103,6 +125,7 @@ public class MenuPrincipal extends menu3botones implements View.OnClickListener 
             startActivity(botonRoles);
         }
     }
+
 
 
 }
