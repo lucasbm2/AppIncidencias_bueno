@@ -42,6 +42,16 @@ public class BBDDIncidencias extends SQLiteOpenHelper {
     private static final String CREAR_TABLA_USUARIO = "CREATE TABLE usuario  " +
             "(codigoUsuario INTEGER PRIMARY KEY AUTOINCREMENT, nombreUsuario TEXT, correoUsuario TEXT, telefonoUsuario TEXT, passwordUsuario TEXT, codigoRol INTEGER)";
 
+    //SENTENCIAS DE SQL PARA BORRAR Y CREAR TABLA DE ROL GUARDADAS EN VARIABLES
+    private static final String BORRAR_TABLA_ROL = "DROP TABLE rol";
+    private static final String CREAR_TABLA_ROL = "CREATE TABLE rol  " +
+            "(codigoRol INTEGER PRIMARY KEY AUTOINCREMENT, nombreRol TEXT, descripcionRol TEXT, nivelAccesoRol TEXT)";
+
+    //SENTENCIAS DE SQL PARA BORRAR Y CREAR TABLA DE INCIDENCIA GUARDADAS EN VARIABLES
+    private static final String BORRAR_TABLA_INCIDENCIA = "DROP TABLE incidencia";
+    private static final String CREAR_TABLA_INCIDENCIA = "CREATE TABLE incidencia  " +
+            "(codigoIncidencia INTEGER PRIMARY KEY AUTOINCREMENT, codigoUsuario INTEGER, codigoElemento INTEGER, descripcionIncidencia TEXT, fechaCreacion TEXT)";
+
     //AL EJECUTAR SQLITE SE CREA LA TABLA TIPO
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
@@ -51,6 +61,8 @@ public class BBDDIncidencias extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(CREAR_TABLA_SALA);
         sqLiteDatabase.execSQL(CREAR_TABLA_PRESTAMO);
         sqLiteDatabase.execSQL(CREAR_TABLA_USUARIO);
+        sqLiteDatabase.execSQL(CREAR_TABLA_ROL);
+        sqLiteDatabase.execSQL(CREAR_TABLA_INCIDENCIA);
     }
 
     //AL EJECUTAR SQLITE SE BORRA LA TABLA TIPO Y SE CREA NUEVAMENTE
@@ -62,6 +74,8 @@ public class BBDDIncidencias extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(BORRAR_TABLA_SALA);
         sqLiteDatabase.execSQL(BORRAR_TABLA_PRESTAMO);
         sqLiteDatabase.execSQL(BORRAR_TABLA_USUARIO);
+        sqLiteDatabase.execSQL(BORRAR_TABLA_ROL);
+        sqLiteDatabase.execSQL(BORRAR_TABLA_INCIDENCIA);
         onCreate(sqLiteDatabase);
     }
 
