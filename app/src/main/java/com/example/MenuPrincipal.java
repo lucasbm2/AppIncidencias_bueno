@@ -1,11 +1,6 @@
 package com.example;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.PendingIntent;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -13,10 +8,6 @@ import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -24,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.appincidencias.R;
 import com.example.database.BBDDIncidencias;
 import com.example.rol.activityRoles;
+import com.example.sala.SalaDatabaseHelper;
 import com.example.sala.activitySalas;
 import com.example.elemento.activityElemento;
 import com.example.incidencia.activityIncidencia;
@@ -32,7 +24,10 @@ import com.example.tipo.activityTipo;
 import com.example.ubicacion.activityUbicacion;
 import com.example.usuario.activityUsuario;
 
+import java.util.ArrayList;
+
 import gestionincidencias.GestionIncidencias;
+import gestionincidencias.entidades.EntSala;
 
 public class MenuPrincipal extends menu3botones implements View.OnClickListener {
     private ActivityResultLauncher<Intent> launcher;
@@ -89,8 +84,23 @@ public class MenuPrincipal extends menu3botones implements View.OnClickListener 
         botonRoles.setOnClickListener((View.OnClickListener) this);
 
         //PARA CREAR BASE DE DATOS
-        BBDDIncidencias bbdd = new BBDDIncidencias(this, "BBDDIncidencias", null, 1);
-        SQLiteDatabase bd = bbdd.getWritableDatabase();
+//        BBDDIncidencias bbdd = new BBDDIncidencias(this, "BBDDIncidencias", null, 1);
+//        SQLiteDatabase db = bbdd.getWritableDatabase();
+//        //Para que actualice la base de datos al abrirlo
+//        bbdd.onUpgrade(db,0,0);
+        cargaDatosBBDD();
+    }
+
+    private void cargaDatosBBDD() {
+        //Gestionamos la base de datos
+        SalaDatabaseHelper sdh = new SalaDatabaseHelper(this, "BBDDIncidencias", null, 1);
+        ArrayList<EntSala> arSalas = sdh.getSalas();
+        if (arSalas == null || arSalas.isEmpty()) {
+            arSalas = GestionIncidencias.getArSalas();
+            for (EntSala sala : arSalas) {
+                sdh.crearSala(sala);
+            }
+        }
     }
 
     //Con el metodo sobreescrito onClick, el cual nos obliga a implementar la interface
