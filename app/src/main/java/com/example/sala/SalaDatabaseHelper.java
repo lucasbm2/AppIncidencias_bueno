@@ -23,10 +23,11 @@ public class SalaDatabaseHelper extends BBDDIncidencias {
         SQLiteDatabase db = this.getWritableDatabase();
         long salaId = -1;
 
-        if (sala.getCodigoSala() < 0) {
+//        if (sala.getCodigoSala() < 0) {
             db.beginTransaction();
             try {
                 ContentValues values = new ContentValues();
+                values.put(KEY_COL_CODIGOSALA, sala.getCodigoSala());
                 values.put(KEY_COL_NOMBRESALA, sala.getNombre());
                 values.put(KEY_COL_DESCRIPCIONSALA, sala.getDescripcion());
 
@@ -38,7 +39,7 @@ public class SalaDatabaseHelper extends BBDDIncidencias {
             } finally {
                 db.endTransaction();
             }
-        }
+//        }
         return salaId;
     }
 
