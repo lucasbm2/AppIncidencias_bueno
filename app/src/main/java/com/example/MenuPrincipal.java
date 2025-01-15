@@ -20,6 +20,7 @@ import com.example.sala.activitySalas;
 import com.example.elemento.activityElemento;
 import com.example.incidencia.activityIncidencia;
 import com.example.prestamo.activityPrestamo;
+import com.example.tipo.TipoDatabaseHelper;
 import com.example.tipo.activityTipo;
 import com.example.ubicacion.activityUbicacion;
 import com.example.usuario.activityUsuario;
@@ -28,6 +29,7 @@ import java.util.ArrayList;
 
 import gestionincidencias.GestionIncidencias;
 import gestionincidencias.entidades.EntSala;
+import gestionincidencias.entidades.EntTipo;
 
 public class MenuPrincipal extends menu3botones implements View.OnClickListener {
     private ActivityResultLauncher<Intent> launcher;
@@ -99,6 +101,14 @@ public class MenuPrincipal extends menu3botones implements View.OnClickListener 
             arSalas = GestionIncidencias.getArSalas();
             for (EntSala sala : arSalas) {
                 sdh.crearSala(sala);
+            }
+        }
+        TipoDatabaseHelper tdh = new TipoDatabaseHelper(this, "BBDDIncidencias", null, 1);
+        ArrayList<EntTipo> arTipos = tdh.getTipos();
+        if (arTipos == null || arTipos.isEmpty()) {
+            arTipos = GestionIncidencias.getArTipos();
+            for (EntTipo tipo : arTipos) {
+                tdh.crearTipo(tipo);
             }
         }
     }

@@ -23,23 +23,25 @@ public class SalaDatabaseHelper extends BBDDIncidencias {
         SQLiteDatabase db = this.getWritableDatabase();
         long salaId = -1;
 
-//        if (sala.getCodigoSala() < 0) {
-            db.beginTransaction();
-            try {
-                ContentValues values = new ContentValues();
-                values.put(KEY_COL_CODIGOSALA, sala.getCodigoSala());
-                values.put(KEY_COL_NOMBRESALA, sala.getNombre());
-                values.put(KEY_COL_DESCRIPCIONSALA, sala.getDescripcion());
 
-                //si no existe y no se puede actualizar entonces lo creamos
-                salaId = db.insertOrThrow(TABLE_SALA, null, values);
-                db.setTransactionSuccessful();
-            } catch (Exception e) {
-                Log.d(SalaDatabaseHelper.class.getName(), "Error al anadir sala");
-            } finally {
-                db.endTransaction();
+        db.beginTransaction();
+        try {
+            ContentValues values = new ContentValues();
+            if (sala.getCodigoSala() >0) {
+                values.put(KEY_COL_CODIGOSALA, sala.getCodigoSala());
             }
-//        }
+            values.put(KEY_COL_NOMBRESALA, sala.getNombre());
+            values.put(KEY_COL_DESCRIPCIONSALA, sala.getDescripcion());
+
+            //si no existe y no se puede actualizar entonces lo creamos
+            salaId = db.insertOrThrow(TABLE_SALA, null, values);
+            db.setTransactionSuccessful();
+            
+        } catch (Exception e) {
+            Log.d(SalaDatabaseHelper.class.getName(), "Error al anadir sala");
+        } finally {
+            db.endTransaction();
+        }
         return salaId;
     }
 

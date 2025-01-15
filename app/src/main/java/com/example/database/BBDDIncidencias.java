@@ -40,6 +40,9 @@ public class BBDDIncidencias extends SQLiteOpenHelper {
 
     //Columnas de la tabla prestamo
     public static final String KEY_COL_CODIGO_PRESTAMO = "codigoPrestamo";
+    public static final String KEY_COL_CODIGO_USUARIO_PRESTAMO = "codigoUsuario";
+    public static final String KEY_COL_CODIGO_ELEMENTO_PRESTAMO = "codigoElemento";
+
 
 
 
@@ -55,8 +58,14 @@ public class BBDDIncidencias extends SQLiteOpenHelper {
     //SENTENCIAS DE SQL PARA BORRAR Y CREAR TABLA DE ELEMENTO GUARDADAS EN VARIABLES
     private static final String BORRAR_TABLA_ELEMENTO = "DROP TABLE IF EXISTS elemento";
     private static final String CREAR_TABLA_ELEMENTO = "CREATE TABLE IF NOT EXISTS elemento " +
-            "(codigoElemento INTEGER PRIMARY KEY AUTOINCREMENT, nombreElemento TEXT, descripcionElemento TEXT, codigoTipo INTEGER)";
-
+            "( INTEGER PRIMARY KEY AUTOINCREMENT, nombreElemento TEXT, descripcionElemento TEXT, codigoTipo INTEGER)";
+            //LLAMAR A LAS KEYS
+    //
+    //
+    //
+    //
+    //
+    //
     //SENTENCIAS DE SQL PARA BORRAR Y CREAR TABLA DE UBICACION GUARDADAS EN VARIABLES
     private static final String BORRAR_TABLA_UBICACION = "DROP TABLE IF EXISTS ubicacion";
     private static final String CREAR_TABLA_UBICACION = "CREATE TABLE IF NOT EXISTS ubicacion  " +
