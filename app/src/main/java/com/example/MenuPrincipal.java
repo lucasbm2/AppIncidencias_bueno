@@ -15,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.appincidencias.R;
 import com.example.database.BBDDIncidencias;
 import com.example.elemento.ElementoDBHelper;
+import com.example.rol.RolDBHelper;
 import com.example.rol.activityRoles;
 import com.example.sala.SalaDatabaseHelper;
 import com.example.sala.activitySalas;
@@ -25,6 +26,7 @@ import com.example.tipo.TipoDatabaseHelper;
 import com.example.tipo.activityTipo;
 import com.example.ubicacion.UbicacionDatabaseHelper;
 import com.example.ubicacion.activityUbicacion;
+import com.example.usuario.UsuarioDBHelper;
 import com.example.usuario.activityUsuario;
 
 import java.text.ParseException;
@@ -32,6 +34,7 @@ import java.util.ArrayList;
 
 import gestionincidencias.GestionIncidencias;
 import gestionincidencias.entidades.EntElemento;
+import gestionincidencias.entidades.EntRol;
 import gestionincidencias.entidades.EntSala;
 import gestionincidencias.entidades.EntTipo;
 import gestionincidencias.entidades.EntUbicacion;
@@ -135,6 +138,22 @@ public class MenuPrincipal extends menu3botones implements View.OnClickListener 
             arElementos = GestionIncidencias.getArElementos();
             for (EntElemento elemento : arElementos) {
                 edh.crearElemento(elemento);
+            }
+        }
+        UsuarioDBHelper usdh = new UsuarioDBHelper(this, "BBDDIncidencias", null, 1);
+        ArrayList<EntUsuario> arUsuarios = usdh.getUsuarios();
+        if (arUsuarios == null || arUsuarios.isEmpty()) {
+            arUsuarios = GestionIncidencias.getArUsuarios();
+            for (EntUsuario usuario : arUsuarios) {
+                usdh.crearUsuario(usuario);
+            }
+        }
+        RolDBHelper rdh = new RolDBHelper(this, "BBDDIncidencias", null, 1);
+        ArrayList<EntRol> arRoles = rdh.getRoles();
+        if (arRoles == null || arRoles.isEmpty()) {
+            arRoles = GestionIncidencias.getArRoles();
+            for (EntRol rol : arRoles) {
+                rdh.crearRol(rol);
             }
         }
     }

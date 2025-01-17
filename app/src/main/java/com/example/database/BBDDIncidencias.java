@@ -92,19 +92,18 @@
                 "FOREIGN KEY (" + KEY_COL_CODIGO_TIPO_ELEMENTO + ") REFERENCES " + TABLE_TIPO + "(" + KEY_COL_CODIGO_TIPO + ") " +
                 "ON DELETE CASCADE ON UPDATE CASCADE" +
                 ");";
+        // Sentencias de SQL para borrar y crear tabla de ubicación guardadas en variables
+        private static final String BORRAR_TABLA_UBICACION = "DROP TABLE IF EXISTS " + TABLE_UBICACION + ";";
+        private static final String CREAR_TABLA_UBICACION =
+                "CREATE TABLE IF NOT EXISTS " + TABLE_UBICACION + " (" +
+                        KEY_COL_CODIGO_UBICACION + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        KEY_COL_CODIGO_SALA_UBICACION + " INTEGER, " +
+                        KEY_COL_ID_ELEMENTO + " INTEGER, " +
+                        KEY_COL_DESCRIPCION_UBICACION + " TEXT, " +
+                        KEY_COL_FECHA_INICIO_UBICACION + " TEXT, " +
+                        KEY_COL_FECHA_FIN_UBICACION + " TEXT" +
+                        ");";
 
-        // SENTENCIAS DE SQL PARA BORRAR Y CREAR TABLA DE UBICACION GUARDADAS EN VARIABLES
-        private static final String BORRAR_TABLA_UBICACION = "DROP TABLE IF EXISTS " + TABLE_UBICACION;
-        private static final String CREAR_TABLA_UBICACION = "CREATE TABLE IF NOT EXISTS " + TABLE_UBICACION + " (" +
-                KEY_COL_CODIGO_UBICACION + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                KEY_COL_CODIGO_SALA_UBICACION + " INTEGER, " +
-                KEY_COL_DESCRIPCION_UBICACION + " TEXT, " +
-                KEY_COL_FECHA_INICIO_UBICACION + " TEXT, " +
-                KEY_COL_FECHA_FIN_UBICACION + " TEXT, " +
-                KEY_COL_ID_ELEMENTO + " INTEGER, " +
-                "FOREIGN KEY (" + KEY_COL_CODIGO_SALA_UBICACION + ") REFERENCES " + TABLE_SALA + "(" + KEY_COL_CODIGO_SALA + ") " +
-                "ON DELETE CASCADE ON UPDATE CASCADE" +
-                ");";
 
         // SENTENCIAS DE SQL PARA BORRAR Y CREAR TABLA DE SALA GUARDADAS EN VARIABLES
         private static final String BORRAR_TABLA_SALA = "DROP TABLE IF EXISTS " + TABLE_SALA;

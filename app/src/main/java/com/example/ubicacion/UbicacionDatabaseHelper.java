@@ -23,9 +23,11 @@ public class UbicacionDatabaseHelper extends BBDDIncidencias {
         super(context, name, factory, version);
     }
 
+    public SimpleDateFormat formateadorFecha = new SimpleDateFormat("yyyy-mm-dd HH:MM:SS");
     public long crearUbicacion(EntUbicacion ubicacion) {
         SQLiteDatabase db = this.getWritableDatabase();
         long ubicacionId = -1;
+
 
 
         db.beginTransaction();
@@ -37,10 +39,18 @@ public class UbicacionDatabaseHelper extends BBDDIncidencias {
             Log.d("UbicacionDatabaseHelper", "Iniciando inserción de ubicación...");
             Log.d("UbicacionDatabaseHelper", "Valores para insertar: " + values.toString());
             values.put(KEY_COL_CODIGO_SALA_UBICACION, ubicacion.getIdSala());
+            values.put(KEY_COL_ID_ELEMENTO, ubicacion.getIdElemento());
             values.put(KEY_COL_DESCRIPCION_UBICACION, ubicacion.getDescripcion());
-            values.put(KEY_COL_FECHA_INICIO_UBICACION, String.valueOf(ubicacion.getFechaInicio()));
-            values.put(KEY_COL_FECHA_FIN_UBICACION, String.valueOf(ubicacion.getFechaFin()));
-            values.put(KEY_COL_CODIGO_ELEMENTO, ubicacion.getIdElemento());
+            if (ubicacion.getFechaInicio() != null)  {
+                values.put(KEY_COL_FECHA_INICIO_UBICACION, formateadorFecha.format(ubicacion.getFechaInicio()));
+            } else {
+                values.put(KEY_COL_FECHA_INICIO_UBICACION, "");
+            }
+            if (ubicacion.getFechaFin() != null) {
+                values.put(KEY_COL_FECHA_FIN_UBICACION, formateadorFecha.format(ubicacion.getFechaFin()));
+            } else {
+                values.put(KEY_COL_FECHA_FIN_UBICACION, "");
+            }
 
             //si no existe y no se puede actualizar entonces lo creamos
             ubicacionId = db.insertOrThrow(TABLE_UBICACION, null, values);
@@ -67,10 +77,10 @@ public class UbicacionDatabaseHelper extends BBDDIncidencias {
                 Log.d("UbicacionDatabaseHelper", "Valores a insertar: " + values.toString());
                 values.put(KEY_COL_CODIGO_UBICACION, ubicacion.getCodigoUbicacion());
                 values.put(KEY_COL_CODIGO_SALA_UBICACION, ubicacion.getIdSala());
-                values.put(KEY_COL_DESCRIPCION_UBICACION, ubicacion.getDescripcion());
-                values.put(KEY_COL_FECHA_INICIO_UBICACION, String.valueOf(ubicacion.getFechaInicio()));
-                values.put(KEY_COL_FECHA_FIN_UBICACION, String.valueOf(ubicacion.getFechaFin()));
                 values.put(KEY_COL_CODIGO_ELEMENTO, ubicacion.getIdElemento());
+                values.put(KEY_COL_DESCRIPCION_UBICACION, ubicacion.getDescripcion());
+                values.put(KEY_COL_FECHA_INICIO_UBICACION, ubicacion.getFechaInicio().getDate());
+                values.put(KEY_COL_FECHA_FIN_UBICACION, String.valueOf(ubicacion.getFechaFin()));
 
 
 
@@ -98,8 +108,6 @@ public class UbicacionDatabaseHelper extends BBDDIncidencias {
         // Consulta para obtener todas las ubicaciones
         Cursor c = db.rawQuery("SELECT * FROM " + TABLE_UBICACION, null);
 
-        // Formato esperado de las fechas en la base de datos (ajústalo si es necesario)
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         if (c.moveToFirst()) {
             do {
@@ -108,11 +116,18 @@ public class UbicacionDatabaseHelper extends BBDDIncidencias {
                 int idElemento = c.getInt(2);
                 String descripcion = c.getString(3);
                 String fechaInicioString = c.getString(4);
-                Date fechaInicio = dateFormat.parse(fechaInicioString);
                 String fechaFinString = c.getString(5);
-                Date fechaFin = dateFormat.parse(fechaFinString);
+                Date fechaInicioFormat = null;
+                Date fechaFinFormat = null;
 
-                EntUbicacion ubicacion = new EntUbicacion(codigoUbicacion, idSala, idElemento, descripcion, fechaInicio, fechaFin);
+                if (fechaInicioString != null && !fechaInicioString.isEmpty()) {
+                    fechaInicioFormat = formateadorFecha.parse(fechaInicioString);
+                }
+                if (fechaFinString != null && !fechaFinString.isEmpty()) {
+                    fechaFinFormat = formateadorFecha.parse(fechaFinString);
+                }
+
+                EntUbicacion ubicacion = new EntUbicacion(codigoUbicacion, idSala, idElemento, descripcion, fechaInicioFormat, fechaFinFormat);
 
                 salida.add(ubicacion);
             } while (c.moveToNext());
