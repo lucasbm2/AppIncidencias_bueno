@@ -14,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.appincidencias.R;
 import com.example.database.BBDDIncidencias;
+import com.example.elemento.ElementoDBHelper;
 import com.example.rol.activityRoles;
 import com.example.sala.SalaDatabaseHelper;
 import com.example.sala.activitySalas;
@@ -22,14 +23,19 @@ import com.example.incidencia.activityIncidencia;
 import com.example.prestamo.activityPrestamo;
 import com.example.tipo.TipoDatabaseHelper;
 import com.example.tipo.activityTipo;
+import com.example.ubicacion.UbicacionDatabaseHelper;
 import com.example.ubicacion.activityUbicacion;
 import com.example.usuario.activityUsuario;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import gestionincidencias.GestionIncidencias;
+import gestionincidencias.entidades.EntElemento;
 import gestionincidencias.entidades.EntSala;
 import gestionincidencias.entidades.EntTipo;
+import gestionincidencias.entidades.EntUbicacion;
+import gestionincidencias.entidades.EntUsuario;
 
 public class MenuPrincipal extends menu3botones implements View.OnClickListener {
     private ActivityResultLauncher<Intent> launcher;
@@ -86,14 +92,18 @@ public class MenuPrincipal extends menu3botones implements View.OnClickListener 
         botonRoles.setOnClickListener((View.OnClickListener) this);
 
         //PARA CREAR BASE DE DATOS
-//        BBDDIncidencias bbdd = new BBDDIncidencias(this, "BBDDIncidencias", null, 1);
-//        SQLiteDatabase db = bbdd.getWritableDatabase();
+        BBDDIncidencias bbdd = new BBDDIncidencias(this, "BBDDIncidencias", null, 1);
+        SQLiteDatabase db = bbdd.getWritableDatabase();
 //        //Para que actualice la base de datos al abrirlo
-//        bbdd.onUpgrade(db,0,0);
-        cargaDatosBBDD();
+        bbdd.onUpgrade(db,0,0);
+        try {
+            cargaDatosBBDD();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private void cargaDatosBBDD() {
+    private void cargaDatosBBDD() throws ParseException {
         //Gestionamos la base de datos
         SalaDatabaseHelper sdh = new SalaDatabaseHelper(this, "BBDDIncidencias", null, 1);
         ArrayList<EntSala> arSalas = sdh.getSalas();
@@ -109,6 +119,22 @@ public class MenuPrincipal extends menu3botones implements View.OnClickListener 
             arTipos = GestionIncidencias.getArTipos();
             for (EntTipo tipo : arTipos) {
                 tdh.crearTipo(tipo);
+            }
+        }
+        UbicacionDatabaseHelper udh = new UbicacionDatabaseHelper(this, "BBDDIncidencias", null, 1);
+        ArrayList<EntUbicacion> arUbicacion = udh.getUbicaciones();
+        if (arUbicacion == null || arUbicacion.isEmpty()) {
+            arUbicacion = GestionIncidencias.getArUbicaciones();
+            for (EntUbicacion ubicacion : arUbicacion) {
+                udh.crearUbicacion(ubicacion);
+            }
+        }
+        ElementoDBHelper edh = new ElementoDBHelper(this, "BBDDIncidencias", null, 1);
+        ArrayList<EntElemento> arElementos = edh.getElementos();
+        if (arElementos == null || arElementos.isEmpty()) {
+            arElementos = GestionIncidencias.getArElementos();
+            for (EntElemento elemento : arElementos) {
+                edh.crearElemento(elemento);
             }
         }
     }

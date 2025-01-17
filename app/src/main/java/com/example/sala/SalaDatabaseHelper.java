@@ -28,10 +28,10 @@ public class SalaDatabaseHelper extends BBDDIncidencias {
         try {
             ContentValues values = new ContentValues();
             if (sala.getCodigoSala() >0) {
-                values.put(KEY_COL_CODIGOSALA, sala.getCodigoSala());
+                values.put(KEY_COL_CODIGO_SALA, sala.getCodigoSala());
             }
-            values.put(KEY_COL_NOMBRESALA, sala.getNombre());
-            values.put(KEY_COL_DESCRIPCIONSALA, sala.getDescripcion());
+            values.put(KEY_COL_NOMBRE_SALA, sala.getNombre());
+            values.put(KEY_COL_DESCRIPCION_SALA, sala.getDescripcion());
 
             //si no existe y no se puede actualizar entonces lo creamos
             salaId = db.insertOrThrow(TABLE_SALA, null, values);
@@ -53,12 +53,12 @@ public class SalaDatabaseHelper extends BBDDIncidencias {
         if (sala.getCodigoSala() > 0) {
             try {
                 ContentValues values = new ContentValues();
-                values.put(KEY_COL_CODIGOSALA, sala.getCodigoSala());
-                values.put(KEY_COL_NOMBRESALA, sala.getNombre());
-                values.put(KEY_COL_DESCRIPCIONSALA, sala.getDescripcion());
+                values.put(KEY_COL_CODIGO_SALA, sala.getCodigoSala());
+                values.put(KEY_COL_NOMBRE_SALA, sala.getNombre());
+                values.put(KEY_COL_DESCRIPCION_SALA, sala.getDescripcion());
 
                 //Primero intento actualizar elemento concreto
-                int rows = db.update(TABLE_SALA, values, KEY_COL_CODIGOSALA + " = ?",
+                int rows = db.update(TABLE_SALA, values, KEY_COL_CODIGO_SALA + " = ?",
                         new String[]{String.valueOf(sala.getCodigoSala())});
                 if (rows > 0) {
                     salaId = sala.getCodigoSala();
@@ -99,7 +99,7 @@ public class SalaDatabaseHelper extends BBDDIncidencias {
 
         db.beginTransaction();
         try {
-            borrados = db.delete(TABLE_SALA, KEY_COL_CODIGOSALA + " = ?",
+            borrados = db.delete(TABLE_SALA, KEY_COL_CODIGO_SALA + " = ?",
                     new String[]{String.valueOf(codigoSala)});
             db.setTransactionSuccessful();
 

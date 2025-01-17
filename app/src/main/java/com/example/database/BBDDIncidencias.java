@@ -64,6 +64,7 @@
         public static final String KEY_COL_DESCRIPCION_UBICACION = "descripcionUbicacion";
         public static final String KEY_COL_FECHA_INICIO_UBICACION = "fechaInicioUbicacion";
         public static final String KEY_COL_FECHA_FIN_UBICACION = "fechaFinUbicacion";
+        public static final String KEY_COL_ID_ELEMENTO = "idElemento";
 
         // Columnas de la tabla incidencia
         public static final String KEY_COL_CODIGO_INCIDENCIA = "codigoIncidencia";
@@ -87,7 +88,7 @@
                 KEY_COL_CODIGO_ELEMENTO + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 KEY_COL_NOMBRE_ELEMENTO + " TEXT, " +
                 KEY_COL_DESCRIPCION_ELEMENTO + " TEXT, " +
-                KEY_COL_CODIGO_TIPO_ELEMENTO + " INTEGER, " + // Clave foránea
+                KEY_COL_CODIGO_TIPO_ELEMENTO + " INTEGER, " +
                 "FOREIGN KEY (" + KEY_COL_CODIGO_TIPO_ELEMENTO + ") REFERENCES " + TABLE_TIPO + "(" + KEY_COL_CODIGO_TIPO + ") " +
                 "ON DELETE CASCADE ON UPDATE CASCADE" +
                 ");";
@@ -100,10 +101,8 @@
                 KEY_COL_DESCRIPCION_UBICACION + " TEXT, " +
                 KEY_COL_FECHA_INICIO_UBICACION + " TEXT, " +
                 KEY_COL_FECHA_FIN_UBICACION + " TEXT, " +
-                KEY_COL_CODIGO_USUARIO + " INTEGER, " +
+                KEY_COL_ID_ELEMENTO + " INTEGER, " +
                 "FOREIGN KEY (" + KEY_COL_CODIGO_SALA_UBICACION + ") REFERENCES " + TABLE_SALA + "(" + KEY_COL_CODIGO_SALA + ") " +
-                "ON DELETE CASCADE ON UPDATE CASCADE, " +
-                "FOREIGN KEY (" + KEY_COL_CODIGO_USUARIO + ") REFERENCES " + TABLE_USUARIO + "(" + KEY_COL_CODIGO_USUARIO + ") " +
                 "ON DELETE CASCADE ON UPDATE CASCADE" +
                 ");";
 
@@ -191,5 +190,25 @@
             sqLiteDatabase.execSQL(BORRAR_TABLA_INCIDENCIA);
             onCreate(sqLiteDatabase);
         }
+
+//        @Override
+//        public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+//            // Este método se ejecuta cuando se intenta hacer un downgrade de la base de datos.
+//            // Borra todas las tablas existentes y vuelve a crearlas.
+//
+//            db.execSQL(BORRAR_TABLA_TIPO);
+//            db.execSQL(BORRAR_TABLA_ELEMENTO);
+//            db.execSQL(BORRAR_TABLA_UBICACION);
+//            db.execSQL(BORRAR_TABLA_SALA);
+//            db.execSQL(BORRAR_TABLA_PRESTAMO);
+//            db.execSQL(BORRAR_TABLA_USUARIO);
+//            db.execSQL(BORRAR_TABLA_ROL);
+//            db.execSQL(BORRAR_TABLA_INCIDENCIA);
+//
+//            // Llama al método onCreate para volver a crear todas las tablas
+//            onCreate(db);
+//        }
+
+
 
     }
