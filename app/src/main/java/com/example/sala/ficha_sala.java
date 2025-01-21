@@ -44,7 +44,7 @@ public class ficha_sala extends AppCompatActivity {
             sala = sdh.getSala(codSala);
             //PARA AÑADIR UNA NUEVA SALA
         } else if (codSala == 0 && !nombreSala.isEmpty()) {
-            sala = new EntSala(0, nombreSala, descripcionSala);
+            sala = new EntSala(0, "", "");
 
             //POR SI EL CODIGO ES 0
         } else if (codSala == 0) {
