@@ -11,8 +11,8 @@ import com.example.database.BBDDIncidencias;
 import java.util.ArrayList;
 import gestionincidencias.entidades.EntRol;
 
-public class RolDBHelper extends BBDDIncidencias {
-    public RolDBHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
+public class RolDatabaseHelper extends BBDDIncidencias {
+    public RolDatabaseHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
@@ -34,7 +34,7 @@ public class RolDBHelper extends BBDDIncidencias {
             db.setTransactionSuccessful();
 
         } catch (Exception e) {
-            Log.d(RolDBHelper.class.getName(), e.getMessage());
+            Log.d(RolDatabaseHelper.class.getName(), e.getMessage());
         } finally {
             db.endTransaction();
         }
@@ -65,7 +65,7 @@ public class RolDBHelper extends BBDDIncidencias {
                     elementoID = rol.getCodigo();
                 }
             } catch (Exception e) {
-                Log.d(RolDBHelper.class.getName(), e.getMessage());
+                Log.d(RolDatabaseHelper.class.getName(), e.getMessage());
             } finally {
                 db.endTransaction();
             }
@@ -102,7 +102,7 @@ public class RolDBHelper extends BBDDIncidencias {
             borrados = db.delete(TABLE_ROL, KEY_COL_CODIGO_ROL + " = ?", new String[]{String.valueOf(codigo)});
             db.setTransactionSuccessful();
         } catch (Exception e) {
-            Log.d(RolDBHelper.class.getName(), e.getMessage());
+            Log.d(RolDatabaseHelper.class.getName(), e.getMessage());
         } finally {
             db.endTransaction();
         }

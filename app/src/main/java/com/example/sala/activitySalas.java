@@ -17,6 +17,8 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.appincidencias.R;
 import com.example.menu3botones;
 
+import java.util.ArrayList;
+
 import gestionincidencias.GestionIncidencias;
 import gestionincidencias.entidades.EntSala;
 
@@ -38,7 +40,14 @@ public class activitySalas extends menu3botones {
         //BUSCAMOS LA LISTVIEW DE SALAS
         ListView listaSalas = (ListView) findViewById(R.id.listaSalas);
         //CREAMOS UN ADAPTADOR PARA LA LISTA DE SALAS
-        AdaptadorSala adaptadorSala = new AdaptadorSala(this, GestionIncidencias.getArSalas().toArray(new EntSala[0]));
+        //
+        //OBTENEMOS LOS DATOS DE LA BASE DE DATOS
+        SalaDatabaseHelper sdh = new SalaDatabaseHelper(this,"BBDDIncidencias", null, 1);
+        ArrayList<EntSala> arSalas = sdh.getSalas();
+        AdaptadorSala adaptadorSala = new AdaptadorSala(this, arSalas.toArray(new EntSala[0]));
+        //
+        //FORMA DE OBTENERLO SIN LA BASE DE DATOS, COMO ANTES
+//        AdaptadorSala adaptadorSala = new AdaptadorSala(this, GestionIncidencias.getArSalas().toArray(new EntSala[0]));
 
         //ESTABLECEMOS ADAPTADOR A LA LISTA
         listaSalas.setAdapter(adaptadorSala);

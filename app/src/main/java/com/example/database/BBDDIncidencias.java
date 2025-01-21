@@ -48,8 +48,8 @@
 
         // Columnas de la tabla prestamo
         public static final String KEY_COL_CODIGO_PRESTAMO = "codigoPrestamo";
-        public static final String KEY_COL_CODIGO_USUARIO_PRESTAMO = "codigoUsuario";
-        public static final String KEY_COL_CODIGO_ELEMENTO_PRESTAMO = "codigoElemento";
+        public static final String KEY_COL_CODIGO_USUARIO_PRESTAMO = "idUsuario";
+        public static final String KEY_COL_CODIGO_ELEMENTO_PRESTAMO = "idElemento";
         public static final String KEY_COL_FECHA_INICIO_PRESTAMO = "fechaInicioPrestamo";
         public static final String KEY_COL_FECHA_FIN_PRESTAMO = "fechaFinPrestamo";
 
@@ -68,7 +68,7 @@
 
         // Columnas de la tabla incidencia
         public static final String KEY_COL_CODIGO_INCIDENCIA = "codigoIncidencia";
-        public static final String KEY_COL_CODIGO_USUARIO_INCIDENCIA = "codigoUsuario";
+        public static final String KEY_COL_CODIGO_USUARIO_INCIDENCIA = "idUsuarioCreacion";
         public static final String KEY_COL_CODIGO_ELEMENTO_INCIDENCIA = "codigoElemento";
         public static final String KEY_COL_DESCRIPCION_INCIDENCIA = "descripcionIncidencia";
         public static final String KEY_COL_FECHA_CREACION_INCIDENCIA = "fechaCreacion";

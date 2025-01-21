@@ -15,7 +15,9 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.appincidencias.R;
 import com.example.database.BBDDIncidencias;
 import com.example.elemento.ElementoDBHelper;
-import com.example.rol.RolDBHelper;
+import com.example.incidencia.IncidenciaDatabaseHelper;
+import com.example.prestamo.PrestamoDatabaseHelper;
+import com.example.rol.RolDatabaseHelper;
 import com.example.rol.activityRoles;
 import com.example.sala.SalaDatabaseHelper;
 import com.example.sala.activitySalas;
@@ -26,7 +28,7 @@ import com.example.tipo.TipoDatabaseHelper;
 import com.example.tipo.activityTipo;
 import com.example.ubicacion.UbicacionDatabaseHelper;
 import com.example.ubicacion.activityUbicacion;
-import com.example.usuario.UsuarioDBHelper;
+import com.example.usuario.UsuarioDatabaseHelper;
 import com.example.usuario.activityUsuario;
 
 import java.text.ParseException;
@@ -34,6 +36,8 @@ import java.util.ArrayList;
 
 import gestionincidencias.GestionIncidencias;
 import gestionincidencias.entidades.EntElemento;
+import gestionincidencias.entidades.EntIncidencia;
+import gestionincidencias.entidades.EntPrestamo;
 import gestionincidencias.entidades.EntRol;
 import gestionincidencias.entidades.EntSala;
 import gestionincidencias.entidades.EntTipo;
@@ -140,7 +144,7 @@ public class MenuPrincipal extends menu3botones implements View.OnClickListener 
                 edh.crearElemento(elemento);
             }
         }
-        UsuarioDBHelper usdh = new UsuarioDBHelper(this, "BBDDIncidencias", null, 1);
+        UsuarioDatabaseHelper usdh = new UsuarioDatabaseHelper(this, "BBDDIncidencias", null, 1);
         ArrayList<EntUsuario> arUsuarios = usdh.getUsuarios();
         if (arUsuarios == null || arUsuarios.isEmpty()) {
             arUsuarios = GestionIncidencias.getArUsuarios();
@@ -148,12 +152,28 @@ public class MenuPrincipal extends menu3botones implements View.OnClickListener 
                 usdh.crearUsuario(usuario);
             }
         }
-        RolDBHelper rdh = new RolDBHelper(this, "BBDDIncidencias", null, 1);
+        RolDatabaseHelper rdh = new RolDatabaseHelper(this, "BBDDIncidencias", null, 1);
         ArrayList<EntRol> arRoles = rdh.getRoles();
         if (arRoles == null || arRoles.isEmpty()) {
             arRoles = GestionIncidencias.getArRoles();
             for (EntRol rol : arRoles) {
                 rdh.crearRol(rol);
+            }
+        }
+        IncidenciaDatabaseHelper idh = new IncidenciaDatabaseHelper(this, "BBDDIncidencias", null, 1);
+        ArrayList<EntIncidencia> arIncidencias = idh.getIncidencias();
+        if (arIncidencias == null || arIncidencias.isEmpty()) {
+            arIncidencias = GestionIncidencias.getArIncidencias();
+            for (EntIncidencia incidencia : arIncidencias) {
+                idh.crearIncidencia(incidencia);
+            }
+        }
+        PrestamoDatabaseHelper pdh = new PrestamoDatabaseHelper(this, "BBDDIncidencias", null, 1);
+        ArrayList<EntPrestamo> arPrestamos = pdh.getPrestamos();
+        if (arPrestamos == null || arPrestamos.isEmpty()) {
+            arPrestamos = GestionIncidencias.getArPrestamos();
+            for (EntPrestamo prestamo : arPrestamos) {
+                pdh.crearPrestamo(prestamo);
             }
         }
     }
