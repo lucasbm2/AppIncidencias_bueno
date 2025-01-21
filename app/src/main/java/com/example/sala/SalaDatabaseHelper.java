@@ -73,6 +73,7 @@ public class SalaDatabaseHelper extends BBDDIncidencias {
         return salaId;
     }
 
+    //PARA OBTENER TODAS LAS SALAS EN LA BASE DE DATOS
     public ArrayList<EntSala> getSalas() {
         ArrayList<EntSala> salida = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -87,11 +88,26 @@ public class SalaDatabaseHelper extends BBDDIncidencias {
                 EntSala sala = new EntSala(codigoSala, nombre, descripcion);
                 salida.add(sala);
             } while (c.moveToNext());
-
         }
-
         return salida;
     }
+
+    //PARA OBTENER UNA SOLA SALA EN LA BASE DE DATOS
+    public EntSala getSala(int codigoSala) {
+        EntSala sala = null;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor c = db.rawQuery("SELECT * FROM " + TABLE_SALA + " WHERE " + KEY_COL_CODIGO_SALA + " = " + codigoSala, null);
+
+        if (c.moveToFirst()) {
+            int codigo = c.getInt(0);
+            String nombre = c.getString(1);
+            String descripcion = c.getString(2);
+            sala = new EntSala(codigo, nombre, descripcion);
+        }
+        return sala;
+    }
+
 
     public int borrarSala(int codigoSala) {
         SQLiteDatabase db = this.getWritableDatabase();

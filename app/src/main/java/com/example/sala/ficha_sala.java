@@ -19,11 +19,15 @@ import gestionincidencias.entidades.EntSala;
 public class ficha_sala extends AppCompatActivity {
 
     private EntSala sala;
+    //DECLARO LA SALADATABASEHELPER
+    private SalaDatabaseHelper sdh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ficha_sala);
+        //INICIALIZO MI SALADATABASEHELPER
+        sdh = new SalaDatabaseHelper(this, "BBDDIncidencias", null, 1);
 
         //EXTRAEMOS LOS DATOS DE LA LISTA
         int codSala = getIntent().getExtras().getInt("codigoSala");
@@ -32,22 +36,24 @@ public class ficha_sala extends AppCompatActivity {
 
         //PARA MODIFICAR
         if (codSala > 0) {
-            for (EntSala s  : GestionIncidencias.getArSalas()) {
-                if (s.getCodigoSala() == codSala) {
-                    sala = s;
-                }
-            }
-            //NUEVA SALA
-        } else if (codSala == 0 && nombreSala.isEmpty()) {
-            sala = new EntSala(0, "", "");
+//            for (EntSala s : GestionIncidencias.getArSalas()) {
+//                if (s.getCodigoSala() == codSala) {
+//                    sala = s;
+//                }
+//            }
+            sala = sdh.getSala(codSala);
+            //PARA AÑADIR UNA NUEVA SALA
+        } else if (codSala == 0 && !nombreSala.isEmpty()) {
+            sala = new EntSala(0, nombreSala, descripcionSala);
 
             //POR SI EL CODIGO ES 0
         } else if (codSala == 0) {
-            for (EntSala s : GestionIncidencias.getArSalas()) {
-                if (s.getCodigoSala() == codSala) {
-                    sala = s;
-                }
-            }
+//            for (EntSala s : GestionIncidencias.getArSalas()) {
+//                if (s.getCodigoSala() == codSala) {
+//                    sala = s;
+//                }
+//            }
+            sala = sdh.getSala(codSala);
         }
 
         //RECOJO DATOS DEL XML
@@ -60,7 +66,6 @@ public class ficha_sala extends AppCompatActivity {
 
             EditText txDescripcion = findViewById(R.id.descripcionSala);
             txDescripcion.setText(String.valueOf(sala.getDescripcion()));
-
         }
 
         Button botonVolver = findViewById(R.id.botonSalir);
@@ -76,15 +81,19 @@ public class ficha_sala extends AppCompatActivity {
             public void onClick(View view) {
                 if (sala != null) {
 
-                   EditText txCodigoSala = findViewById(R.id.codigoSala);
-                   EditText txNombre = findViewById(R.id.nombreSala);
-                   EditText txDescripcion = findViewById(R.id.descripcionSala);
+//                    EditText txCodigoSala = findViewById(R.id.codigoSala);
+                    EditText txNombre = findViewById(R.id.nombreSala);
+                    EditText txDescripcion = findViewById(R.id.descripcionSala);
 
-                   //PARA MODIFICAR LOS DATOS DE UNA SALA YA CREADA
+                    sala.setNombre(txNombre.getText().toString());
+                    sala.setDescripcion(txDescripcion.getText().toString());
+
+                    //PARA MODIFICAR LOS DATOS DE UNA SALA YA CREADA
                     if (sala.getCodigoSala() != 0) {
-                        sala.setCodigoSala(Integer.parseInt(txCodigoSala.getText().toString()));
-                        sala.setNombre(txNombre.getText().toString());
-                        sala.setDescripcion(txDescripcion.getText().toString());
+//                        sala.setCodigoSala(Integer.parseInt(txCodigoSala.getText().toString()));
+//                        sala.setNombre(txNombre.getText().toString());
+//                        sala.setDescripcion(txDescripcion.getText().toString());
+                        sdh.actualizarSala(sala);
 
                         //PARA AÑADIR NUEVO CODIGO
                     } else if (sala.getCodigoSala() == 0 && sala.getNombre().isEmpty()) {
@@ -102,7 +111,7 @@ public class ficha_sala extends AppCompatActivity {
 
                             for (EntSala s : GestionIncidencias.getArSalas()) {
                                 if (s.getCodigoSala() >= siguienteCodigo) {
-                                    siguienteCodigo = s.getCodigoSala() +1;
+                                    siguienteCodigo = s.getCodigoSala() + 1;
                                 }
                             }
                             sala.setCodigoSala(siguienteCodigo);
