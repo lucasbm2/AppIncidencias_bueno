@@ -44,7 +44,7 @@
             android:background="@drawable/borde_textview"
             android:gravity="center"
             android:paddingBottom="8dp"
-            android:text="Campo de codigo" />
+            android:hint="Campo de codigo" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -64,7 +64,7 @@
             android:background="@drawable/borde_textview"
             android:inputType="text"
             android:padding="8dp"
-            android:text="Campo de nombre" />
+            android:hint="Campo de nombre" />
 
 
         <TextView
@@ -85,7 +85,7 @@
             android:background="@drawable/borde_textview"
             android:inputType="text"
             android:padding="8dp"
-            android:text="Campo de correo" />
+            android:hint="Campo de correo" />
 
 
         <TextView
@@ -108,7 +108,7 @@
             android:background="@drawable/borde_textview"
             android:inputType="text"
             android:padding="8dp"
-            android:text="Campo de telefono " />
+            android:hint="Campo de telefono " />
 
         <TextView
             android:layout_width="wrap_content"
@@ -128,7 +128,7 @@
             android:background="@drawable/borde_textview"
             android:inputType="text"
             android:padding="8dp"
-            android:text="Campo de Contraseña" />
+            android:hint="Campo de Contraseña" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -148,7 +148,7 @@
             android:background="@drawable/borde_textview"
             android:inputType="text"
             android:padding="8dp"
-            android:text="Campo de Rol" />
+            android:hint="Campo de Rol" />
 
         <Space
             android:layout_width="0dp"

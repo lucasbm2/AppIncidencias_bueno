@@ -44,7 +44,7 @@
             android:background="@drawable/borde_textview"
             android:gravity="center"
             android:paddingBottom="4dp"
-            android:text="Campo de Codigo Prestamo" />
+            android:hint="Campo de Codigo Prestamo" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -64,7 +64,7 @@
             android:background="@drawable/borde_textview"
             android:inputType="text"
             android:padding="4dp"
-            android:text="Campo de Nombre Usuario" />
+            android:hint="Campo de Nombre Usuario" />
 
 
         <TextView
@@ -85,7 +85,7 @@
             android:background="@drawable/borde_textview"
             android:inputType="text"
             android:padding="8dp"
-            android:text="Campo ID elemento" />
+            android:hint="Campo ID elemento" />
 
 
         <TextView
@@ -108,7 +108,7 @@
             android:background="@drawable/borde_textview"
             android:inputType="text"
             android:padding="8dp"
-            android:text="Campo de fecha inicio" />
+            android:hint="Campo de fecha inicio" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -128,7 +128,7 @@
             android:background="@drawable/borde_textview"
             android:inputType="text"
             android:padding="8dp"
-            android:text="Campo de fecha fin" />
+            android:hint="Campo de fecha fin" />
 
         <Space
             android:layout_width="0dp"

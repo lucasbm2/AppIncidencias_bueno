@@ -44,7 +44,7 @@
             android:background="@drawable/borde_textview"
             android:gravity="center"
             android:paddingBottom="4dp"
-            android:text="Campo Codigo Incidencia" />
+            android:hint="Campo Codigo Incidencia" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -64,7 +64,7 @@
             android:background="@drawable/borde_textview"
             android:inputType="text"
             android:padding="8dp"
-            android:text="Campo Usuario creacion" />
+            android:hint="Campo Usuario creacion" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -84,7 +84,7 @@
             android:background="@drawable/borde_textview"
             android:inputType="text"
             android:padding="8dp"
-            android:text="Campo ID elemento" />
+            android:hint="Campo ID elemento" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -106,7 +106,7 @@
             android:background="@drawable/borde_textview"
             android:inputType="text"
             android:padding="8dp"
-            android:text="Campo de fecha creacion" />
+            android:hint="Campo de fecha creacion" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -126,7 +126,7 @@
             android:background="@drawable/borde_textview"
             android:inputType="text"
             android:padding="4dp"
-            android:text="Campo de descripcion" />
+            android:hint="Campo de descripcion" />
 
 
         <Space

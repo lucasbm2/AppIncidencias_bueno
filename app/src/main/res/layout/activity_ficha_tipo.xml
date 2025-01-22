@@ -44,7 +44,7 @@
             android:background="@drawable/borde_textview"
             android:gravity="center"
             android:paddingBottom="4dp"
-            android:text="Campo de codigo" />
+            android:hint="Campo de codigo" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -64,7 +64,7 @@
             android:background="@drawable/borde_textview"
             android:inputType="text"
             android:padding="4dp"
-            android:text="Campo de Nombre" />
+            android:hint="Campo de Nombre" />
 
 
         <TextView
@@ -85,7 +85,7 @@
             android:background="@drawable/borde_textview"
             android:inputType="text"
             android:padding="8dp"
-            android:text="Campo ID elemento" />
+            android:hint="Campo ID elemento" />
 
         <Space
             android:layout_width="0dp"
