@@ -110,8 +110,10 @@ public class IncidenciaDatabaseHelper extends BBDDIncidencias {
                 Date fechaCreacionFormat = null;
                 String descripcion = c.getString(4);
 
-                if (fechaCreacionString != null && !fechaCreacionString.isEmpty()) {
+                try {
                     fechaCreacionFormat = formateadorFecha.parse(String.valueOf(fechaCreacionFormat));
+                } catch (ParseException e ) {
+                    e.printStackTrace();
                 }
 
                 EntIncidencia incidencia = new EntIncidencia(codigoIncidencia, descripcion, idElemento, fechaCreacionFormat, idUsuarioCreacion);

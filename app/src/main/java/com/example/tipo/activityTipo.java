@@ -18,6 +18,8 @@ import com.example.menu3botones;
 import com.example.prestamo.ficha_prestamo;
 import com.example.ubicacion.ficha_ubicacion;
 
+import java.util.ArrayList;
+
 import gestionincidencias.GestionIncidencias;
 import gestionincidencias.entidades.EntPrestamo;
 import gestionincidencias.entidades.EntTipo;
@@ -37,9 +39,13 @@ public class activityTipo extends menu3botones {
         });
 
 
+        guardaActividad(getSharedPreferences("datos", MODE_PRIVATE), activityTipo.class.toString());
+
 
         ListView listaTipos = (ListView) findViewById(R.id.listaTipos);
-        AdaptadorTipo adaptadorTipo = new AdaptadorTipo(this, GestionIncidencias.getArTipos().toArray(new EntTipo[0]));
+        TipoDatabaseHelper tdh = new TipoDatabaseHelper(this, "BBDDIncidencias", null, 1);
+        ArrayList<EntTipo> arTipos = tdh.getTipos();
+        AdaptadorTipo adaptadorTipo = new AdaptadorTipo(this, tdh.getTipos().toArray(new EntTipo[0]));
 
         listaTipos.setAdapter(adaptadorTipo);
 

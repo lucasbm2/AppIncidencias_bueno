@@ -102,7 +102,8 @@ public class MenuPrincipal extends menu3botones implements View.OnClickListener 
         BBDDIncidencias bbdd = new BBDDIncidencias(this, "BBDDIncidencias", null, 1);
         SQLiteDatabase db = bbdd.getWritableDatabase();
 //        //Para que actualice la base de datos al abrirlo
-        bbdd.onUpgrade(db,0,0);
+//        bbdd.onUpgrade(db,0,0);
+        //SI LA COMENTO GUARDA LOS DATOS Y NO ACTUALIZA CADA VEZ
         try {
             cargaDatosBBDD();
         } catch (ParseException e) {

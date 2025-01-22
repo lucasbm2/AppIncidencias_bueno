@@ -122,13 +122,17 @@ public class PrestamoDatabaseHelper extends BBDDIncidencias {
                 String fechaFinString = c.getString(4);
                 Date fechaFinFormat = null;
 
-                if (fechaInicioString != null && !fechaInicioString.isEmpty()) {
-                    fechaInicioFormat = formateadorFecha.parse(String.valueOf(fechaInicioFormat));
-                }
+                    try {
+                        fechaInicioFormat = formateadorFecha.parse(String.valueOf(fechaInicioFormat));
+                    } catch (ParseException e ) {
+                        e.printStackTrace();
+                    }
 
-                if (fechaFinString != null && !fechaFinString.isEmpty()) {
-                    fechaFinFormat = formateadorFecha.parse(String.valueOf(fechaFinFormat));
-                }
+                    try {
+                        fechaFinFormat = formateadorFecha.parse(String.valueOf(fechaFinFormat));
+                    } catch (ParseException e ) {
+                        e.printStackTrace();
+                    }
 
                 EntPrestamo prestamo = new EntPrestamo(codigoPrestamo, idUsuario, idElemento, fechaInicioFormat, fechaFinFormat);
 

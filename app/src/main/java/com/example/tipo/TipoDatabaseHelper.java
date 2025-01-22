@@ -78,16 +78,38 @@ public class TipoDatabaseHelper extends BBDDIncidencias {
         ArrayList<EntTipo> salida = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
+        // Asegúrate de que la consulta no tenga limitaciones
         Cursor c = db.rawQuery("SELECT * FROM " + TABLE_TIPO, null);
 
         if (c.moveToFirst()) {
             do {
-                int codigoTipo = c.getInt(0);
-                String nombre = c.getString(1);
-                String descripcion = c.getString(2);
-                EntTipo sala = new EntTipo(codigoTipo, nombre, descripcion);
-                salida.add(sala);
+                int codigoTipo = c.getInt(c.getColumnIndexOrThrow("codigoTipo"));
+                String nombre = c.getString(c.getColumnIndexOrThrow("nombreTipo"));
+                String descripcion = c.getString(c.getColumnIndexOrThrow("descripcionTipo"));
+
+                EntTipo tipo = new EntTipo(codigoTipo, nombre, descripcion);
+                salida.add(tipo);
             } while (c.moveToNext());
+        }
+        c.close();
+        db.close();
+
+        return salida;
+    }
+
+
+    //PARA OBTENER UN SOLO TIPO EN LA BASE DE DATOS
+    public EntTipo getTipo(int codigoTipo) {
+        EntTipo salida = null;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor c = db.rawQuery("SELECT * FROM " + TABLE_TIPO + " WHERE " + KEY_COL_CODIGO_TIPO + " = " + codigoTipo, null);
+
+        if (c.moveToFirst()) {
+            int codigo = c.getInt(0);
+            String nombre = c.getString(1);
+            String descripcion = c.getString(2);
+            salida = new EntTipo(codigo, nombre, descripcion);
         }
         return salida;
     }
