@@ -17,7 +17,9 @@ import com.example.menu3botones;
 import com.example.prestamo.ficha_prestamo;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import gestionincidencias.GestionIncidencias;
@@ -37,10 +39,23 @@ public class activityUbicacion extends menu3botones {
             return insets;
         });
 
+
+        guardaActividad(getSharedPreferences("datos", MODE_PRIVATE), activityUbicacion.class.toString());
+
         //BUSCAMOS LA LISTVIEW DE UBICACIONES
         ListView listaUbicaciones = (ListView) findViewById(R.id.listaUbicaciones);
         //CREAMOS UN ADAPTADOR PARA LA LISTA
-        AdaptadorUbicacion adaptadorUbicacion = new AdaptadorUbicacion(this, GestionIncidencias.getArUbicaciones().toArray(new EntUbicacion[0]));
+        //OBTENEMOS DATOS DE LA BASE DE DATOS
+        UbicacionDatabaseHelper udh = new UbicacionDatabaseHelper(this, "BBDDIncidencias", null, 1);
+
+        ArrayList<EntUbicacion> aru = null;
+        try {
+            aru = udh.getUbicaciones();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        AdaptadorUbicacion adaptadorUbicacion = new AdaptadorUbicacion(this,aru.toArray(new EntUbicacion[0]));
 
         //ESTABLECEMOS ADAPTADOR A LA LISTA
         listaUbicaciones.setAdapter(adaptadorUbicacion);
@@ -49,6 +64,7 @@ public class activityUbicacion extends menu3botones {
         listaUbicaciones.setOnItemClickListener((adapterView, view, position, id) -> {
 
             EntUbicacion ubicacionSeleccionada = (EntUbicacion) adapterView.getItemAtPosition(position);
+
             Intent intentFichaUbicacion = new Intent(view.getContext(), ficha_ubicacion.class);
             intentFichaUbicacion.putExtra("codigoUbicacion", ubicacionSeleccionada.getCodigoUbicacion());
             intentFichaUbicacion.putExtra("descripcionUbicacion", ubicacionSeleccionada.getDescripcion());

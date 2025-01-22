@@ -112,72 +112,87 @@ public class MenuPrincipal extends menu3botones implements View.OnClickListener 
     }
 
     private void cargaDatosBBDD() throws ParseException {
-        //Gestionamos la base de datos
-        SalaDatabaseHelper sdh = new SalaDatabaseHelper(this, "BBDDIncidencias", null, 1);
-        ArrayList<EntSala> arSalas = sdh.getSalas();
-        if (arSalas == null || arSalas.isEmpty()) {
-            arSalas = GestionIncidencias.getArSalas();
-            for (EntSala sala : arSalas) {
-                sdh.crearSala(sala);
+        try (SalaDatabaseHelper sdh = new SalaDatabaseHelper(this, "BBDDIncidencias", null, 1)) {
+            ArrayList<EntSala> arSalas = sdh.getSalas();
+            if (arSalas == null || arSalas.isEmpty()) {
+                arSalas = GestionIncidencias.getArSalas();
+                for (EntSala sala : arSalas) {
+                    sdh.crearSala(sala);
+                }
             }
         }
-        TipoDatabaseHelper tdh = new TipoDatabaseHelper(this, "BBDDIncidencias", null, 1);
-        ArrayList<EntTipo> arTipos = tdh.getTipos();
-        if (arTipos == null || arTipos.isEmpty()) {
-            arTipos = GestionIncidencias.getArTipos();
-            for (EntTipo tipo : arTipos) {
-                tdh.crearTipo(tipo);
+
+        try (TipoDatabaseHelper tdh = new TipoDatabaseHelper(this, "BBDDIncidencias", null, 1)) {
+            ArrayList<EntTipo> arTipos = tdh.getTipos();
+            if (arTipos == null || arTipos.isEmpty()) {
+                arTipos = GestionIncidencias.getArTipos();
+                for (EntTipo tipo : arTipos) {
+                    tdh.crearTipo(tipo);
+                }
             }
         }
-        UbicacionDatabaseHelper udh = new UbicacionDatabaseHelper(this, "BBDDIncidencias", null, 1);
-        ArrayList<EntUbicacion> arUbicacion = udh.getUbicaciones();
-        if (arUbicacion == null || arUbicacion.isEmpty()) {
-            arUbicacion = GestionIncidencias.getArUbicaciones();
-            for (EntUbicacion ubicacion : arUbicacion) {
-                udh.crearUbicacion(ubicacion);
+
+        try (UbicacionDatabaseHelper udh = new UbicacionDatabaseHelper(this, "BBDDIncidencias", null, 1)) {
+            ArrayList<EntUbicacion> arUbicacion = udh.getUbicaciones();
+            if (arUbicacion == null || arUbicacion.isEmpty()) {
+                arUbicacion = GestionIncidencias.getArUbicaciones();
+                for (EntUbicacion ubicacion : arUbicacion) {
+                    udh.crearUbicacion(ubicacion);
+                }
             }
         }
-        ElementoDBHelper edh = new ElementoDBHelper(this, "BBDDIncidencias", null, 1);
-        ArrayList<EntElemento> arElementos = edh.getElementos();
-        if (arElementos == null || arElementos.isEmpty()) {
-            arElementos = GestionIncidencias.getArElementos();
-            for (EntElemento elemento : arElementos) {
-                edh.crearElemento(elemento);
+
+        try (ElementoDBHelper edh = new ElementoDBHelper(this, "BBDDIncidencias", null, 1)) {
+            ArrayList<EntElemento> arElementos = edh.getElementos();
+            if (arElementos == null || arElementos.isEmpty()) {
+                arElementos = GestionIncidencias.getArElementos();
+                for (EntElemento elemento : arElementos) {
+                    edh.crearElemento(elemento);
+                }
             }
         }
-        UsuarioDatabaseHelper usdh = new UsuarioDatabaseHelper(this, "BBDDIncidencias", null, 1);
-        ArrayList<EntUsuario> arUsuarios = usdh.getUsuarios();
-        if (arUsuarios == null || arUsuarios.isEmpty()) {
-            arUsuarios = GestionIncidencias.getArUsuarios();
-            for (EntUsuario usuario : arUsuarios) {
-                usdh.crearUsuario(usuario);
+
+        try (UsuarioDatabaseHelper usdh = new UsuarioDatabaseHelper(this, "BBDDIncidencias", null, 1)) {
+            ArrayList<EntUsuario> arUsuarios = usdh.getUsuarios();
+            if (arUsuarios == null || arUsuarios.isEmpty()) {
+                arUsuarios = GestionIncidencias.getArUsuarios();
+                for (EntUsuario usuario : arUsuarios) {
+                    usdh.crearUsuario(usuario);
+                }
             }
         }
-        RolDatabaseHelper rdh = new RolDatabaseHelper(this, "BBDDIncidencias", null, 1);
-        ArrayList<EntRol> arRoles = rdh.getRoles();
-        if (arRoles == null || arRoles.isEmpty()) {
-            arRoles = GestionIncidencias.getArRoles();
-            for (EntRol rol : arRoles) {
-                rdh.crearRol(rol);
+
+        try (RolDatabaseHelper rdh = new RolDatabaseHelper(this, "BBDDIncidencias", null, 1)) {
+            ArrayList<EntRol> arRoles = rdh.getRoles();
+            if (arRoles == null || arRoles.isEmpty()) {
+                arRoles = GestionIncidencias.getArRoles();
+                for (EntRol rol : arRoles) {
+                    rdh.crearRol(rol);
+                }
             }
         }
-        IncidenciaDatabaseHelper idh = new IncidenciaDatabaseHelper(this, "BBDDIncidencias", null, 1);
-        ArrayList<EntIncidencia> arIncidencias = idh.getIncidencias();
-        if (arIncidencias == null || arIncidencias.isEmpty()) {
-            arIncidencias = GestionIncidencias.getArIncidencias();
-            for (EntIncidencia incidencia : arIncidencias) {
-                idh.crearIncidencia(incidencia);
+
+        try (IncidenciaDatabaseHelper idh = new IncidenciaDatabaseHelper(this, "BBDDIncidencias", null, 1)) {
+            ArrayList<EntIncidencia> arIncidencias = idh.getIncidencias();
+            if (arIncidencias == null || arIncidencias.isEmpty()) {
+                arIncidencias = GestionIncidencias.getArIncidencias();
+                for (EntIncidencia incidencia : arIncidencias) {
+                    idh.crearIncidencia(incidencia);
+                }
             }
         }
-        PrestamoDatabaseHelper pdh = new PrestamoDatabaseHelper(this, "BBDDIncidencias", null, 1);
-        ArrayList<EntPrestamo> arPrestamos = pdh.getPrestamos();
-        if (arPrestamos == null || arPrestamos.isEmpty()) {
-            arPrestamos = GestionIncidencias.getArPrestamos();
-            for (EntPrestamo prestamo : arPrestamos) {
-                pdh.crearPrestamo(prestamo);
+
+        try (PrestamoDatabaseHelper pdh = new PrestamoDatabaseHelper(this, "BBDDIncidencias", null, 1)) {
+            ArrayList<EntPrestamo> arPrestamos = pdh.getPrestamos();
+            if (arPrestamos == null || arPrestamos.isEmpty()) {
+                arPrestamos = GestionIncidencias.getArPrestamos();
+                for (EntPrestamo prestamo : arPrestamos) {
+                    pdh.crearPrestamo(prestamo);
+                }
             }
         }
     }
+
 
     //Con el metodo sobreescrito onClick, el cual nos obliga a implementar la interface
     //Configuramos los botones para indicar hacia que actividad queremos que vaya

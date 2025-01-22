@@ -23,7 +23,7 @@ public class UbicacionDatabaseHelper extends BBDDIncidencias {
         super(context, name, factory, version);
     }
 
-    public SimpleDateFormat formateadorFecha = new SimpleDateFormat("yyyy-mm-dd HH:MM:SS");
+    public SimpleDateFormat formateadorFecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     public long crearUbicacion(EntUbicacion ubicacion) {
         SQLiteDatabase db = this.getWritableDatabase();
         long ubicacionId = -1;
@@ -62,6 +62,7 @@ public class UbicacionDatabaseHelper extends BBDDIncidencias {
         }
         finally {
             db.endTransaction();
+            db.close();
         }
         return ubicacionId;
     }
@@ -96,6 +97,7 @@ public class UbicacionDatabaseHelper extends BBDDIncidencias {
             }
             finally {
                 db.endTransaction();
+                db.close();
             }
         }
         return ubicacionId;
@@ -133,7 +135,38 @@ public class UbicacionDatabaseHelper extends BBDDIncidencias {
             } while (c.moveToNext());
         }
         c.close();
+        db.close();
         return salida;
+    }
+
+    //METODO PARA OBTENER UNA UBICACION
+    public EntUbicacion getUbicacion(int codigoUbicacion) throws ParseException {
+        EntUbicacion ubicacion = null;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor c = db.rawQuery("SELECT * FROM " + TABLE_UBICACION + " WHERE " + KEY_COL_CODIGO_UBICACION + " = " + codigoUbicacion, null);
+
+        if (c.moveToFirst()) {
+            int idSala = c.getInt(1);
+            int idElemento = c.getInt(2);
+            String descripcion = c.getString(3);
+            String fechaInicioString = c.getString(4);
+            String fechaFinString = c.getString(5);
+            Date fechaInicioFormat = null;
+            Date fechaFinFormat = null;
+
+            if (fechaInicioString != null && !fechaInicioString.isEmpty()) {
+                fechaInicioFormat = formateadorFecha.parse(fechaInicioString);
+            }
+            if (fechaFinString != null && !fechaFinString.isEmpty()) {
+                fechaFinFormat = formateadorFecha.parse(fechaFinString);
+            }
+
+            ubicacion = new EntUbicacion(codigoUbicacion, idSala, idElemento, descripcion, fechaInicioFormat, fechaFinFormat);
+        }
+        c.close();
+        db.close();
+        return ubicacion;
     }
 
     public int borrarUbicacion(int codigoUbicacion) {

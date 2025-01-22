@@ -34,7 +34,12 @@ public class    AdaptadorUbicacion extends ArrayAdapter<EntUbicacion> {
 
         //ASIGNAMOS LOS VALORES A MOSTRAR
         txCodigoUbicacion.setText("Codigo Ubicacion: " + String.valueOf(ubicaciones[position].getCodigoUbicacion()));
-        txNombreSala.setText(ubicaciones[position].getSala().getNombre());
+        if (ubicaciones[position].getSala() != null) {
+            txNombreSala.setText(ubicaciones[position].getSala().getNombre());
+        } else {
+            txNombreSala.setText("Sala desconocida"); // Mensaje para datos faltantes
+        }
+
 
         return view;
     }
