@@ -20,6 +20,7 @@ import com.example.ubicacion.ficha_ubicacion;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+
 import gestionincidencias.entidades.EntElemento;
 import gestionincidencias.entidades.EntTipo;
 import gestionincidencias.entidades.EntUbicacion;
@@ -28,13 +29,15 @@ public class ficha_elemento extends AppCompatActivity {
 
     private EntElemento elemento;
     private ElementoDBHelper elementoHelper;
-    private TipoDatabaseHelper tdh = new TipoDatabaseHelper(this, "BBDDIncidencias", null, 1);
-    private ArrayList<EntTipo> arTipos = tdh.getTipos();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ficha_elemento);
+
+        TipoDatabaseHelper tdh = new TipoDatabaseHelper(this, "BBDDIncidencias", null, 1);
+        ArrayList<EntTipo> arTipos = tdh.getTipos();
+
         elementoHelper = new ElementoDBHelper(this, "BBDDIncidencias", null, 1);
 
         int codElemento = getIntent().getExtras().getInt("codigoElemento");
@@ -80,75 +83,56 @@ public class ficha_elemento extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (elemento != null) {
-                    EditText txCodElemento = findViewById(R.id.codigoElemento);
                     EditText txNombreElemento = findViewById(R.id.nombreElemento);
                     EditText txDescripcionElemento = findViewById(R.id.descripcionElemento);
 
                     Spinner spinnerTipo = findViewById(R.id.spinnerNombreTipoElementoFichaElemento);
-                    Object tipoSeleccionado = spinnerTipo.getSelectedItem().toString();
+                    String tipoSeleccionado = spinnerTipo.getSelectedItem().toString();
 
+                    // Actualizar los valores en el objeto elemento
+                    elemento.setNombre(txNombreElemento.getText().toString().trim());
+                    elemento.setDescripcion(txDescripcionElemento.getText().toString().trim());
+
+                    for (EntTipo tipo : arTipos) {
+                        if (tipo.getNombre().equals(tipoSeleccionado)) {
+                            elemento.setIdTipo(tipo.getCodigoTipo());
+                            elemento.setTipoElemento(tipo);
+                            break;
+                        }
+                    }
+
+                    // Guardar o actualizar el elemento en la base de datos
                     if (elemento.getCodigoElemento() > 0) {
-                        elemento.setCodigoElemento(Integer.parseInt(txCodElemento.getText().toString()));
-                        elemento.setNombre(txNombreElemento.getText().toString());
-                        elemento.setDescripcion(txDescripcionElemento.getText().toString());
-
-                        for (EntTipo tipo : arTipos) {
-                            if (tipo.getNombre().equals(tipoSeleccionado)) {
-                                elemento.setIdTipo(tipo.getCodigoTipo());
-                                elemento.setTipoElemento(tipo);
-                            }
-                        }
-                    }
-
-                            elemento.setCodigoElemento(Integer.parseInt(txCodElemento.getText().toString()));
-                            elemento.setNombre(txNombreElemento.getText().toString());
-                            elemento.setDescripcion(txDescripcionElemento.getText().toString());
-
-                            for (EntTipo tipo : arTipos) {
-                                if (tipo.getNombre().equals(tipoSeleccionado)) {
-                                    elemento.setIdTipo(tipo.getCodigoTipo());
-                                    elemento.setTipoElemento(tipo);
-                                }
-                            }
-                        }
-                        GestionIncidencias.getArElementos().add(elemento);
+                        elementoHelper.actualizarElemento(elemento);
                     } else if (elemento.getCodigoElemento() == 0) {
-                        elemento.setCodigoElemento(Integer.parseInt(txCodElemento.getText().toString()));
-                        elemento.setNombre(txNombreElemento.getText().toString());
-                        elemento.setDescripcion(txDescripcionElemento.getText().toString());
-
-                        for (EntTipo tipo : GestionIncidencias.getArTipos()) {
-                            if (tipo.getNombre().equals(tipoSeleccionado)) {
-                                elemento.setIdTipo(tipo.getCodigoTipo());
-                                elemento.setTipoElemento(tipo);
-                            }
-                        }
+                        long id = elementoHelper.crearElemento(elemento);
+                        elemento.setCodigoElemento((int) id); // Actualiza el ID del elemento con el generado
                     }
+
+                    Toast.makeText(getApplicationContext(), "Elemento guardado correctamente", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(ficha_elemento.this, activityElemento.class);
+                    startActivity(intent);
                 }
-
-
-                Toast toast = Toast.makeText(getApplicationContext(), "Elemento guardado correctamente", Toast.LENGTH_SHORT);
-                toast.show();
-
-                Intent intent = new Intent(ficha_elemento.this, activityElemento.class);
-                startActivity(intent);
             }
         });
+
 
         Button botonEliminar = findViewById(R.id.botonEliminar);
-        botonEliminar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!elemento.getNombre().isEmpty()) {
+        botonEliminar.
 
-                    Intent eliminar = new Intent(view.getContext(), activityElemento.class);
-                    Toast.makeText(view.getContext(), "Elemento eliminado correctamente", Toast.LENGTH_SHORT).show();
-                    GestionIncidencias.getArElementos().remove(elemento);
-                    startActivity(eliminar);
-                } else {
-                    Toast.makeText(view.getContext(), "No se puede eliminar un elemento sin nombre", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+                setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (!elemento.getNombre().isEmpty()) {
+
+                            Intent eliminar = new Intent(view.getContext(), activityElemento.class);
+                            Toast.makeText(view.getContext(), "Elemento eliminado correctamente", Toast.LENGTH_SHORT).show();
+                            elementoHelper.borrarElemento(elemento.getCodigoElemento());
+                            startActivity(eliminar);
+                        } else {
+                            Toast.makeText(view.getContext(), "No se puede eliminar un elemento sin nombre", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 }
