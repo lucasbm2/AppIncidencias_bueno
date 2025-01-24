@@ -40,6 +40,9 @@ public class ficha_elemento extends AppCompatActivity {
 
         elementoHelper = new ElementoDBHelper(this, "BBDDIncidencias", null, 1);
 
+
+
+
         int codElemento = getIntent().getExtras().getInt("codigoElemento");
 
         if (codElemento > 0) {

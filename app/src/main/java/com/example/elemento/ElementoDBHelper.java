@@ -34,11 +34,19 @@ public class ElementoDBHelper extends BBDDIncidencias {
             values.put(KEY_COL_DESCRIPCION_ELEMENTO, elemento.getDescripcion());
             values.put(KEY_COL_CODIGO_TIPO_ELEMENTO, elemento.getIdTipo());
 
+            Log.d("ElementoDBHelper", "Insertando en la tabla elemento: " +
+                    "Nombre: " + elemento.getNombre() +
+                    ", Descripción: " + elemento.getDescripcion() +
+                    ", Tipo: " + elemento.getIdTipo());
+
             elementoID = db.insertOrThrow(TABLE_ELEMENTO, null, values);
+
+            Log.d("ElementoDBHelper", "Elemento insertado con ID: " + elementoID);
+
             db.setTransactionSuccessful();
 
         } catch (Exception e) {
-            Log.d(ElementoDBHelper.class.getName(), e.getMessage());
+            Log.e("ElementoDBHelper", "Error al insertar elemento: " + e.getMessage());
         } finally {
             db.endTransaction();
         }
@@ -81,6 +89,8 @@ public class ElementoDBHelper extends BBDDIncidencias {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ELEMENTO, null);
 
+        Log.d("ElementoDBHelper", "Número de elementos encontrados: " + cursor.getCount());
+
         if (cursor.moveToFirst()) {
             do {
                 int codigo = cursor.getInt(0);
@@ -90,9 +100,15 @@ public class ElementoDBHelper extends BBDDIncidencias {
 
                 EntElemento elemento = new EntElemento(codigo, nombre, descripcion, idTipo);
 
+                Log.d("ElementoDBHelper", "Elemento recuperado: " +
+                        "ID: " + codigo + ", Nombre: " + nombre + ", Descripción: " + descripcion + ", Tipo: " + idTipo);
+
                 elementos.add(elemento);
             }while (cursor.moveToNext());
+        } else {
+            Log.d("ElementoDBHelper", "No se encontraron elementos en la tabla.");
         }
+        cursor.close();
         return elementos;
     }
 

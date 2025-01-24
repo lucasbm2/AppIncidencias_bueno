@@ -3,6 +3,7 @@ package com.example;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -31,6 +32,10 @@ import com.example.ubicacion.activityUbicacion;
 import com.example.usuario.UsuarioDatabaseHelper;
 import com.example.usuario.activityUsuario;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.nio.channels.FileChannel;
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -47,6 +52,20 @@ import gestionincidencias.entidades.EntUsuario;
 public class MenuPrincipal extends menu3botones implements View.OnClickListener {
     private ActivityResultLauncher<Intent> launcher;
 
+    private void copiarBaseDeDatos() {
+        File dbFile = getDatabasePath("BBDDIncidencias"); // Ruta de la base de datos
+        File destFile = new File(getExternalFilesDir(null), "BBDDIncidencias.db"); // Guarda en almacenamiento interno del dispositivo
+
+        try (FileChannel src = new FileInputStream(dbFile).getChannel();
+             FileChannel dst = new FileOutputStream(destFile).getChannel()) {
+            dst.transferFrom(src, 0, src.size());
+            Log.d("ElementoDBHelper", "Base de datos copiada a: " + destFile.getAbsolutePath());
+        } catch (Exception e) {
+            Log.e("ElementoDBHelper", "Error al copiar la base de datos: " + e.getMessage());
+        }
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +73,7 @@ public class MenuPrincipal extends menu3botones implements View.OnClickListener 
         setContentView(R.layout.activity_menu_principal);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-
+            copiarBaseDeDatos();
 
             String ultima = getUltimaActividad(getSharedPreferences("datos", MODE_PRIVATE));
 
