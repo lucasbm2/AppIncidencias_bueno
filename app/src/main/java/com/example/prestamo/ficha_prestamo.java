@@ -31,7 +31,6 @@ import java.util.Locale;
 import gestionincidencias.GestionIncidencias;
 import gestionincidencias.entidades.EntElemento;
 import gestionincidencias.entidades.EntPrestamo;
-import gestionincidencias.entidades.EntSala;
 import gestionincidencias.entidades.EntUbicacion;
 import gestionincidencias.entidades.EntUsuario;
 
