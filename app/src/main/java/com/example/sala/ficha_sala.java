@@ -37,7 +37,6 @@ public class ficha_sala extends AppCompatActivity {
             //PARA AÑADIR UNA NUEVA SALA
         } else if (codSala == 0) {
             sala = new EntSala(0, "", "");
-
         }
 
         //RECOJO DATOS DEL XML

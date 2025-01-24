@@ -13,14 +13,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appincidencias.R;
+import com.example.tipo.TipoDatabaseHelper;
 import com.example.ubicacion.activityUbicacion;
 import com.example.ubicacion.ficha_ubicacion;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-
-import gestionincidencias.GestionIncidencias;
 import gestionincidencias.entidades.EntElemento;
 import gestionincidencias.entidades.EntTipo;
 import gestionincidencias.entidades.EntUbicacion;
@@ -28,30 +27,22 @@ import gestionincidencias.entidades.EntUbicacion;
 public class ficha_elemento extends AppCompatActivity {
 
     private EntElemento elemento;
+    private ElementoDBHelper elementoHelper;
+    private TipoDatabaseHelper tdh = new TipoDatabaseHelper(this, "BBDDIncidencias", null, 1);
+    private ArrayList<EntTipo> arTipos = tdh.getTipos();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ficha_elemento);
+        elementoHelper = new ElementoDBHelper(this, "BBDDIncidencias", null, 1);
 
         int codElemento = getIntent().getExtras().getInt("codigoElemento");
-        String nombreElemento = getIntent().getExtras().getString("nombreElemento");
-        String descripcionElemento = getIntent().getExtras().getString("descripcionElemento");
 
         if (codElemento > 0) {
-            for (EntElemento ele : GestionIncidencias.getArElementos()) {
-                if (ele.getCodigoElemento() == codElemento) {
-                    elemento = ele;
-                }
-            }
-        } else if (codElemento == 0 && descripcionElemento.isEmpty()) {
-            elemento = new EntElemento(0, "", "", 0);
+            elemento = elementoHelper.getElemento(codElemento);
         } else if (codElemento == 0) {
-            for (EntElemento ele : GestionIncidencias.getArElementos()) {
-                if (ele.getCodigoElemento() == codElemento) {
-                    elemento = ele;
-                }
-            }
+            elemento = new EntElemento(0, "", "", 0);
         }
 
         if (elemento != null) {
@@ -63,7 +54,7 @@ public class ficha_elemento extends AppCompatActivity {
             txDescripcionElemento.setText(elemento.getDescripcion());
 
             ArrayList<String> tipos = new ArrayList<>();
-            for (EntTipo tipo : GestionIncidencias.getArTipos()) {
+            for (EntTipo tipo : arTipos) {
                 tipos.add(tipo.getNombre());
             }
 
@@ -96,40 +87,24 @@ public class ficha_elemento extends AppCompatActivity {
                     Spinner spinnerTipo = findViewById(R.id.spinnerNombreTipoElementoFichaElemento);
                     Object tipoSeleccionado = spinnerTipo.getSelectedItem().toString();
 
-                    if (elemento.getCodigoElemento() != 0) {
+                    if (elemento.getCodigoElemento() > 0) {
                         elemento.setCodigoElemento(Integer.parseInt(txCodElemento.getText().toString()));
                         elemento.setNombre(txNombreElemento.getText().toString());
                         elemento.setDescripcion(txDescripcionElemento.getText().toString());
 
-                        for (EntTipo tipo : GestionIncidencias.getArTipos()) {
+                        for (EntTipo tipo : arTipos) {
                             if (tipo.getNombre().equals(tipoSeleccionado)) {
                                 elemento.setIdTipo(tipo.getCodigoTipo());
                                 elemento.setTipoElemento(tipo);
                             }
                         }
-                    } else if (elemento.getCodigoElemento() == 0 && elemento.getDescripcion().isEmpty()) {
-                        boolean encontrado = false;
+                    }
 
-                        for (EntElemento elem : GestionIncidencias.getArElementos()) {
-                            if (elem.getCodigoElemento() == elemento.getCodigoElemento()) {
-                                encontrado = true;
-                                break;
-                            }
-                        }
-
-                        if (!encontrado) {
-                            int siguienteCodigo = 1;
-                            for (EntElemento elem : GestionIncidencias.getArElementos()) {
-                                if (elem.getCodigoElemento() >= siguienteCodigo) {
-                                    siguienteCodigo = elem.getCodigoElemento() + 1;
-                                }
-                            }
-
-                            elemento.setCodigoElemento(siguienteCodigo);
+                            elemento.setCodigoElemento(Integer.parseInt(txCodElemento.getText().toString()));
                             elemento.setNombre(txNombreElemento.getText().toString());
                             elemento.setDescripcion(txDescripcionElemento.getText().toString());
 
-                            for (EntTipo tipo : GestionIncidencias.getArTipos()) {
+                            for (EntTipo tipo : arTipos) {
                                 if (tipo.getNombre().equals(tipoSeleccionado)) {
                                     elemento.setIdTipo(tipo.getCodigoTipo());
                                     elemento.setTipoElemento(tipo);
@@ -150,7 +125,6 @@ public class ficha_elemento extends AppCompatActivity {
                         }
                     }
                 }
-
 
 
                 Toast toast = Toast.makeText(getApplicationContext(), "Elemento guardado correctamente", Toast.LENGTH_SHORT);

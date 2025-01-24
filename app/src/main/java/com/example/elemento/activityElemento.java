@@ -18,6 +18,8 @@ import com.example.appincidencias.R;
 import com.example.menu3botones;
 import com.example.sala.ficha_sala;
 
+import java.util.ArrayList;
+
 import gestionincidencias.GestionIncidencias;
 import gestionincidencias.entidades.EntElemento;
 import gestionincidencias.entidades.EntSala;
@@ -36,15 +38,19 @@ public class activityElemento extends menu3botones {
             return insets;
         });
 
+        guardaActividad(getSharedPreferences("datos", MODE_PRIVATE), activityElemento.class.toString());
+
 
         ListView listaElementos = (ListView) findViewById(R.id.listaElementos);
-        AdaptadorElemento adaptadorElemento = new AdaptadorElemento(this, GestionIncidencias.getArElementos().toArray(new EntElemento[0]));
+        ElementoDBHelper edh = new ElementoDBHelper(this, "BBDDIncidencias", null, 1);
+        ArrayList<EntElemento> arElementos = edh.getElementos();
+        AdaptadorElemento adaptadorElemento = new AdaptadorElemento(this, arElementos.toArray(new EntElemento[0]));
 
         listaElementos.setAdapter(adaptadorElemento);
 
         //A la ListView de salas le damos un OnItemClickListener para que cuando se pulse sobre una sala nos lleve a la ficha que sea
         listaElementos.setOnItemClickListener((adapterView, view, position, id) -> {
-            EntElemento elementoSeleccionado = (EntElemento) listaElementos.getItemAtPosition(position);
+            EntElemento elementoSeleccionado = (EntElemento) adapterView.getItemAtPosition(position);
 
             Intent intentFichaElemento = new Intent(view.getContext(), ficha_elemento.class);
 

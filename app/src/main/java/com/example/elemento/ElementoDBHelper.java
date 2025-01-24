@@ -96,6 +96,23 @@ public class ElementoDBHelper extends BBDDIncidencias {
         return elementos;
     }
 
+    public EntElemento getElemento(int codigo){
+        SQLiteDatabase db = getReadableDatabase();
+        EntElemento elemento = null;
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ELEMENTO + " WHERE " + KEY_COL_CODIGO_ELEMENTO + " = ?", new String[]{String.valueOf(codigo)});
+        if (cursor.moveToFirst()){
+            do {
+                int codigoElemento = cursor.getInt(0);
+                String nombre = cursor.getString(1);
+                String descripcion = cursor.getString(2);
+                int idTipo = cursor.getInt(3);
+            }
+            while (cursor.moveToNext());
+
+        }
+        return elemento;
+    }
+
     public int borrarElemento(int codigo){
         SQLiteDatabase db = getWritableDatabase();
         int borrados = 0;
