@@ -37,6 +37,7 @@ public class RolDatabaseHelper extends BBDDIncidencias {
             Log.d(RolDatabaseHelper.class.getName(), e.getMessage());
         } finally {
             db.endTransaction();
+            db.close();
         }
         return rolID;
     }
@@ -68,6 +69,7 @@ public class RolDatabaseHelper extends BBDDIncidencias {
                 Log.d(RolDatabaseHelper.class.getName(), e.getMessage());
             } finally {
                 db.endTransaction();
+                db.close();
             }
         }
         return elementoID;
@@ -91,6 +93,20 @@ public class RolDatabaseHelper extends BBDDIncidencias {
             } while (cursor.moveToNext());
         }
         return roles;
+    }
+
+    public EntRol getRol(int codigo) {
+        SQLiteDatabase db = getReadableDatabase();
+        EntRol rol = null;
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ROL + " WHERE " + KEY_COL_CODIGO_ROL + " = ?", new String[]{String.valueOf(codigo)});
+        if (cursor.moveToFirst()) {
+            int codigoRol = cursor.getInt(0);
+            String nombre = cursor.getString(1);
+            String descripcion = cursor.getString(2);
+            int nivelAcceso = cursor.getInt(3);
+            rol = new EntRol(codigoRol, nombre, descripcion, nivelAcceso);
+        }
+        return rol;
     }
 
     public int borrarRol(int codigo) {

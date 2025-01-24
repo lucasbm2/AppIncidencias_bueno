@@ -15,6 +15,8 @@
     import com.example.menu3botones;
     import com.example.sala.ficha_sala;
 
+    import java.util.ArrayList;
+
     import gestionincidencias.GestionIncidencias;
     import gestionincidencias.entidades.EntRol;
 
@@ -31,10 +33,14 @@
                 return insets;
             });
 
+            guardaActividad(getSharedPreferences("datos", MODE_PRIVATE), activityRoles.class.toString());
+
             //BUSCAMOS LA LISTVIEW DE ROLES
             ListView listaRoles = (ListView) findViewById(R.id.listaRoles);
             //CREAMOS UN ADAPTADOR PARA LA LISTA DE ROLES
-            AdaptadorRol adaptadorRol = new AdaptadorRol(this, GestionIncidencias.getArRoles().toArray(new EntRol[0]));
+            RolDatabaseHelper rdh = new RolDatabaseHelper(this,"BBDDIncidencias", null, 1);
+            ArrayList<EntRol> arRoles = rdh.getRoles();
+            AdaptadorRol adaptadorRol = new AdaptadorRol(this, arRoles.toArray(new EntRol[0]));
 
             //ESTABLECEMOS ADAPTADOR A LA LISTA
             listaRoles.setAdapter(adaptadorRol);
