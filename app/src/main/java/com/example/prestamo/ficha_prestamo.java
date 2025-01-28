@@ -54,11 +54,7 @@
 
             ArrayList<EntPrestamo> arPrestamos;
             PrestamoDatabaseHelper pdh = new PrestamoDatabaseHelper(this, "BBDDIncidencias", null, 1);
-            try {
-                arPrestamos = pdh.getPrestamos();
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
+            arPrestamos = pdh.getPrestamos();
 
             prestamoHelper = new PrestamoDatabaseHelper(this, "BBDDIncidencias", null, 1);
 
@@ -95,9 +91,10 @@
                 //////
                 ArrayList<String> elementos = new ArrayList<>();
                 for (EntElemento ele : arElementos) {
-
-                    if (!elementos.contains(ele.getTipoElemento().getNombre())) {
-                        elementos.add(String.valueOf(ele.getTipoElemento().getNombre()));
+                    if (ele.getTipoElemento() != null && ele.getTipoElemento().getNombre() != null) {
+                        if (!elementos.contains(ele.getTipoElemento().getNombre())) {
+                            elementos.add(ele.getTipoElemento().getNombre());
+                        }
                     }
                 }
 
@@ -140,6 +137,8 @@
             //////
 
             Button botonGuardar = findViewById(R.id.botonGuardar);
+            ArrayList<EntUsuario> finalArUsuarios = arUsuarios;
+            ArrayList<EntElemento> finalArElementos = arElementos;
             botonGuardar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 //Metodo para guardar la ubicacion con los datos introducidos
@@ -165,7 +164,7 @@
                         if (prestamo.getCodigoPrestamo() != 0) {
                             prestamo.setCodigoPrestamo(Integer.parseInt(txtCodigo.getText().toString()));
 
-                            for (EntUsuario usu : arUsuarios) {
+                            for (EntUsuario usu : finalArUsuarios) {
                                 if (usu.getNombre().equals(usuarioSeleccionado)) {
                                     prestamo.setIdUsuario(usu.getCodigoUsuario());
                                     prestamo.setUsuario(usu);
@@ -174,7 +173,7 @@
                                 }
                             }
 
-                            for (EntElemento ele : arElementos) {
+                            for (EntElemento ele : finalArElementos) {
                                 if (ele.getNombre().equals(elementoSeleccionado)) {
                                     prestamo.setIdElemento(ele.getCodigoElemento());
                                     prestamo.setElemento(ele);
@@ -219,7 +218,7 @@
                                 //ASIGNO EL SIGUIENTE CODIGO POR SI HAY DUPLICADOS, ASIGNAR EL DISPONIBLE CERCANO
                                 prestamo.setCodigoPrestamo(siguienteCodigo);
 
-                                for (EntUsuario usu : arUsuarios) {
+                                for (EntUsuario usu : finalArUsuarios) {
                                     if (usu.getNombre().equals(usuarioSeleccionado)) {
                                         prestamo.setIdUsuario(usu.getCodigoUsuario());
                                         prestamo.setUsuario(usu);
@@ -228,7 +227,7 @@
                                     }
                                 }
 
-                                for (EntElemento ele : arElementos) {
+                                for (EntElemento ele : finalArElementos) {
                                     if (ele.getNombre().equals(elementoSeleccionado)) {
                                         prestamo.setIdElemento(ele.getCodigoElemento());
                                         prestamo.setElemento(ele);
