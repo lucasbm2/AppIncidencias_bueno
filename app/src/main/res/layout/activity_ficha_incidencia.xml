@@ -43,8 +43,8 @@
             android:layout_marginBottom="4dp"
             android:background="@drawable/borde_textview"
             android:gravity="center"
-            android:paddingBottom="4dp"
-            android:hint="Campo Codigo Incidencia" />
+            android:hint="Campo Codigo Incidencia"
+            android:paddingBottom="4dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -62,9 +62,9 @@
             android:layout_gravity="center"
             android:layout_marginBottom="4dp"
             android:background="@drawable/borde_textview"
+            android:hint="Campo Usuario creacion"
             android:inputType="text"
-            android:padding="8dp"
-            android:hint="Campo Usuario creacion" />
+            android:padding="8dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -82,9 +82,9 @@
             android:layout_gravity="center"
             android:layout_marginBottom="4dp"
             android:background="@drawable/borde_textview"
+            android:hint="Campo ID elemento"
             android:inputType="text"
-            android:padding="8dp"
-            android:hint="Campo ID elemento" />
+            android:padding="8dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -104,9 +104,9 @@
             android:layout_gravity="center"
             android:layout_marginBottom="4dp"
             android:background="@drawable/borde_textview"
+            android:hint="Campo de fecha creacion"
             android:inputType="text"
-            android:padding="8dp"
-            android:hint="Campo de fecha creacion" />
+            android:padding="8dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -124,9 +124,9 @@
             android:layout_gravity="center"
             android:layout_marginBottom="4dp"
             android:background="@drawable/borde_textview"
+            android:hint="Campo de descripcion"
             android:inputType="text"
-            android:padding="4dp"
-            android:hint="Campo de descripcion" />
+            android:padding="4dp" />
 
 
         <Space
@@ -139,35 +139,34 @@
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:layout_gravity="bottom"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@android:color/holo_red_dark"
-        android:text="Eliminar"
-        android:textColor="@android:color/white" />
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@android:color/holo_red_dark"
+            android:text="Eliminar"
+            android:textColor="@android:color/white" />
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
+            <Button
+                android:id="@+id/botonSalir"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:text="Salir" /> <!-- Se le da peso para que ocupe el espacio a la izquierda -->
+
+            <Button
+                android:id="@+id/botonGuardar"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:text="Guardar" /> <!-- Se le da peso para que ocupe el espacio a la derecha -->
+
+        </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/botonSalir"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="8dp"
-            android:text="Salir"
-            android:layout_weight="1" /> <!-- Se le da peso para que ocupe el espacio a la izquierda -->
-
-        <Button
-            android:id="@+id/botonGuardar"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:text="Guardar"
-            android:layout_weight="1" /> <!-- Se le da peso para que ocupe el espacio a la derecha -->
-
-    </LinearLayout>
 
 </LinearLayout>

@@ -164,28 +164,29 @@
             android:backgroundTint="@android:color/holo_red_dark"
             android:text="Eliminar"
             android:textColor="@android:color/white" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/botonSalir"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="8dp"
+                android:text="Salir"
+                android:layout_weight="1" /> <!-- Se le da peso para que ocupe el espacio a la izquierda -->
+
+            <Button
+                android:id="@+id/botonGuardar"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:text="Guardar"
+                android:layout_weight="1" /> <!-- Se le da peso para que ocupe el espacio a la derecha -->
+
+        </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/botonSalir"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="8dp"
-            android:text="Salir"
-            android:layout_weight="1" /> <!-- Se le da peso para que ocupe el espacio a la izquierda -->
-
-        <Button
-            android:id="@+id/botonGuardar"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:text="Guardar"
-            android:layout_weight="1" /> <!-- Se le da peso para que ocupe el espacio a la derecha -->
-
-    </LinearLayout>
 
 </LinearLayout>

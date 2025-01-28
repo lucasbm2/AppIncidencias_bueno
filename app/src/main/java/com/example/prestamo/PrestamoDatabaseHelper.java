@@ -122,17 +122,17 @@ public class PrestamoDatabaseHelper extends BBDDIncidencias {
                 String fechaFinString = c.getString(4);
                 Date fechaFinFormat = null;
 
-                    try {
-                        fechaInicioFormat = formateadorFecha.parse(String.valueOf(fechaInicioFormat));
-                    } catch (ParseException e ) {
-                        e.printStackTrace();
-                    }
+                try {
+                    fechaInicioFormat = formateadorFecha.parse(String.valueOf(fechaInicioFormat));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
 
-                    try {
-                        fechaFinFormat = formateadorFecha.parse(String.valueOf(fechaFinFormat));
-                    } catch (ParseException e ) {
-                        e.printStackTrace();
-                    }
+                try {
+                    fechaFinFormat = formateadorFecha.parse(String.valueOf(fechaFinFormat));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
 
                 EntPrestamo prestamo = new EntPrestamo(codigoPrestamo, idUsuario, idElemento, fechaInicioFormat, fechaFinFormat);
 
@@ -142,6 +142,39 @@ public class PrestamoDatabaseHelper extends BBDDIncidencias {
         c.close();
         return salida;
     }
+
+    public EntPrestamo getPrestamo(int codigoPrestamo) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        EntPrestamo prestamo = null;
+        Cursor c = db.rawQuery("SELECT * FROM " + TABLE_PRESTAMO + " WHERE " + KEY_COL_CODIGO_PRESTAMO + " = ?", new String[]{String.valueOf(codigoPrestamo)});
+        if (c.moveToFirst()) {
+            do {
+                int idUsuario = c.getInt(1);
+                int idElemento = c.getInt(2);
+                String fechaInicioString = c.getString(3);
+                Date fechaInicioFormat = null;
+                String fechaFinString = c.getString(4);
+                Date fechaFinFormat = null;
+                try {
+                    fechaInicioFormat = formateadorFecha.parse(String.valueOf(fechaInicioFormat));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    fechaFinFormat = formateadorFecha.parse(String.valueOf(fechaFinFormat));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                prestamo = new EntPrestamo(codigoPrestamo, idUsuario, idElemento, fechaInicioFormat, fechaFinFormat);
+            } while (c.moveToNext());
+            c.close();
+            return prestamo;
+        } else {
+            c.close();
+            return null;
+        }
+    }
+
 
     public int borrarPrestamo(int codigoPrestamo) {
         SQLiteDatabase db = this.getWritableDatabase();

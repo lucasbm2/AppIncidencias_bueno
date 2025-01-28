@@ -36,7 +36,7 @@ public class ficha_elemento extends AppCompatActivity {
         setContentView(R.layout.activity_ficha_elemento);
 
         TipoDatabaseHelper tdh = new TipoDatabaseHelper(this, "BBDDIncidencias", null, 1);
-        ArrayList<EntTipo> arTipos = tdh.getTipos();
+        ArrayList<EntTipo> arTipos =    tdh.getTipos();
 
         elementoHelper = new ElementoDBHelper(this, "BBDDIncidencias", null, 1);
 
