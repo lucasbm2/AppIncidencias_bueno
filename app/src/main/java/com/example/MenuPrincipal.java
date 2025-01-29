@@ -1,6 +1,7 @@
 package com.example;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -52,27 +53,22 @@ public class MenuPrincipal extends menu3botones implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_menu_principal);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
 
 
-            String ultima = getUltimaActividad(getSharedPreferences("datos", MODE_PRIVATE));
+            SharedPreferences prefs = getSharedPreferences("datos", MODE_PRIVATE);
+            String ultima = getUltimaActividad(prefs);
 
-            if (ultima != null && !ultima.isEmpty()) {
-                if (ultima.equals(activitySalas.class.toString())) {
-                    Intent intentSala = new Intent(this, activitySalas.class);
-                    startActivity(intentSala);
-                }
-                guardaActividad(getSharedPreferences("datos", MODE_PRIVATE), "");
-            }
+
+            guardaActividad(prefs, MenuPrincipal.class.toString());
+
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-
-
-
-        //Creamos una variable para cada boton, asociando cada uno con su id
+    //Creamos una variable para cada boton, asociando cada uno con su id
         Button botonUsuarios = findViewById(R.id.botonUsuarios);
         // A este boton le damos un onClickListener para que cuando se pulse se abra la activity correspondiente
         botonUsuarios.setOnClickListener((View.OnClickListener) this);
@@ -211,7 +207,6 @@ public class MenuPrincipal extends menu3botones implements View.OnClickListener 
             startActivity(botonRoles);
         }
     }
-
 
 
 }
