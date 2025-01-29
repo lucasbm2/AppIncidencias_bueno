@@ -42,11 +42,7 @@ public class ficha_prestamo extends AppCompatActivity {
 
         ArrayList<EntUsuario> arUsuarios = new ArrayList<>();
         UsuarioDatabaseHelper udh = new UsuarioDatabaseHelper(this, "BBDDIncidencias", null, 1);
-        try {
             arUsuarios = udh.getUsuarios();
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
 
         ArrayList<EntElemento> arElementos = new ArrayList<>();
         ElementoDBHelper edh = new ElementoDBHelper(this, "BBDDIncidencias", null, 1);

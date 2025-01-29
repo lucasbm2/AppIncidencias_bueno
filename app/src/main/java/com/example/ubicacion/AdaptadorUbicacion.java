@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 
 import gestionincidencias.entidades.EntUbicacion;
 
-public class    AdaptadorUbicacion extends ArrayAdapter<EntUbicacion> {
+public class AdaptadorUbicacion extends ArrayAdapter<EntUbicacion> {
 
     private EntUbicacion[] ubicaciones;
 
@@ -32,9 +32,15 @@ public class    AdaptadorUbicacion extends ArrayAdapter<EntUbicacion> {
         TextView txCodigoUbicacion = view.findViewById(R.id.codigoUbicacion);
         TextView txNombreSala = view.findViewById(R.id.nombreSalaUbicacion);
 
+        //POR SI HE BORRADO ALGUNA SALA
+        String nombreSala = "--";
+        if (ubicaciones[position].getSala() != null) {
+            nombreSala = ubicaciones[position].getSala().getNombre();
+        }
+
         //ASIGNAMOS LOS VALORES A MOSTRAR
         txCodigoUbicacion.setText("Codigo Ubicacion: " + String.valueOf(ubicaciones[position].getCodigoUbicacion()));
-        txNombreSala.setText(ubicaciones[position].getSala().getNombre());
+        txNombreSala.setText(nombreSala);
 
         return view;
     }

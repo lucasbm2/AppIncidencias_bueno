@@ -87,7 +87,7 @@ public class UsuarioDatabaseHelper extends BBDDIncidencias {
         return usuarioId;
     }
 
-    public ArrayList<EntUsuario> getUsuarios() throws ParseException {
+    public ArrayList<EntUsuario> getUsuarios() {
         ArrayList<EntUsuario> salida = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 

@@ -18,6 +18,7 @@ import com.example.menu3botones;
 import com.example.prestamo.ficha_prestamo;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -26,6 +27,7 @@ import gestionincidencias.entidades.EntUbicacion;
 
 public class activityUbicacion extends menu3botones {
 
+    private UbicacionDatabaseHelper ubicacionHelper;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +44,14 @@ public class activityUbicacion extends menu3botones {
         //BUSCAMOS LA LISTVIEW DE UBICACIONES
         ListView listaUbicaciones = (ListView) findViewById(R.id.listaUbicaciones);
         //CREAMOS UN ADAPTADOR PARA LA LISTA
-        AdaptadorUbicacion adaptadorUbicacion = new AdaptadorUbicacion(this, GestionIncidencias.getArUbicaciones().toArray(new EntUbicacion[0]));
+        ubicacionHelper = new UbicacionDatabaseHelper(this, "BBDDIncidencias", null, 1);
+        List<EntUbicacion> ubicaciones = null;
+        try {
+            ubicaciones = ubicacionHelper.getUbicaciones();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        AdaptadorUbicacion adaptadorUbicacion = new AdaptadorUbicacion(this, ubicaciones.toArray(new EntUbicacion[0]));
 
         //ESTABLECEMOS ADAPTADOR A LA LISTA
         listaUbicaciones.setAdapter(adaptadorUbicacion);

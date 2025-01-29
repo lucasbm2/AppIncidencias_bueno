@@ -136,6 +136,32 @@ public class UbicacionDatabaseHelper extends BBDDIncidencias {
         return salida;
     }
 
+    public EntUbicacion getUbicacion(int codigoUbicacion) throws ParseException {
+        EntUbicacion salida = null;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM " + TABLE_UBICACION + " WHERE " + KEY_COL_CODIGO_UBICACION + " = ?", new String[]{String.valueOf(codigoUbicacion)});
+        if (c.moveToFirst()) {
+            int idSala = c.getInt(1);
+            int idElemento = c.getInt(2);
+            String descripcion = c.getString(3);
+            String fechaInicioString = c.getString(4);
+            String fechaFinString = c.getString(5);
+            Date fechaInicioFormat = null;
+            Date fechaFinFormat = null;
+
+            if (fechaInicioString != null && !fechaInicioString.isEmpty()) {
+                fechaInicioFormat = formateadorFecha.parse(fechaInicioString);
+            }
+            if (fechaFinString != null && !fechaFinString.isEmpty()) {
+                fechaFinFormat = formateadorFecha.parse(fechaFinString);
+            }
+
+            salida = new EntUbicacion(codigoUbicacion, idSala, idElemento, descripcion, fechaInicioFormat, fechaFinFormat);
+        }
+        c.close();
+        return salida;
+    }
+
     public int borrarUbicacion(int codigoUbicacion) {
         SQLiteDatabase db = this.getWritableDatabase();
         int borrados = 0;

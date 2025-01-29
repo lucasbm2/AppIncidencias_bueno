@@ -22,7 +22,7 @@ import gestionincidencias.GestionIncidencias;
 import gestionincidencias.entidades.EntIncidencia;
 import gestionincidencias.entidades.EntPrestamo;
 
-public class activityPrestamo extends menu3botones {
+public class    activityPrestamo extends menu3botones {
 
     @SuppressLint("MissingInflatedId")
     @Override
