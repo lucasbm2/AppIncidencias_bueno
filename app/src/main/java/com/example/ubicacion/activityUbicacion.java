@@ -1,5 +1,6 @@
 package com.example.ubicacion;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -25,6 +26,7 @@ import gestionincidencias.entidades.EntUbicacion;
 
 public class activityUbicacion extends menu3botones {
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

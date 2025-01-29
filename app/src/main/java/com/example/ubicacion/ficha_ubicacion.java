@@ -31,12 +31,13 @@ import gestionincidencias.entidades.EntElemento;
 import gestionincidencias.entidades.EntSala;
 import gestionincidencias.entidades.EntUbicacion;
 
-public class    ficha_ubicacion extends AppCompatActivity {
+public class ficha_ubicacion extends AppCompatActivity {
 
     //Creo una ubicacion
-        private EntUbicacion ubicacion;
-        //Este es el formato a aplicar a las fechas despues
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+    private EntUbicacion ubicacion;
+    private UbicacionDatabaseHelper ubicacionHelper;
+    //Este es el formato a aplicar a las fechas despues
+    SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,7 @@ public class    ficha_ubicacion extends AppCompatActivity {
         setContentView(R.layout.activity_ficha_ubicacion);
 
         // Extraer los datos del Bundle de listas
-            int codUbicacion = getIntent().getExtras().getInt("codigoUbicacion");
+        int codUbicacion = getIntent().getExtras().getInt("codigoUbicacion");
         String descripcionUbicacion = getIntent().getExtras().getString("descripcionUbicacion");
 
         //PARA MODIFICAR LA UBICACION
@@ -143,7 +144,7 @@ public class    ficha_ubicacion extends AppCompatActivity {
         }
 
         // Botón para volver a la lista de ubicaciones
-            Button botonVolver = findViewById(R.id.botonSalir);
+        Button botonVolver = findViewById(R.id.botonSalir);
         botonVolver.setOnClickListener(view -> {
             Intent intent = new Intent(ficha_ubicacion.this, activityUbicacion.class);
             startActivity(intent);
@@ -161,8 +162,8 @@ public class    ficha_ubicacion extends AppCompatActivity {
                     TextView txtCodigo = findViewById(R.id.codigoUbicacionFicha);
                     EditText txtDescripcion = findViewById(R.id.descripcionUbicacion);
 
-                        Spinner spinnerSala = findViewById(R.id.spinnerIdSalaFichaUbicacion);
-                        Object salaSeleccionada = spinnerSala.getSelectedItem().toString();
+                    Spinner spinnerSala = findViewById(R.id.spinnerIdSalaFichaUbicacion);
+                    Object salaSeleccionada = spinnerSala.getSelectedItem().toString();
 
                     Spinner spinnerElemento = findViewById(R.id.spinnerElementoFichaUbicacion);
                     Object elementoSeleccionado = spinnerElemento.getSelectedItem().toString();
@@ -175,8 +176,8 @@ public class    ficha_ubicacion extends AppCompatActivity {
                     String fechaFin = txtFechaFin.getText().toString();
                     SimpleDateFormat formatterFin = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 
-                        //PARA MODIFICAR LOS DATOS DE ALGUN ELEMENTO QUE YA EXISTE
-                    if (ubicacion.getCodigoUbicacion() != 0)     {
+                    //PARA MODIFICAR LOS DATOS DE ALGUN ELEMENTO QUE YA EXISTE
+                    if (ubicacion.getCodigoUbicacion() != 0) {
                         ubicacion.setCodigoUbicacion(Integer.parseInt(txtCodigo.getText().toString()));
                         ubicacion.setDescripcion(txtDescripcion.getText().toString());
 
