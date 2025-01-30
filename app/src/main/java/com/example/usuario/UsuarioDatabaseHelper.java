@@ -109,7 +109,6 @@ public class UsuarioDatabaseHelper extends BBDDIncidencias {
                 salida.add(usuario);
             } while (c.moveToNext());
         }
-        c.close();
         return salida;
     }
 

@@ -14,15 +14,20 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.appincidencias.R;
+import com.example.elemento.ElementoDBHelper;
 import com.example.incidencia.ficha_incidencia;
 import com.example.menu3botones;
 import com.example.ubicacion.ficha_ubicacion;
+import com.example.usuario.UsuarioDatabaseHelper;
 
-import gestionincidencias.GestionIncidencias;
+import java.util.ArrayList;
+
+import gestionincidencias.entidades.EntElemento;
 import gestionincidencias.entidades.EntIncidencia;
 import gestionincidencias.entidades.EntPrestamo;
+import gestionincidencias.entidades.EntUsuario;
 
-public class    activityPrestamo extends menu3botones {
+public class activityPrestamo extends menu3botones {
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -37,13 +42,35 @@ public class    activityPrestamo extends menu3botones {
         });
 
 
-
-
         ListView listaPrestamos = (ListView) findViewById(R.id.listaPrestamos);
-        AdaptadorPrestamo adaptadorPrestamo = new AdaptadorPrestamo(this, GestionIncidencias.getArPrestamos().toArray(new EntPrestamo[0]));
+
+        PrestamoDatabaseHelper pdh = new PrestamoDatabaseHelper(this, "BBDDIncidencias", null, 1);
+        ArrayList<EntPrestamo> arPrestamos = pdh.getPrestamos();
+        AdaptadorPrestamo adaptadorPrestamo = new AdaptadorPrestamo(this, arPrestamos.toArray(new EntPrestamo[0]));
+
+        UsuarioDatabaseHelper udh = new UsuarioDatabaseHelper(this, "BBDDIncidencias", null, 1);
+        ArrayList<EntUsuario> arUsuarios = udh.getUsuarios();
+        for (EntPrestamo p : arPrestamos) {
+            for (EntUsuario u : arUsuarios) {
+                if (p.getIdUsuario() == u.getCodigoUsuario()) {
+                    p.setUsuario(u);
+                    break;
+                }
+            }
+        }
+
+        ElementoDBHelper edh = new ElementoDBHelper(this, "BBDDIncidencias", null, 1);
+        ArrayList<EntElemento> arElementos = edh.getElementos();
+        for (EntPrestamo p : arPrestamos) {
+            for (EntElemento e : arElementos) {
+                if (p.getIdElemento() == e.getCodigoElemento()) {
+                    p.setElemento(e);
+                    break;
+                }
+            }
+        }
 
         listaPrestamos.setAdapter(adaptadorPrestamo);
-
 
         //A la ListView de salas le damos un OnItemClickListener para que cuando se pulse sobre una sala nos lleve a la ficha que sea
         listaPrestamos.setOnItemClickListener(new AdapterView.OnItemClickListener() {

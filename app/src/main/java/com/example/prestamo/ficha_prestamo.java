@@ -40,22 +40,16 @@ public class ficha_prestamo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ficha_prestamo);
 
-        ArrayList<EntUsuario> arUsuarios = new ArrayList<>();
-        UsuarioDatabaseHelper udh = new UsuarioDatabaseHelper(this, "BBDDIncidencias", null, 1);
-            arUsuarios = udh.getUsuarios();
-
-        ArrayList<EntElemento> arElementos = new ArrayList<>();
         ElementoDBHelper edh = new ElementoDBHelper(this, "BBDDIncidencias", null, 1);
+        ArrayList<EntElemento> arElementos = edh.getElementos();
 
-        arElementos = edh.getElementos();
+        UsuarioDatabaseHelper udh = new UsuarioDatabaseHelper(this, "BBDDIncidencias", null, 1);
+        ArrayList<EntUsuario> arUsuarios = udh.getUsuarios();
 
-        ArrayList<EntPrestamo> arPrestamos;
-        PrestamoDatabaseHelper pdh = new PrestamoDatabaseHelper(this, "BBDDIncidencias", null, 1);
-        arPrestamos = pdh.getPrestamos();
-
-        prestamoHelper = new PrestamoDatabaseHelper(this, "BBDDIncidencias", null, 1);
 
         int codigoPrestamo = getIntent().getExtras().getInt("codigoPrestamo");
+
+        prestamoHelper = new PrestamoDatabaseHelper(this, "BBDDIncidencias", null, 1);
 
 
         if (codigoPrestamo > 0) {
@@ -64,24 +58,22 @@ public class ficha_prestamo extends AppCompatActivity {
             prestamo = new EntPrestamo(0, 0, 0, new Date(System.currentTimeMillis()), new Date(System.currentTimeMillis()));
         }
 
+        for (EntElemento ele : arElementos) {
+            if (ele.getCodigoElemento() == prestamo.getIdElemento()) {
+                prestamo.setElemento(ele);
+                break;
+            }
+        }
+
+        for (EntUsuario usu : arUsuarios) {
+            if (prestamo.getIdUsuario() == usu.getCodigoUsuario()) {
+                prestamo.setUsuario(usu);
+                break;
+            }
+        }
+
 
         if (prestamo != null) {
-            if (prestamo.getIdUsuario() > 0) {
-                for (EntUsuario usu : arUsuarios) {
-                    if (usu.getCodigoUsuario() == prestamo.getIdUsuario()) {
-                        prestamo.setUsuario(usu);
-                        break;
-                    }
-                }
-            }
-            if (prestamo.getIdElemento() > 0) {
-                for (EntElemento ele : arElementos) {
-                    if (ele.getCodigoElemento() == prestamo.getIdElemento()) {
-                        prestamo.setElemento(ele);
-                        break;
-                    }
-                }
-            }
 
             TextView txCodigoPrestamo = findViewById(R.id.codigoPrestamo);
             txCodigoPrestamo.setText(String.valueOf(prestamo.getCodigoPrestamo()));
@@ -96,9 +88,9 @@ public class ficha_prestamo extends AppCompatActivity {
 
             Spinner spinnerUsuario = findViewById(R.id.spinnerNombreUsuarioFichaPrestamo);
             ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, usuarios);
-
             spinnerUsuario.setAdapter(spinnerArrayAdapter);
-            if (prestamo.getUsuario() != null) {
+
+            if (prestamo != null && prestamo.getUsuario() != null) {
                 spinnerUsuario.setSelection(usuarios.indexOf(prestamo.getUsuario().getNombre()));
             }
 
@@ -107,7 +99,6 @@ public class ficha_prestamo extends AppCompatActivity {
             for (EntElemento ele : arElementos) {
                 elementos.add(ele.getNombre());
             }
-
             Collections.sort(elementos);
 
             Spinner spinnerElemento = findViewById(R.id.spinnerNombreElementoFichaPrestamo);
@@ -208,8 +199,7 @@ public class ficha_prestamo extends AppCompatActivity {
                     if (prestamo.getCodigoPrestamo() > 0) {
                         prestamoHelper.actualizarPrestamo(prestamo);
                     } else if (prestamo.getCodigoPrestamo() == 0) {
-                        long id = prestamoHelper.crearPrestamo(prestamo);
-                        prestamo.setCodigoPrestamo((int) id);
+                        prestamoHelper.crearPrestamo(prestamo);
                     }
 
                     Toast toast = Toast.makeText(ficha_prestamo.this, "Prestamo Guardado", Toast.LENGTH_SHORT);
