@@ -14,20 +14,25 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.appincidencias.R;
+import com.example.elemento.ElementoDBHelper;
 import com.example.menu3botones;
 import com.example.prestamo.ficha_prestamo;
+import com.example.sala.SalaDatabaseHelper;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import gestionincidencias.GestionIncidencias;
+import gestionincidencias.entidades.EntElemento;
+import gestionincidencias.entidades.EntPrestamo;
+import gestionincidencias.entidades.EntSala;
 import gestionincidencias.entidades.EntUbicacion;
 
 public class activityUbicacion extends menu3botones {
 
-    private UbicacionDatabaseHelper ubicacionHelper;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,27 +49,50 @@ public class activityUbicacion extends menu3botones {
         //BUSCAMOS LA LISTVIEW DE UBICACIONES
         ListView listaUbicaciones = (ListView) findViewById(R.id.listaUbicaciones);
         //CREAMOS UN ADAPTADOR PARA LA LISTA
-        ubicacionHelper = new UbicacionDatabaseHelper(this, "BBDDIncidencias", null, 1);
-        List<EntUbicacion> ubicaciones = null;
-        try {
-            ubicaciones = ubicacionHelper.getUbicaciones();
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
+        UbicacionDatabaseHelper ubicacionHelper = new UbicacionDatabaseHelper(this, "BBDDIncidencias", null, 1);
+        ArrayList<EntUbicacion> arUbicaciones = ubicacionHelper.getUbicaciones();
+
+        AdaptadorUbicacion adaptadorUbicacion = new AdaptadorUbicacion(this, arUbicaciones.toArray(new EntUbicacion[0]));
+
+        SalaDatabaseHelper sdh = new SalaDatabaseHelper(this, "BBDDIncidencias", null, 1);
+        ArrayList<EntSala> arSalas = sdh.getSalas();
+        for (EntUbicacion ub : arUbicaciones) {
+            for (EntSala s : arSalas) {
+                if (ub.getIdSala() == s.getCodigoSala()) {
+                    ub.setSala(s);
+                    break;
+                }
+            }
         }
-        AdaptadorUbicacion adaptadorUbicacion = new AdaptadorUbicacion(this, ubicaciones.toArray(new EntUbicacion[0]));
+
+        ElementoDBHelper edh = new ElementoDBHelper(this, "BBDDIncidencias", null, 1);
+        ArrayList<EntElemento> arElementos = edh.getElementos();
+        for (EntUbicacion ub : arUbicaciones) {
+            for (EntElemento e : arElementos) {
+                if (ub.getIdElemento() == e.getCodigoElemento()) {
+                    ub.setElemento(e);
+                    break;
+                }
+            }
+        }
 
         //ESTABLECEMOS ADAPTADOR A LA LISTA
         listaUbicaciones.setAdapter(adaptadorUbicacion);
 
         //OYENTE PARA QUE CUANDO HAGAMOS CLICK SE ABRA LA FICHA SELECCIONADA
-        listaUbicaciones.setOnItemClickListener((adapterView, view, position, id) -> {
+        listaUbicaciones.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-            EntUbicacion ubicacionSeleccionada = (EntUbicacion) adapterView.getItemAtPosition(position);
-            Intent intentFichaUbicacion = new Intent(view.getContext(), ficha_ubicacion.class);
-            intentFichaUbicacion.putExtra("codigoUbicacion", ubicacionSeleccionada.getCodigoUbicacion());
-            intentFichaUbicacion.putExtra("descripcionUbicacion", ubicacionSeleccionada.getDescripcion());
 
-            startActivity(intentFichaUbicacion);
+                EntUbicacion ubicacionSeleccionada = (EntUbicacion) adapterView.getItemAtPosition(i);
+
+                Intent intentFichaUbicacion = new Intent(view.getContext(), ficha_ubicacion.class);
+                intentFichaUbicacion.putExtra("codigoUbicacion", ubicacionSeleccionada.getCodigoUbicacion());
+                intentFichaUbicacion.putExtra("descripcionUbicacion", ubicacionSeleccionada.getDescripcion());
+
+                startActivity(intentFichaUbicacion);
+            }
         });
 
 //        BOTON Y FUNCION PARA AÑADIR UNA NUEVA UBICACION

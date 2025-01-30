@@ -27,7 +27,7 @@
         public static final String KEY_COL_DESCRIPCION_TIPO = "descripcionTipo";
 
         // Columnas de la tabla elemento
-        public static final String KEY_COL_CODIGO_ELEMENTO = "codigoElemento";
+        public static final String KEY_COL_CODIGO_ELEMENTO = "idElemento";
         public static final String KEY_COL_NOMBRE_ELEMENTO = "nombreElemento";
         public static final String KEY_COL_DESCRIPCION_ELEMENTO = "descripcionElemento";
         public static final String KEY_COL_CODIGO_TIPO_ELEMENTO = "codigoTipo";

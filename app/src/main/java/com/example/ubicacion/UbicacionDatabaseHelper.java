@@ -14,6 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import gestionincidencias.entidades.EntTipo;
 import gestionincidencias.entidades.EntUbicacion;
@@ -23,17 +24,17 @@ public class UbicacionDatabaseHelper extends BBDDIncidencias {
         super(context, name, factory, version);
     }
 
-    public SimpleDateFormat formateadorFecha = new SimpleDateFormat("yyyy-mm-dd HH:MM:SS");
+    public SimpleDateFormat formateadorFecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+
     public long crearUbicacion(EntUbicacion ubicacion) {
         SQLiteDatabase db = this.getWritableDatabase();
         long ubicacionId = -1;
 
 
-
         db.beginTransaction();
         try {
             ContentValues values = new ContentValues();
-            if (ubicacion.getCodigoUbicacion() >0) {
+            if (ubicacion.getCodigoUbicacion() > 0) {
                 values.put(KEY_COL_CODIGO_UBICACION, ubicacion.getCodigoUbicacion());
             }
             Log.d("UbicacionDatabaseHelper", "Iniciando inserción de ubicación...");
@@ -41,7 +42,7 @@ public class UbicacionDatabaseHelper extends BBDDIncidencias {
             values.put(KEY_COL_CODIGO_SALA_UBICACION, ubicacion.getIdSala());
             values.put(KEY_COL_ID_ELEMENTO, ubicacion.getIdElemento());
             values.put(KEY_COL_DESCRIPCION_UBICACION, ubicacion.getDescripcion());
-            if (ubicacion.getFechaInicio() != null)  {
+            if (ubicacion.getFechaInicio() != null) {
                 values.put(KEY_COL_FECHA_INICIO_UBICACION, formateadorFecha.format(ubicacion.getFechaInicio()));
             } else {
                 values.put(KEY_COL_FECHA_INICIO_UBICACION, "");
@@ -56,17 +57,16 @@ public class UbicacionDatabaseHelper extends BBDDIncidencias {
             ubicacionId = db.insertOrThrow(TABLE_UBICACION, null, values);
             Log.d("UbicacionDatabaseHelper", "Ubicación insertada con éxito. ID generado: " + ubicacionId);
             db.setTransactionSuccessful();
-            
-        }catch (Exception e) {
+
+        } catch (Exception e) {
             Log.e("UbicacionDatabaseHelper", "Error al añadir ubicación: " + e.getMessage(), e);
-        }
-        finally {
+        } finally {
             db.endTransaction();
         }
         return ubicacionId;
     }
 
-    public long actualizarUbicacion (EntUbicacion ubicacion) {
+    public long actualizarUbicacion(EntUbicacion ubicacion) {
         SQLiteDatabase db = this.getWritableDatabase();
         long ubicacionId = -1;
 
@@ -79,9 +79,9 @@ public class UbicacionDatabaseHelper extends BBDDIncidencias {
                 values.put(KEY_COL_CODIGO_SALA_UBICACION, ubicacion.getIdSala());
                 values.put(KEY_COL_CODIGO_ELEMENTO, ubicacion.getIdElemento());
                 values.put(KEY_COL_DESCRIPCION_UBICACION, ubicacion.getDescripcion());
-                values.put(KEY_COL_FECHA_INICIO_UBICACION, ubicacion.getFechaInicio().getDate());
-                values.put(KEY_COL_FECHA_FIN_UBICACION, String.valueOf(ubicacion.getFechaFin()));
-
+                SimpleDateFormat dateFormatDB = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+                values.put(KEY_COL_FECHA_INICIO_UBICACION, ubicacion.getFechaInicio() != null ? dateFormatDB.format(ubicacion.getFechaInicio()) : "0000-00-00 00:00:00");
+                values.put(KEY_COL_FECHA_FIN_UBICACION, ubicacion.getFechaFin() != null ? dateFormatDB.format(ubicacion.getFechaFin()) : "0000-00-00 00:00:00");
 
 
                 //Primero intento actualizar elemento concreto
@@ -93,15 +93,14 @@ public class UbicacionDatabaseHelper extends BBDDIncidencias {
                 }
             } catch (Exception e) {
                 Log.e("UbicacionDatabaseHelper", "Error al modificar ubicacion: " + e.getMessage(), e);
-            }
-            finally {
+            } finally {
                 db.endTransaction();
             }
         }
         return ubicacionId;
     }
 
-    public ArrayList<EntUbicacion> getUbicaciones() throws ParseException {
+    public ArrayList<EntUbicacion> getUbicaciones() {
         ArrayList<EntUbicacion> salida = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -121,10 +120,27 @@ public class UbicacionDatabaseHelper extends BBDDIncidencias {
                 Date fechaFinFormat = null;
 
                 if (fechaInicioString != null && !fechaInicioString.isEmpty()) {
-                    fechaInicioFormat = formateadorFecha.parse(fechaInicioString);
+                    if (!fechaInicioString.contains(":")) { // Si falta la hora, se la añadimos
+                        Log.w("UbicacionDatabaseHelper", "Fecha sin hora detectada: " + fechaInicioString);
+                        fechaInicioString += " 00:00:00";
+                        try {
+                            fechaInicioFormat = formateadorFecha.parse(fechaInicioString);
+                        } catch (ParseException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
                 }
                 if (fechaFinString != null && !fechaFinString.isEmpty()) {
-                    fechaFinFormat = formateadorFecha.parse(fechaFinString);
+                    if (!fechaFinString.contains(":")) { // Si falta la hora, se la añadimos
+                        Log.w("UbicacionDatabaseHelper", "Fecha sin hora detectada: " + fechaFinString);
+                        fechaFinString += " 00:00:00";
+
+                    }
+                    try {
+                        fechaFinFormat = formateadorFecha.parse(fechaFinString);
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
 
                 EntUbicacion ubicacion = new EntUbicacion(codigoUbicacion, idSala, idElemento, descripcion, fechaInicioFormat, fechaFinFormat);
@@ -136,7 +152,7 @@ public class UbicacionDatabaseHelper extends BBDDIncidencias {
         return salida;
     }
 
-    public EntUbicacion getUbicacion(int codigoUbicacion) throws ParseException {
+    public EntUbicacion getUbicacion(int codigoUbicacion) {
         EntUbicacion salida = null;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery("SELECT * FROM " + TABLE_UBICACION + " WHERE " + KEY_COL_CODIGO_UBICACION + " = ?", new String[]{String.valueOf(codigoUbicacion)});
@@ -150,10 +166,24 @@ public class UbicacionDatabaseHelper extends BBDDIncidencias {
             Date fechaFinFormat = null;
 
             if (fechaInicioString != null && !fechaInicioString.isEmpty()) {
-                fechaInicioFormat = formateadorFecha.parse(fechaInicioString);
+                try {
+                    if (fechaInicioString.length() == 10) { // Si solo tiene "yyyy-MM-dd"
+                        fechaInicioString += " 00:00:00"; // Agregar hora por defecto
+                    }
+                    fechaInicioFormat = formateadorFecha.parse(fechaInicioString);
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
             }
             if (fechaFinString != null && !fechaFinString.isEmpty()) {
-                fechaFinFormat = formateadorFecha.parse(fechaFinString);
+                try {
+                    if (fechaFinString.length() == 10) { // Si solo tiene "yyyy-MM-dd"
+                        fechaFinString += " 00:00:00"; // Agregar hora por defecto
+                    }
+                    fechaFinFormat = formateadorFecha.parse(fechaFinString);
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
             }
 
             salida = new EntUbicacion(codigoUbicacion, idSala, idElemento, descripcion, fechaInicioFormat, fechaFinFormat);
