@@ -14,16 +14,17 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import gestionincidencias.entidades.EntIncidencia;
-import gestionincidencias.entidades.EntUbicacion;
 
 public class IncidenciaDatabaseHelper extends BBDDIncidencias {
     public IncidenciaDatabaseHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
-    public SimpleDateFormat formateadorFecha = new SimpleDateFormat("yyyy-mm-dd HH:MM:SS");
+    public SimpleDateFormat formateadorFecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+
     public long crearIncidencia(EntIncidencia incidencia) {
         SQLiteDatabase db = this.getWritableDatabase();
         long incidenciaId = -1;
@@ -59,41 +60,47 @@ public class IncidenciaDatabaseHelper extends BBDDIncidencias {
         return incidenciaId;
     }
 
-    public long actualizarIncidencia (EntIncidencia incidencia) {
+    public void actualizarIncidencia(EntIncidencia incidencia) {
         SQLiteDatabase db = this.getWritableDatabase();
         long incidenciaId = -1;
 
-        db.beginTransaction();
-        if (incidencia.getCodigoIncidencia() > 0) {
-            try {
-                ContentValues values = new ContentValues();
-//                Log.d("IncidenciaDatabaseHelper", "Valores a insertar: " + values.toString());
-                values.put(KEY_COL_CODIGO_INCIDENCIA, incidencia.getCodigoIncidencia());
-                values.put(KEY_COL_CODIGO_USUARIO_INCIDENCIA, incidencia.getIdUsuarioCreacion());
-                values.put(KEY_COL_ID_ELEMENTO, incidencia.getIdElemento());
-                values.put(KEY_COL_FECHA_CREACION_INCIDENCIA, incidencia.getFechaCreacion().getDate());
-                values.put(KEY_COL_DESCRIPCION_INCIDENCIA, incidencia.getDescripcion());
+        try {
+            ContentValues values = new ContentValues();
+            values.put(KEY_COL_CODIGO_USUARIO_INCIDENCIA, incidencia.getIdUsuarioCreacion());
+            values.put(KEY_COL_CODIGO_ELEMENTO_INCIDENCIA, incidencia.getIdElemento());
+            values.put(KEY_COL_DESCRIPCION_INCIDENCIA, incidencia.getDescripcion());
 
+            SimpleDateFormat dateFormatDB = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+            values.put(KEY_COL_FECHA_CREACION_INCIDENCIA, incidencia.getFechaCreacion() != null ? dateFormatDB.format(incidencia.getFechaCreacion()) : "0000-00-00 00:00:00");
 
+            // 🔹 Verificar antes de actualizar
+            Log.d("ActualizarIncidencia", "Actualizando incidencia con ID: " + incidencia.getCodigoIncidencia());
+            Log.d("ActualizarIncidencia", "Valores: " + values.toString());
 
-                //Primero intento actualizar elemento concreto
-                int rows = db.update(TABLE_INCIDENCIA, values, KEY_COL_CODIGO_INCIDENCIA + " = ?",
-                        new String[]{String.valueOf(incidencia.getCodigoIncidencia())});
-                if (rows > 0) {
-                    incidenciaId = incidencia.getCodigoIncidencia();
-                    db.setTransactionSuccessful();
-                }
-            } catch (Exception e) {
-                Log.e("IncidenciaDatabaseHelper", "Error al modificar incidencia: " + e.getMessage(), e);
+            int rows = db.update(TABLE_INCIDENCIA, values, KEY_COL_CODIGO_INCIDENCIA + " = ?",
+                    new String[]{String.valueOf(incidencia.getCodigoIncidencia())});
+
+            if (rows > 0) {
+                incidenciaId = incidencia.getCodigoIncidencia();
+                Log.d("IncidenciaDatabaseHelper", "Incidencia actualizada correctamente: " + incidenciaId);
+            } else {
+                Log.e("IncidenciaDatabaseHelper", "No se actualizó la incidencia en la base de datos. ¿Existe el ID?");
             }
-            finally {
-                db.endTransaction();
-            }
-        }
-        return incidenciaId;
+        } catch (Exception e) {
+            Log.e("IncidenciaDatabaseHelper", "Error al modificar incidencia: " + e.getMessage(), e);
+        } finally {
+            db.close();
+        }Log.d("ActualizarIncidencia", "Antes de actualizar -> ID: " + incidencia.getCodigoIncidencia() +
+                ", Usuario: " + incidencia.getIdUsuarioCreacion() +
+                ", Elemento: " + incidencia.getIdElemento() +
+                ", Descripción: " + incidencia.getDescripcion() +
+                ", Fecha: " + incidencia.getFechaCreacion());
     }
 
-    public ArrayList<EntIncidencia> getIncidencias() throws ParseException {
+
+
+
+    public ArrayList<EntIncidencia> getIncidencias() {
         ArrayList<EntIncidencia> salida = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -106,23 +113,66 @@ public class IncidenciaDatabaseHelper extends BBDDIncidencias {
                 int codigoIncidencia = c.getInt(0);
                 int idUsuarioCreacion = c.getInt(1);
                 int idElemento = c.getInt(2);
-                String fechaCreacionString = c.getString(3);
+                String descripcion = c.getString(3);  // Asegúrate de que la descripción es correcta
+                String fechaCreacionString = c.getString(4);
                 Date fechaCreacionFormat = null;
-                String descripcion = c.getString(4);
 
-                try {
-                    fechaCreacionFormat = formateadorFecha.parse(String.valueOf(fechaCreacionFormat));
-                } catch (ParseException e ) {
-                    e.printStackTrace();
+                // Verificar si la fecha es válida antes de convertirla
+                if (fechaCreacionString != null && !fechaCreacionString.isEmpty()) {
+                    try {
+                        fechaCreacionFormat = formateadorFecha.parse(fechaCreacionString);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                        fechaCreacionFormat = null;  // Si hay error, asignamos null en lugar de una fecha errónea
+                    }
                 }
 
-                EntIncidencia incidencia = new EntIncidencia(codigoIncidencia, descripcion, idElemento, fechaCreacionFormat, idUsuarioCreacion);
+                // Verificar si la descripción y la fecha son correctas
+                Log.d("DatabaseHelper", "Descripción: " + descripcion);
+                Log.d("DatabaseHelper", "Fecha Creación: " + fechaCreacionString);
 
+                EntIncidencia incidencia = new EntIncidencia(codigoIncidencia, descripcion, idElemento, fechaCreacionFormat, idUsuarioCreacion);
                 salida.add(incidencia);
+
             } while (c.moveToNext());
         }
         c.close();
         return salida;
+    }
+
+    public EntIncidencia getIncidencia(int codigoIncidencia) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        EntIncidencia incidencia = null;
+
+        // Consulta para obtener todas las ubicaciones
+        Cursor c = db.rawQuery("SELECT * FROM " + TABLE_INCIDENCIA + " WHERE " + KEY_COL_CODIGO_INCIDENCIA + " = " + codigoIncidencia, null);
+
+        if (c.moveToFirst()) {
+            int codigo = c.getInt(0);
+            int idUsuarioCreacion = c.getInt(1);
+            int idElemento = c.getInt(2);
+            String descripcion = c.getString(3);  // Asegúrate de que la descripción es correcta
+            String fechaCreacionString = c.getString(4);
+            Date fechaCreacionFormat = null;
+
+            if (fechaCreacionString != null && !fechaCreacionString.isEmpty()) {
+                try {
+                    fechaCreacionFormat = formateadorFecha.parse(fechaCreacionString);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            try {
+                fechaCreacionFormat = formateadorFecha.parse(fechaCreacionString);
+            } catch (ParseException e ) {
+                e.printStackTrace();
+            }
+
+            incidencia = new EntIncidencia(codigo, descripcion, idElemento, fechaCreacionFormat, idUsuarioCreacion);
+        }
+        c.close();
+        return incidencia;
     }
 
     public int borrarIncidencia(int codigoIncidencia) {

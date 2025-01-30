@@ -7,27 +7,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-
 import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
 import com.example.appincidencias.R;
 import com.example.elemento.ElementoDBHelper;
 import com.example.menu3botones;
-import com.example.prestamo.ficha_prestamo;
 import com.example.sala.SalaDatabaseHelper;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
-
-import gestionincidencias.GestionIncidencias;
 import gestionincidencias.entidades.EntElemento;
-import gestionincidencias.entidades.EntPrestamo;
 import gestionincidencias.entidades.EntSala;
 import gestionincidencias.entidades.EntUbicacion;
 

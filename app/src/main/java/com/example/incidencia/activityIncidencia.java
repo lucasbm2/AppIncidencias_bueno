@@ -14,13 +14,16 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.appincidencias.R;
+import com.example.elemento.ElementoDBHelper;
 import com.example.menu3botones;
+import com.example.usuario.UsuarioDatabaseHelper;
 
-import java.text.SimpleDateFormat;
-import java.util.List;
+import java.util.ArrayList;
 
-import gestionincidencias.GestionIncidencias;
+import gestionincidencias.entidades.EntElemento;
 import gestionincidencias.entidades.EntIncidencia;
+import gestionincidencias.entidades.EntUbicacion;
+import gestionincidencias.entidades.EntUsuario;
 
 public class activityIncidencia extends menu3botones {
 
@@ -39,7 +42,34 @@ public class activityIncidencia extends menu3botones {
         //Lista de incidencias
         ListView listaIncidencias = (ListView) findViewById(R.id.listaIncidencias);
         //Adaptador para la lista
-        AdaptadorIncidencia adaptadorIncidencia = new AdaptadorIncidencia(this, GestionIncidencias.getArIncidencias().toArray(new EntIncidencia[0]));
+        IncidenciaDatabaseHelper incidenciaHelper = new IncidenciaDatabaseHelper(this, "BBDDIncidencias", null, 1);
+        ArrayList<EntIncidencia> arIncidencias = incidenciaHelper.getIncidencias();
+
+        AdaptadorIncidencia adaptadorIncidencia = new AdaptadorIncidencia(this, arIncidencias.toArray(new EntIncidencia[0]));
+
+        UsuarioDatabaseHelper udh = new UsuarioDatabaseHelper(this, "BBDDIncidencias", null, 1);
+        ArrayList<EntUsuario> arUsuarios = udh.getUsuarios();
+        for (EntIncidencia incidencia : arIncidencias) {
+            for (EntUsuario usuario : arUsuarios) {
+                if (incidencia.getIdUsuarioCreacion() == usuario.getCodigoUsuario()) {
+                    incidencia.setUsuarioCreacion(usuario);
+                    break;
+                }
+            }
+        }
+
+        ElementoDBHelper edh = new ElementoDBHelper(this, "BBDDIncidencias", null, 1);
+        ArrayList<EntElemento> arElementos = edh.getElementos();
+        for (EntIncidencia inc : arIncidencias) {
+            for (EntElemento elem : arElementos) {
+                if (inc.getIdElemento() == elem.getCodigoElemento()) {
+                    inc.setElemento(elem);
+                    break;
+                }
+            }
+        }
+
+
         //Asignamos el adaptador a la lista
         listaIncidencias.setAdapter(adaptadorIncidencia);
 

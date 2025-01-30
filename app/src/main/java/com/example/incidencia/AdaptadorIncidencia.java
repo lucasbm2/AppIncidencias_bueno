@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.example.appincidencias.R;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import gestionincidencias.entidades.EntIncidencia;
 
@@ -26,15 +28,24 @@ public class AdaptadorIncidencia extends ArrayAdapter<EntIncidencia> {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View vIncidencia = inflater.inflate(R.layout.elemento_incidencia, parent, false);
 
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault());
+        EntIncidencia incidencia = incidencias[position];
+
         TextView txCodigoIncidencia = vIncidencia.findViewById(R.id.codigoIncidencia);
         TextView txDescripcionIncidencia = vIncidencia.findViewById(R.id.descripcionIncidencia);
         TextView txUsuarioIncidencia = vIncidencia.findViewById(R.id.usuarioCreacionIncidencia);
         TextView txFechaIncidencia = vIncidencia.findViewById(R.id.fechaCreacionIncidencia);
 
-        txCodigoIncidencia.setText("Codigo Incidencia: " + String.valueOf(incidencias[position].getCodigoIncidencia()));
-        txDescripcionIncidencia.setText("Descripcion: " + incidencias[position].getDescripcion());
-        txUsuarioIncidencia.setText("Usuario: " + incidencias[position].getUsuarioCreacion().getNombre());
-        txFechaIncidencia.setText("Fecha: " + new SimpleDateFormat("dd/MM/yyyy").format(incidencias[position].getFechaCreacion()));
+        // Asignar valores correctamente
+        txCodigoIncidencia.setText("Código Incidencia: " + incidencia.getCodigoIncidencia());
+        txDescripcionIncidencia.setText("Descripción: " + incidencia.getDescripcion());
+        txUsuarioIncidencia.setText("Usuario: " + (incidencia.getUsuarioCreacion() != null ? incidencia.getUsuarioCreacion().getNombre() : "Desconocido"));
+
+        // Validación de fecha
+        Date fechaCreacion = incidencia.getFechaCreacion();
+        String fechaFormateada = (fechaCreacion != null) ? sdf.format(fechaCreacion) : "Fecha no disponible";
+
+        txFechaIncidencia.setText("Fecha: " + fechaFormateada);
 
         return vIncidencia;
     }
