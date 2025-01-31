@@ -17,12 +17,14 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.appincidencias.R;
 import com.example.menu3botones;
 import com.example.sala.ficha_sala;
+import com.example.tipo.TipoDatabaseHelper;
 
 import java.util.ArrayList;
 
 import gestionincidencias.GestionIncidencias;
 import gestionincidencias.entidades.EntElemento;
 import gestionincidencias.entidades.EntSala;
+import gestionincidencias.entidades.EntTipo;
 
 public class activityElemento extends menu3botones {
 
@@ -46,6 +48,19 @@ public class activityElemento extends menu3botones {
         ArrayList<EntElemento> arElementos = edh.getElementos();
         AdaptadorElemento adaptadorElemento = new AdaptadorElemento(this, arElementos.toArray(new EntElemento[0]));
 
+        TipoDatabaseHelper tdh = new TipoDatabaseHelper(this, "BBDDIncidencias", null, 1);
+        ArrayList<EntTipo> arTipos = tdh.getTipos();
+        for (EntElemento e : arElementos) {
+            if (e.getTipoElemento() != null) {
+                for (EntTipo t : arTipos) {
+                    if (e.getTipoElemento().getCodigoTipo() == t.getCodigoTipo()) {
+                        e.setTipoElemento(t);
+                        break;
+                    }
+                }
+            }
+        }
+
         listaElementos.setAdapter(adaptadorElemento);
 
         //A la ListView de salas le damos un OnItemClickListener para que cuando se pulse sobre una sala nos lleve a la ficha que sea
@@ -63,15 +78,15 @@ public class activityElemento extends menu3botones {
         });
         Button añadirElemento = findViewById(R.id.añadirElemento);
         añadirElemento.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Intent intentAnadirElemento = new Intent(view.getContext(), ficha_elemento.class);
+            @Override
+            public void onClick(View view) {
+                Intent intentAnadirElemento = new Intent(view.getContext(), ficha_elemento.class);
 
-            intentAnadirElemento.putExtra("codigoElemento", 0);
-            intentAnadirElemento.putExtra("nombreElemento", "");
-            intentAnadirElemento.putExtra("descripcionElemento", "");
-            startActivity(intentAnadirElemento);
-        }
-    });
-}
+                intentAnadirElemento.putExtra("codigoElemento", 0);
+                intentAnadirElemento.putExtra("nombreElemento", "");
+                intentAnadirElemento.putExtra("descripcionElemento", "");
+                startActivity(intentAnadirElemento);
+            }
+        });
+    }
 }

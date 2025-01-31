@@ -34,6 +34,9 @@ public class activityUbicacion extends menu3botones {
             return insets;
         });
 
+        guardaActividad(getSharedPreferences("datos", MODE_PRIVATE), activityUbicacion.class.toString());
+
+
         //BUSCAMOS LA LISTVIEW DE UBICACIONES
         ListView listaUbicaciones = (ListView) findViewById(R.id.listaUbicaciones);
         //CREAMOS UN ADAPTADOR PARA LA LISTA
