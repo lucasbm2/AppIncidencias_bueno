@@ -112,6 +112,23 @@ public class UsuarioDatabaseHelper extends BBDDIncidencias {
         return salida;
     }
 
+    public EntUsuario getUsuario(int codigoUsuario) {
+        EntUsuario usuario = null;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM " + TABLE_USUARIO + " WHERE " + KEY_COL_CODIGO_USUARIO + " = " + codigoUsuario, null);
+        if (c.moveToFirst()) {
+            int codigo = c.getInt(0);
+            String nombre = c.getString(1);
+            String correo = c.getString(2);
+            String telefono = c.getString(3);
+            String password = c.getString(4);
+            int rol = c.getInt(5);
+            usuario = new EntUsuario(codigo, nombre, correo, telefono, password, rol);
+        }
+        c.close();
+        return usuario;
+    }
+
     public int borrarUsuario(int codigoUsuario) {
         SQLiteDatabase db = this.getWritableDatabase();
         int borrados = 0;

@@ -5,7 +5,6 @@ import static com.example.appincidencias.R.*;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -16,10 +15,11 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.appincidencias.R;
 import com.example.menu3botones;
-import com.example.ubicacion.ficha_ubicacion;
+import com.example.rol.RolDatabaseHelper;
 
-import gestionincidencias.GestionIncidencias;
-import gestionincidencias.entidades.EntUbicacion;
+import java.util.ArrayList;
+
+import gestionincidencias.entidades.EntRol;
 import gestionincidencias.entidades.EntUsuario;
 
 public class activityUsuario extends menu3botones {
@@ -35,9 +35,21 @@ public class activityUsuario extends menu3botones {
             return insets;
         });
 
-
         ListView listaUsuarios = (ListView) findViewById(id.listaUsuarios);
-        AdaptadorUsuario adaptadorUsuario = new AdaptadorUsuario(this, GestionIncidencias.getArUsuarios().toArray(new EntUsuario[0]));
+        UsuarioDatabaseHelper usuarioHelper = new UsuarioDatabaseHelper(this, "BBDDIncidencias", null, 1);
+        ArrayList<EntUsuario> arUsuarios = usuarioHelper.getUsuarios();
+        AdaptadorUsuario adaptadorUsuario = new AdaptadorUsuario(this, arUsuarios.toArray(new EntUsuario[0]));
+
+        RolDatabaseHelper rdh = new RolDatabaseHelper(this, "BBDDIncidencias", null, 1);
+        ArrayList<EntRol> arRoles = rdh.getRoles();
+        for (EntUsuario u : arUsuarios) {
+            for (EntRol r : arRoles) {
+                if (u.getRol() == r.getCodigo()) {
+                    u.setEntRol(r);
+                    break;
+                }
+            }
+        }
 
         listaUsuarios.setAdapter(adaptadorUsuario);
 
