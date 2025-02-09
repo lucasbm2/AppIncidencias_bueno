@@ -5,10 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+
 import androidx.annotation.Nullable;
+
 import com.example.database.BBDDIncidencias;
 
 import java.util.ArrayList;
+
 import gestionincidencias.entidades.EntRol;
 
 public class RolDatabaseHelper extends BBDDIncidencias {
@@ -34,7 +37,7 @@ public class RolDatabaseHelper extends BBDDIncidencias {
             db.setTransactionSuccessful();
 
         } catch (Exception e) {
-            Log.d(RolDatabaseHelper.class.getName(), e.getMessage());
+            Log.e(RolDatabaseHelper.class.getName(), "Error al crear rol", e);
         } finally {
             db.endTransaction();
             db.close();
@@ -66,7 +69,7 @@ public class RolDatabaseHelper extends BBDDIncidencias {
                     elementoID = rol.getCodigo();
                 }
             } catch (Exception e) {
-                Log.d(RolDatabaseHelper.class.getName(), e.getMessage());
+                Log.e(RolDatabaseHelper.class.getName(), "Error al actualizar rol", e);
             } finally {
                 db.endTransaction();
                 db.close();
@@ -78,19 +81,29 @@ public class RolDatabaseHelper extends BBDDIncidencias {
     public ArrayList<EntRol> getRoles() {
         ArrayList<EntRol> roles = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ROL, null);
+        Cursor cursor = null;
+        try {
+            cursor = db.rawQuery("SELECT * FROM " + TABLE_ROL, null);
 
-        if (cursor.moveToFirst()) {
-            do {
-                int codigo = cursor.getInt(0);
-                String nombre = cursor.getString(1);
-                String descripcion = cursor.getString(2);
-                int nivelAcceso = cursor.getInt(3);
+            if (cursor.moveToFirst()) {
+                do {
+                    int codigo = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_COL_CODIGO_ROL));
+                    String nombre = cursor.getString(cursor.getColumnIndexOrThrow(KEY_COL_NOMBRE_ROL));
+                    String descripcion = cursor.getString(cursor.getColumnIndexOrThrow(KEY_COL_DESCRIPCION_ROL));
+                    int nivelAcceso = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_COL_NIVEL_ACCESO_ROL));
 
-                EntRol rol = new EntRol(codigo, nombre, descripcion, nivelAcceso);
+                    EntRol rol = new EntRol(codigo, nombre, descripcion, nivelAcceso);
 
-                roles.add(rol);
-            } while (cursor.moveToNext());
+                    roles.add(rol);
+                } while (cursor.moveToNext());
+            }
+        } catch (Exception e) {
+            Log.e(RolDatabaseHelper.class.getName(), "Error al obtener roles", e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
         }
         return roles;
     }
@@ -98,13 +111,23 @@ public class RolDatabaseHelper extends BBDDIncidencias {
     public EntRol getRol(int codigo) {
         SQLiteDatabase db = getReadableDatabase();
         EntRol rol = null;
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ROL + " WHERE " + KEY_COL_CODIGO_ROL + " = ?", new String[]{String.valueOf(codigo)});
-        if (cursor.moveToFirst()) {
-            int codigoRol = cursor.getInt(0);
-            String nombre = cursor.getString(1);
-            String descripcion = cursor.getString(2);
-            int nivelAcceso = cursor.getInt(3);
-            rol = new EntRol(codigoRol, nombre, descripcion, nivelAcceso);
+        Cursor cursor = null;
+        try {
+            cursor = db.rawQuery("SELECT * FROM " + TABLE_ROL + " WHERE " + KEY_COL_CODIGO_ROL + " = ?", new String[]{String.valueOf(codigo)});
+            if (cursor.moveToFirst()) {
+                int codigoRol = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_COL_CODIGO_ROL));
+                String nombre = cursor.getString(cursor.getColumnIndexOrThrow(KEY_COL_NOMBRE_ROL));
+                String descripcion = cursor.getString(cursor.getColumnIndexOrThrow(KEY_COL_DESCRIPCION_ROL));
+                int nivelAcceso = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_COL_NIVEL_ACCESO_ROL));
+                rol = new EntRol(codigoRol, nombre, descripcion, nivelAcceso);
+            }
+        } catch (Exception e) {
+            Log.e(RolDatabaseHelper.class.getName(), "Error al obtener rol", e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
         }
         return rol;
     }
@@ -118,10 +141,40 @@ public class RolDatabaseHelper extends BBDDIncidencias {
             borrados = db.delete(TABLE_ROL, KEY_COL_CODIGO_ROL + " = ?", new String[]{String.valueOf(codigo)});
             db.setTransactionSuccessful();
         } catch (Exception e) {
-            Log.d(RolDatabaseHelper.class.getName(), e.getMessage());
+            Log.e(RolDatabaseHelper.class.getName(), "Error al borrar rol", e);
         } finally {
             db.endTransaction();
+            db.close();
         }
         return borrados;
+    }
+
+    public ArrayList<EntRol> buscadorRol(String texto) {
+        ArrayList<EntRol> roles = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = null;
+        try {
+            String query = "SELECT * FROM " + TABLE_ROL + " WHERE " + KEY_COL_NOMBRE_ROL + " LIKE ?";
+            cursor = db.rawQuery(query, new String[]{"%" + texto + "%"});
+
+            if (cursor.moveToFirst()) {
+                do {
+                    int codigo = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_COL_CODIGO_ROL));
+                    String nombre = cursor.getString(cursor.getColumnIndexOrThrow(KEY_COL_NOMBRE_ROL));
+                    String descripcion = cursor.getString(cursor.getColumnIndexOrThrow(KEY_COL_DESCRIPCION_ROL));
+                    int nivelAcceso = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_COL_NIVEL_ACCESO_ROL));
+                    EntRol rol = new EntRol(codigo, nombre, descripcion, nivelAcceso);
+                    roles.add(rol);
+                } while (cursor.moveToNext());
+            }
+        } catch (Exception e) {
+            Log.e(RolDatabaseHelper.class.getName(), "Error al buscar roles", e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+        return roles;
     }
 }
