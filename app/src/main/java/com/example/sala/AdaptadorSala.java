@@ -20,6 +20,11 @@ public class AdaptadorSala extends ArrayAdapter<EntSala> {
         this.datos = salas;
     }
 
+    //Para hacer un buscador
+    //Actualizarsala en el activity
+    //En el helper un filtrarsala
+    //Y setonquerylistener que genera solos
+
     @Override
     public View getView(int position,  View convertView, ViewGroup parent) {
         //INFLAMOS LA LISTA PARA MOSTRAR CADA SALA

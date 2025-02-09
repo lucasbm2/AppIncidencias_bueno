@@ -18,6 +18,7 @@ import com.example.appincidencias.R;
 import com.example.menu3botones;
 import com.example.sala.ficha_sala;
 import com.example.tipo.TipoDatabaseHelper;
+import com.example.ubicacion.ficha_ubicacion;
 
 import java.util.ArrayList;
 
@@ -25,6 +26,7 @@ import gestionincidencias.GestionIncidencias;
 import gestionincidencias.entidades.EntElemento;
 import gestionincidencias.entidades.EntSala;
 import gestionincidencias.entidades.EntTipo;
+import gestionincidencias.entidades.EntUbicacion;
 
 public class activityElemento extends menu3botones {
 
@@ -44,15 +46,15 @@ public class activityElemento extends menu3botones {
 
 
         ListView listaElementos = (ListView) findViewById(R.id.listaElementos);
-        ElementoDBHelper edh = new ElementoDBHelper(this, "BBDDIncidencias", null, 1);
-        ArrayList<EntElemento> arElementos = edh.getElementos();
+        ElementoDBHelper elementoHelper = new ElementoDBHelper(this, "BBDDIncidencias", null, 1);
+        ArrayList<EntElemento> arElementos = elementoHelper.getElementos();
         AdaptadorElemento adaptadorElemento = new AdaptadorElemento(this, arElementos.toArray(new EntElemento[0]));
 
         TipoDatabaseHelper tdh = new TipoDatabaseHelper(this, "BBDDIncidencias", null, 1);
         ArrayList<EntTipo> arTipos = tdh.getTipos();
         for (EntElemento e : arElementos) {
-            if (e.getTipoElemento() != null) {
-                for (EntTipo t : arTipos) {
+            for (EntTipo t : arTipos) {
+                if (e.getTipoElemento() != null) {
                     if (e.getTipoElemento().getCodigoTipo() == t.getCodigoTipo()) {
                         e.setTipoElemento(t);
                         break;
@@ -63,19 +65,21 @@ public class activityElemento extends menu3botones {
 
         listaElementos.setAdapter(adaptadorElemento);
 
-        //A la ListView de salas le damos un OnItemClickListener para que cuando se pulse sobre una sala nos lleve a la ficha que sea
-        listaElementos.setOnItemClickListener((adapterView, view, position, id) -> {
-            EntElemento elementoSeleccionado = (EntElemento) adapterView.getItemAtPosition(position);
+        //OYENTE PARA QUE CUANDO HAGAMOS CLICK SE ABRA LA FICHA SELECCIONADA
+        listaElementos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-            Intent intentFichaElemento = new Intent(view.getContext(), ficha_elemento.class);
+                EntElemento elementoSeleccionado = (EntElemento) adapterView.getItemAtPosition(i);
 
-            intentFichaElemento.putExtra("codigoElemento", elementoSeleccionado.getCodigoElemento());
-            intentFichaElemento.putExtra("nombreElemento", elementoSeleccionado.getNombre());
-            intentFichaElemento.putExtra("descripcionElemento", elementoSeleccionado.getDescripcion());
+                Intent intentFichaElemento = new Intent(view.getContext(), ficha_elemento.class);
+                intentFichaElemento.putExtra("codigoElemento", elementoSeleccionado.getCodigoElemento());
+                intentFichaElemento.putExtra("nombreElemento", elementoSeleccionado.getNombre());
 
-            //Lanzamos el intent
-            startActivity(intentFichaElemento);
+                startActivity(intentFichaElemento);
+            }
         });
+
         Button añadirElemento = findViewById(R.id.añadirElemento);
         añadirElemento.setOnClickListener(new View.OnClickListener() {
             @Override
