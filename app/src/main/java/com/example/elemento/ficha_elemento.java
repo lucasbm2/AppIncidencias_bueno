@@ -23,7 +23,7 @@ import java.util.Date;
 
 import gestionincidencias.entidades.EntElemento;
 import gestionincidencias.entidades.EntTipo;
-import gestionincidencias.entidades.EntUbicacion;
+
 
 public class ficha_elemento extends AppCompatActivity {
 
@@ -35,17 +35,30 @@ public class ficha_elemento extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ficha_elemento);
 
-        TipoDatabaseHelper tdh = new TipoDatabaseHelper(this, "BBDDIncidencias", null, 1);
-        ArrayList<EntTipo> arTipos =    tdh.getTipos();
+        ElementoDBHelper edh = new ElementoDBHelper(this, "BBDDIncidencias", null, 1);
+        ArrayList<EntElemento> arElementos = edh.getElementos();
+        AdaptadorElemento adaptadorElemento = new AdaptadorElemento(this, arElementos.toArray(new EntElemento[0]));
 
-        elementoHelper = new ElementoDBHelper(this, "BBDDIncidencias", null, 1);
+        TipoDatabaseHelper tdh = new TipoDatabaseHelper(this, "BBDDIncidencias", null, 1);
+        ArrayList<EntTipo> arTipos = tdh.getTipos();
 
         int codElemento = getIntent().getExtras().getInt("codigoElemento");
+
+        elementoHelper = new ElementoDBHelper(this, "BBDDIncidencias", null, 1);
 
         if (codElemento > 0) {
             elemento = elementoHelper.getElemento(codElemento);
         } else if (codElemento == 0) {
             elemento = new EntElemento(0, "", "", 0);
+        }
+
+        for (EntTipo tipo : arTipos) {
+            if (tipo != null && elemento != null) {
+            if (tipo.getCodigoTipo() == elemento.getIdTipo()) {
+                elemento.setTipoElemento(tipo);
+                break;
+            }
+            }
         }
 
         if (elemento != null) {
@@ -70,6 +83,7 @@ public class ficha_elemento extends AppCompatActivity {
             if (elemento != null && elemento.getTipoElemento() != null && elemento.getTipoElemento().getNombre() != null) {
                 spinnerTipo.setSelection(tipos.indexOf(elemento.getTipoElemento().getNombre()));
             }
+
         }
 
         Button botonVolver = findViewById(R.id.botonSalir);
@@ -83,15 +97,17 @@ public class ficha_elemento extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (elemento != null) {
+                    TextView txCodElemento = findViewById(R.id.codigoElemento);
                     EditText txNombreElemento = findViewById(R.id.nombreElemento);
                     EditText txDescripcionElemento = findViewById(R.id.descripcionElemento);
 
                     Spinner spinnerTipo = findViewById(R.id.spinnerNombreTipoElementoFichaElemento);
-                    String tipoSeleccionado = spinnerTipo.getSelectedItem().toString();
+                    Object tipoSeleccionado = spinnerTipo.getSelectedItem().toString();
 
                     // Actualizar los valores en el objeto elemento
-                    elemento.setNombre(txNombreElemento.getText().toString().trim());
-                    elemento.setDescripcion(txDescripcionElemento.getText().toString().trim());
+                    elemento.setCodigoElemento(Integer.parseInt(txCodElemento.getText().toString()));
+                    elemento.setNombre(txNombreElemento.getText().toString());
+                    elemento.setDescripcion(txDescripcionElemento.getText().toString());
 
                     for (EntTipo tipo : arTipos) {
                         if (tipo.getNombre().equals(tipoSeleccionado)) {
