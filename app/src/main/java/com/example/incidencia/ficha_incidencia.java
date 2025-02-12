@@ -12,13 +12,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.appincidencias.R;
 import com.example.elemento.ElementoDBHelper;
 import com.example.usuario.UsuarioDatabaseHelper;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,7 +23,6 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
-
 import gestionincidencias.entidades.EntElemento;
 import gestionincidencias.entidades.EntIncidencia;
 import gestionincidencias.entidades.EntUsuario;

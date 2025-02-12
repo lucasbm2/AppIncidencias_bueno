@@ -6,13 +6,13 @@
     android:layout_height="wrap_content"
     android:divider="@android:drawable/divider_horizontal_bright"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="8dp"
     android:showDividers="middle">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="16dp"
+        android:paddingBottom="8dp"
         android:text="Detalles de Elemento"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display3"

@@ -9,18 +9,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.appincidencias.R;
 import com.example.tipo.TipoDatabaseHelper;
-import com.example.ubicacion.activityUbicacion;
-import com.example.ubicacion.ficha_ubicacion;
-
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
-
 import gestionincidencias.entidades.EntElemento;
 import gestionincidencias.entidades.EntTipo;
 

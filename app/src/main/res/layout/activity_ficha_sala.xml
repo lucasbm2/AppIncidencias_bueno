@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:divider="@android:drawable/divider_horizontal_bright"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="8dp"
     android:showDividers="middle">
 
     <!-- Título principal de la actividad: "Detalles de la Sala" -->
@@ -16,7 +16,7 @@
         android:id="@+id/titulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="16dp"
+        android:paddingBottom="8dp"
         android:text="Detalles de Sala"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display3"
@@ -47,8 +47,8 @@
             android:layout_marginBottom="16dp"
             android:background="@drawable/borde_textview"
             android:gravity="center"
-            android:paddingBottom="8dp"
-            android:hint="Campo de codigo sala"/>
+            android:hint="Campo de codigo sala"
+            android:paddingBottom="8dp" />
 
 
         <TextView
@@ -67,8 +67,8 @@
             android:layout_gravity="center"
             android:layout_marginBottom="16dp"
             android:background="@drawable/borde_textview"
-                android:paddingBottom="8dp"
-                android:hint="Campo de nombre sala"/>
+            android:hint="Campo de nombre sala"
+            android:paddingBottom="8dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -85,8 +85,8 @@
             android:layout_height="105dp"
             android:layout_gravity="center"
             android:background="@drawable/borde_textview"
-            android:paddingBottom="8dp"
-            android:hint="Campo de descripcion"/>
+            android:hint="Campo de descripcion"
+            android:paddingBottom="8dp" />
 
         <Space
             android:layout_width="0dp"
@@ -113,15 +113,15 @@
                 android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_marginEnd="8dp"
-                android:text="Salir"
-                android:layout_weight="1" /> <!-- Se le da peso para que ocupe el espacio a la izquierda -->
+                android:layout_weight="1"
+                android:text="Salir" /> <!-- Se le da peso para que ocupe el espacio a la izquierda -->
 
             <Button
                 android:id="@+id/botonGuardar"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
-                android:text="Guardar"
-                android:layout_weight="1" /> <!-- Se le da peso para que ocupe el espacio a la derecha -->
+                android:layout_weight="1"
+                android:text="Guardar" /> <!-- Se le da peso para que ocupe el espacio a la derecha -->
 
         </LinearLayout>
 

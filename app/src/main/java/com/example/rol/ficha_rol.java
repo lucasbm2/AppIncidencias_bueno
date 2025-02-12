@@ -7,15 +7,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.appincidencias.R;
-import com.example.sala.activitySalas;
-
-import gestionincidencias.GestionIncidencias;
 import gestionincidencias.entidades.EntRol;
-import gestionincidencias.entidades.EntSala;
 
 public class ficha_rol extends AppCompatActivity {
 

@@ -6,10 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
-
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.appincidencias.R;
 import com.example.rol.activityRoles;
 import com.example.sala.activitySalas;

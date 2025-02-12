@@ -12,7 +12,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
 import com.example.appincidencias.R;
 import com.example.database.BBDDIncidencias;
 import com.example.elemento.ElementoDBHelper;
@@ -31,10 +30,8 @@ import com.example.ubicacion.UbicacionDatabaseHelper;
 import com.example.ubicacion.activityUbicacion;
 import com.example.usuario.UsuarioDatabaseHelper;
 import com.example.usuario.activityUsuario;
-
 import java.text.ParseException;
 import java.util.ArrayList;
-
 import gestionincidencias.GestionIncidencias;
 import gestionincidencias.entidades.EntElemento;
 import gestionincidencias.entidades.EntIncidencia;

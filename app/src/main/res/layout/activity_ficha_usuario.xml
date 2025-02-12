@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     android:divider="@android:drawable/divider_horizontal_bright"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="8dp"
     android:showDividers="middle">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="16dp"
+        android:paddingBottom="8dp"
         android:text="Detalles de Usuario"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display3"
@@ -184,6 +184,8 @@
                 android:layout_height="50dp"
                 android:text="Guardar"
                 android:layout_weight="1" /> <!-- Se le da peso para que ocupe el espacio a la derecha -->
+
+
 
         </LinearLayout>
     </LinearLayout>
